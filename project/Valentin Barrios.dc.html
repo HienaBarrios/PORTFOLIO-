@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&amp;display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #000000; color: #ffffff; font-family: "Archivo", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: #ffffff; text-decoration: none; }
+  a:hover { color: #888888; }
+  ::selection { background: #ffffff; color: #000000; }
+  :focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+  .filmstrip::-webkit-scrollbar { height: 2px; }
+  .filmstrip::-webkit-scrollbar-track { background: #111111; }
+  .filmstrip::-webkit-scrollbar-thumb { background: #888888; }
+  html.vb-js .tw-u { opacity: 0; }
+  html.vb-js .tw-u.tw-on { opacity: 1; }
+  .tw-u { transition: opacity 0.35s ease-out; }
+  @media (prefers-reduced-motion: reduce) { .tw-u { opacity: 1 !important; } }
+  html.vb-js [data-anim] { opacity: 0; transform: translateY(26px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); will-change: opacity, transform; }
+  html.vb-js [data-anim].is-in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { [data-anim] { opacity: 1 !important; transform: none !important; transition: none !important; } }
+  @keyframes vb-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.15; } }
+  @keyframes vb-hint { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background-color: #000000; position: relative">
+
+  <nav style="position: sticky; top: 0; z-index: 40; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; padding: 14px 24px; background: rgba(0,0,0,0.82); backdrop-filter: blur(14px);">
+    <a href="#top" style="font-size: 13px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; margin-right: auto; color: #ffffff;">Valentin Barrios</a>
+    <div style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;">
+      <a href="#work" style="color: #ffffff;">Work</a>
+      <a href="#contact" style="color: #ffffff;">Contact</a>
+    </div>
+  </nav>
+
+  <header id="top" style="display: flex; flex-wrap: wrap; align-items: stretch;">
+
+    <div style="position: relative; flex: 3 1 min(100%, 560px); min-height: clamp(420px, 74vh, 860px); background: #111111; overflow: hidden;">
+      <canvas ref="{{ canvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+      <video ref="{{ heroVideoRef }}" autoplay="true" loop="true" muted="true" playsinline="true" preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+    </div>
+
+    <div style="flex: 1 1 min(100%, 320px); display: flex; flex-direction: column; justify-content: flex-start; gap: 20px; padding: clamp(24px, 3vw, 44px) clamp(20px, 2.5vw, 36px) clamp(24px, 3vw, 40px);">
+      <div>
+        
+      <h1 data-tw="1" style="margin: 0; font-size: clamp(32px, 4vw, 62px); font-weight: 900; line-height: 0.9; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff; text-wrap: balance;">Valentin<br>Barrios<br>graphic<br>designer</h1></div>
+      <div>
+        <p data-anim="1" style="margin: 0; font-size: 15px; line-height: 1.5; color: #ffffff; max-width: 46ch;">I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design</p>
+      </div>
+      <div data-anim="1" style="display: flex; flex-direction: column; gap: 0.12em; margin-top: auto;">
+        <div style="display: flex; align-items: baseline; gap: 0.4em; font-size: clamp(22px, 2.4vw, 38px); font-weight: 900; line-height: 1.18; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff;"><span>01</span><span>3D modeling</span></div>
+        <div style="display: flex; align-items: baseline; gap: 0.4em; font-size: clamp(22px, 2.4vw, 38px); font-weight: 900; line-height: 1.18; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff;"><span>02</span><span>Product design</span></div>
+        <div style="display: flex; align-items: baseline; gap: 0.4em; font-size: clamp(22px, 2.4vw, 38px); font-weight: 900; line-height: 1.18; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff;"><span>03</span><span>Branding</span></div>
+        <div style="display: flex; align-items: baseline; gap: 0.4em; font-size: clamp(22px, 2.4vw, 38px); font-weight: 900; line-height: 1.18; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff;"><span>04</span><span>3D printing</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="work" style="position: relative">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px) 20px; position: relative">
+      <h2 data-tw="1" style="margin: 0; font-size: clamp(28px, 4vw, 56px); font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; line-height: 0.9; color: #ffffff;">Selected work</h2>
+</div>
+
+    <article data-reveal="1" style="padding: 0 0 clamp(40px, 6vw, 96px); position: relative">
+
+      <div style="position: relative; aspect-ratio: 21 / 9; background: #111111; overflow: hidden;">
+        <video data-src="uploads/BADBO CARTAS.mp4" autoplay="true" loop="true" muted="true" playsinline="true" preload="metadata" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+        <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 78%, rgba(0,0,0,0.85) 100%);"></div>
+        <div style="position: absolute; left: clamp(20px, 3.5vw, 48px); bottom: clamp(20px, 3vw, 40px);">
+          <div data-tw="1" style="font-size: clamp(28px, 4.6vw, 64px); font-weight: 900; line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff;">Dale Play Live</div>
+          <div data-tw="1" style="margin-top: 6px; font-size: clamp(13px, 1.4vw, 18px); font-weight: 800; letter-spacing: 0.02em; color: #ffffff;">Bad Bunny</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(24px, 3vw, 48px); padding: clamp(14px, 1.6vw, 22px) clamp(20px, 3.5vw, 48px) 0;">
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div data-tw="1" style="font-size: clamp(22px, 2.4vw, 34px); font-weight: 900; letter-spacing: -0.02em; color: #ffffff;">Development</div>
+          <div style="position: relative;">
+            <div style="position: relative; aspect-ratio: 16 / 9; background: #111111; overflow: hidden;">
+          <video data-src="uploads/VIDEO SHORT BADBO.mp4" autoplay="true" loop="true" muted="true" playsinline="true" preload="metadata" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+        </div>
+            <div style="position: absolute; left: 0; right: 0; bottom: -0.08em; font-size: clamp(40px, 7.5vw, 112px); font-weight: 900; line-height: 0.82; letter-spacing: -0.045em; text-transform: uppercase; color: #ffffff; pointer-events: none;">Bad Bunny</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 0.8vw, 12px);">
+            <img src="uploads/RENDER%20BB%20CARTA1.png" alt="Bad Bunny plaque — Luna Park 2017" loading="lazy" style="display: block; width: 100%; height: auto; background: #111111;">
+            <img src="uploads/RENDER%20BB%20CARTA2.png" alt="Bad Bunny plaque — Luna Park 2018" loading="lazy" style="display: block; width: 100%; height: auto; background: #111111;">
+            <img src="uploads/RENDER%20BB%20CARTA3.png" alt="Bad Bunny plaque — Buenos Aires Trap 2019" loading="lazy" style="display: block; width: 100%; height: auto; background: #111111;">
+            <img src="uploads/RENDER%20BB%20CARTA4.png" alt="Bad Bunny plaque — Estadio Vélez 2022" loading="lazy" style="display: block; width: 100%; height: auto; background: #111111;">
+            <img src="uploads/RENDER%20BB%20CARTA%205-1.png" alt="Bad Bunny plaque — Estadio River Plate 2026" loading="lazy" style="display: block; width: 100%; height: auto; background: #111111;">
+          </div>
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 44%); align-items: end; gap: clamp(16px, 2vw, 32px);">
+            <h3 data-tw="1" style="margin: 0 0 -0.08em; font-size: clamp(30px, 4.2vw, 60px); font-weight: 900; line-height: 0.9; letter-spacing: -0.04em; text-transform: uppercase; color: #ffffff; overflow-wrap: anywhere;">From pixels to real objects</h3>
+            <img src="uploads/Gemini_Generated_Image_.png" alt="Bad Bunny holding the five commemorative plaques" loading="lazy" style="display: block; width: 100%; height: auto; background: #111111;">
+            <img src="uploads/2f86620e-73b4-4596-a3dd-30bc73e26b79.JPG" alt="The five bronze plaques in their presentation case" loading="lazy" style="grid-column: 1 / -1; margin: 0; display: block; width: 701px; max-width: 100%; aspect-ratio: 520 / 369; height: 289px; object-fit: cover; object-position: center; background: #111111">
+            <p data-anim="1" style="grid-column: 1 / -1; margin: calc(-1 * clamp(16px, 2vw, 32px) + 10px) 0 0; max-width: 60ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.2; color: #cccccc;">Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.</p>
+            
+          </div>
+          
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <p data-anim="1" style="margin: 0; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.22; font-weight: 500; letter-spacing: -0.02em; color: #ffffff; max-width: 30ch; text-wrap: pretty;">3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.</p>
+          <img src="uploads/RENDER BB CARTA 5-2.png" alt="Bad Bunny commemorative plaque renders" loading="lazy" style="display: block; width: 100%; max-width: 531px; aspect-ratio: 531 / 1061; height: auto; object-fit: cover; background: #111111">
+        </div>
+      </div>
+
+    </article>
+
+    <article data-reveal="1" style="padding: 0 0 clamp(40px, 6vw, 96px); position: relative">
+
+      <div style="position: relative; aspect-ratio: 21 / 9; background: #111111; overflow: hidden;">
+        <video data-src="uploads/RENDERS ANIMACION FICHAS.mp4" autoplay="true" loop="true" muted="true" playsinline="true" preload="metadata" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+        <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 78%, rgba(0,0,0,0.85) 100%);"></div>
+        <div style="position: absolute; left: clamp(20px, 3.5vw, 48px); bottom: clamp(20px, 3vw, 40px);">
+          <div data-tw="1" style="font-size: clamp(28px, 4.6vw, 64px); font-weight: 900; line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff;">Michelob Ultra</div>
+          <div data-tw="1" style="margin-top: 6px; font-size: clamp(13px, 1.4vw, 18px); font-weight: 800; letter-spacing: 0.02em; color: #ffffff;">Lionel Messi</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(24px, 3vw, 48px); padding: clamp(14px, 1.6vw, 22px) clamp(20px, 3.5vw, 48px) 0;">
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div data-tw="1" style="font-size: clamp(22px, 2.4vw, 34px); font-weight: 900; letter-spacing: -0.02em; color: #ffffff;">Development</div>
+          <p data-anim="1" style="margin: 0; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.22; font-weight: 500; letter-spacing: -0.02em; color: #ffffff; max-width: 30ch; text-wrap: pretty;">For an upcoming large-scale Michelob ULTRA installation inspired by Messi, I developed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div style="position: relative; aspect-ratio: 16 / 9; background: #111111; overflow: hidden;">
+            <video data-src="uploads/VIDEOS MICHELOB ULTRA.mp4" autoplay="true" loop="true" muted="true" playsinline="true" preload="metadata" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+    <a href="#gallery" data-reveal="1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: center; gap: clamp(16px, 3vw, 40px); padding: clamp(20px, 3vw, 36px) clamp(20px, 3.5vw, 48px); color: #ffffff;" style-hover="background: #111111;">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; color: #888888; padding-top: 10px;">03</span>
+        <div>
+          <div data-tw="1" style="font-size: clamp(30px, 5vw, 68px); font-weight: 900; line-height: 0.9; letter-spacing: -0.035em; text-transform: uppercase;">Banda Eterna</div>
+          <div data-tw="1" style="margin-top: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #888888;">Branding · Identity system</div>
+        </div>
+      </div>
+      <div data-tilt="1" style="position: relative; aspect-ratio: 16 / 10; background: #111111; overflow: hidden; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease;" style-hover="transform: scale(1.02); filter: contrast(1.2);">
+        <div style="position: absolute; inset: 0; background: linear-gradient(100deg, #4a3a12 0%, #c9a85c 38%, #f3e0a8 52%, #4a3a12 100%);"></div>
+        <span style="position: absolute; left: 12px; bottom: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #888888;">[ placeholder ]</span>
+      </div>
+    </a></section>
+
+  <section id="gallery" style="padding: clamp(28px, 4vw, 56px) 0 clamp(28px, 4vw, 48px);">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-end; padding: 0 clamp(20px, 3.5vw, 48px) 22px;">
+      <h2 data-tw="1" style="margin: 0; font-size: clamp(28px, 4vw, 56px); font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; line-height: 0.9; color: #ffffff;">Renders</h2>
+      <div data-anim="1" style="font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888;">Click to enlarge · Drag to scroll</div>
+    </div>
+    <div class="filmstrip" style="display: flex; gap: 2px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 clamp(20px, 3.5vw, 48px) 18px;">
+      <sc-for list="{{ shots }}" as="shot" hint-placeholder-count="4">
+        <figure class="film-item" style="flex: 0 0 auto; width: clamp(300px, 46vw, 720px); margin: 0; scroll-snap-align: start; background: #111111; position: relative;">
+          <img src="{{ shot.src }}" alt="{{ shot.alt }}" loading="lazy" onClick="{{ shot.open }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; cursor: zoom-in; transition: opacity 0.35s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);" style-hover="opacity: 0.82; transform: scale(1.01);">
+          <figcaption style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #888888;">
+            <span>{{ shot.alt }}</span><span style="color: #ffffff;">{{ shot.no }}</span>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="about" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));">
+    <div style="padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px);">
+      <div data-tw="1" style="font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #888888;">About</div>
+      <h2 data-tw="1" style="margin: 18px 0 0; font-size: clamp(30px, 4.2vw, 60px); font-weight: 900; line-height: 0.9; letter-spacing: -0.035em; text-transform: uppercase; color: #ffffff;">Design as a<br>system, not<br>as decoration</h2>
+      <div data-reveal="1" style="margin-top: clamp(24px, 3vw, 40px); padding-top: 20px;">
+        <div data-tw="1" style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-bottom: 10px;">Philosophy</div>
+        <p data-anim="1" style="margin: 0; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5; color: #ffffff; max-width: 52ch; text-wrap: pretty;">Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética urbana y la máxima precisión técnica, ya sea modelando figuras con estilo cell-shading, esculpiendo joyería personalizada o configurando procesos de manufactura aditiva.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0; margin-top: clamp(24px, 3vw, 40px);">
+        <div style="background: #000000; padding: 18px 0 6px;">
+          <div style="font-size: clamp(34px, 4vw, 52px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: #ffffff;">03</div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-top: 6px;">Years</div>
+        </div>
+        <div style="background: #000000; padding: 18px 0 6px 18px;">
+          <div style="font-size: clamp(34px, 4vw, 52px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: #ffffff;">03</div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-top: 6px;">Disciplines</div>
+        </div>
+        <div style="background: #000000; padding: 18px 0 6px 18px;">
+          <div style="font-size: clamp(34px, 4vw, 52px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: #ffffff;">2D/3D</div>
+          <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-top: 6px;">Output</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); background: #111111;">
+      <div data-tw="1" style="font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #888888;">What teammates say</div>
+      <figure data-reveal="1" style="margin: 28px 0 0; padding-top: 22px;">
+        <blockquote data-anim="1" style="margin: 0; font-size: clamp(18px, 2vw, 26px); line-height: 1.32; font-weight: 500; letter-spacing: -0.015em; color: #ffffff; text-wrap: pretty;">“Un diseñador excepcional. Su dominio del modelado 3D y su visión para integrar diseño gráfico 3D llevaron nuestro proyecto a otro nivel.”</blockquote>
+        <figcaption data-anim="1" style="margin-top: 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #888888;">Director de marketing — Dale Play</figcaption>
+      </figure>
+      <figure data-reveal="1" style="margin: 32px 0 0; padding-top: 22px;">
+        <blockquote data-anim="1" style="margin: 0; font-size: clamp(18px, 2vw, 26px); line-height: 1.32; font-weight: 500; letter-spacing: -0.015em; color: #ffffff; text-wrap: pretty;">“Trabajar en el desarrollo de esta obra de arte con él fue increíble. Tiene una atención al detalle excepcional y rapidez para ejecutar cuaquier proyecto”</blockquote>
+        <figcaption data-anim="1" style="margin-top: 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #888888;">Gonza Castaño — Artista plástico</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="clients" style="padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px);">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-end;">
+      <h2 data-tw="1" style="margin: 0; font-size: clamp(28px, 4vw, 56px); font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; line-height: 0.9; color: #ffffff;">Clients &amp; recognition</h2>
+      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888;">Selected</div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0; margin-top: clamp(22px, 3vw, 36px);">
+      <div style="background: #000000; padding: 26px 20px; font-size: clamp(18px, 2vw, 26px); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; color: #ffffff;" style-hover="background: #111111;">Dale Play</div>
+      <div style="background: #000000; padding: 26px 20px; font-size: clamp(18px, 2vw, 26px); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; color: #ffffff;" style-hover="background: #111111;">Michelob Ultra</div>
+      <div style="background: #000000; padding: 26px 20px; font-size: clamp(18px, 2vw, 26px); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; color: #ffffff;" style-hover="background: #111111;">Banda Eterna</div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding: clamp(40px, 7vw, 110px) clamp(20px, 3.5vw, 48px) clamp(28px, 3vw, 48px);">
+    <div data-tw="1" style="font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #888888;">Contact</div>
+    <a href="mailto:valenn.barrios14@gmail.com" data-tw="1" style="display: block; margin-top: 18px; font-size: clamp(32px, 8vw, 128px); font-weight: 900; line-height: 0.86; letter-spacing: -0.045em; text-transform: uppercase; color: #ffffff; word-break: break-word;" style-hover="color: #888888;">Let's build<br>something<br>precise</a>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 24px; margin-top: clamp(32px, 5vw, 64px); padding-top: 20px;">
+      <div>
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-bottom: 6px;">Email</div>
+        <a href="mailto:valenn.barrios14@gmail.com" style="font-size: 15px; font-weight: 700;">valenn.barrios14@gmail.com</a>
+      </div>
+      <div>
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888; margin-bottom: 6px;">Elsewhere</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 15px; font-weight: 700;">
+          <a href="https://www.instagram.com/feeble_studio/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/in/valent%C3%ADn-barrios/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div style="display: flex; align-items: flex-end;">
+        <div style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888;">© 2026 Valentin Barrios · Buenos Aires, Argentina</div>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+    <div id="lightbox" ref="{{ lightboxRef }}" onClick="{{ closeLightbox }}" style="position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.95); cursor: zoom-out;">
+      <img ref="{{ lightboxImgRef }}" alt="" loading="lazy" style="max-width: 90vw; max-height: 90vh; object-fit: contain; display: block;">
+      <button type="button" onClick="{{ closeLightbox }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid #888888; color: #ffffff; font-size: 20px; line-height: 1; cursor: pointer; font-family: inherit;" style-hover="background: #ffffff; color: #000000;">×</button>
+      <div style="position: absolute; left: 18px; bottom: 18px; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #888888;">Esc to close</div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}">
+    <div style="position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay; background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px), repeating-linear-gradient(90deg, rgba(255,255,255,0.14) 0px, rgba(255,255,255,0.14) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 2px);"></div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVideo&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;uploads/VIDEO HERO1.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;typeUnit&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;character&quot;,&quot;options&quot;:[&quot;character&quot;,&quot;word&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;revealWindow&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.28,&quot;min&quot;:0.1,&quot;max&quot;:0.6,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;intensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+const PLATE = (seed, label) => {
+  const svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'>"
+    + "<defs><linearGradient id='p" + seed + "' x1='0' y1='0' x2='1' y2='1'>"
+    + "<stop offset='0' stop-color='#" + (seed % 2 ? '6d571f' : '8a6c2a') + "'/>"
+    + "<stop offset='0.45' stop-color='#f3e0a8'/>"
+    + "<stop offset='0.7' stop-color='#b4923f'/>"
+    + "<stop offset='1' stop-color='#4a3a12'/></linearGradient></defs>"
+    + "<rect width='800' height='600' fill='#111111'/>"
+    + "<rect x='" + (60 + seed * 14) + "' y='90' width='" + (560 - seed * 10) + "' height='" + (420 - seed * 8) + "' fill='url(#p" + seed + ")'/>"
+    + "</svg>";
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+};
+
+class Component extends DCLogic {
+  canvasRef = React.createRef();
+  heroVideoRef = React.createRef();
+  lightboxRef = React.createRef();
+  lightboxImgRef = React.createRef();
+  state = { lightboxOpen: false, lightboxSrc: '', lightboxAlt: '' };
+
+  // painted only by JS, so a runtime stall can never black out the page
+  syncLightbox() {
+    const box = this.lightboxRef.current;
+    if (!box) return;
+    const img = this.lightboxImgRef.current;
+    if (this.state.lightboxOpen) {
+      if (img) { img.src = this.state.lightboxSrc; img.alt = this.state.lightboxAlt || ''; }
+      box.style.display = 'flex';
+    } else {
+      box.style.display = 'none';
+      if (img) img.removeAttribute('src');
+    }
+  }
+
+  loadDataVideos() {
+    this.blobUrls = this.blobUrls || [];
+    document.querySelectorAll('video[data-src]').forEach(el => {
+      const url = el.getAttribute('data-src');
+      el.muted = true;
+      el.defaultMuted = true;
+      el.volume = 0;
+      el.src = url;
+      const play = () => el.play().catch(() => {});
+      el.addEventListener('loadeddata', play, { once: true });
+      el.addEventListener('error', () => {
+        fetch(url).then(r => r.blob()).then(b => {
+          const u = URL.createObjectURL(b);
+          this.blobUrls.push(u);
+          el.src = u;
+          el.load();
+          play();
+        }).catch(() => {});
+      }, { once: true });
+      play();
+    });
+  }
+
+  loadHeroVideo() {
+    const el = this.heroVideoRef.current;
+    if (!el) return;
+    const url = this.props.heroVideo || 'uploads/VIDEO HERO1.mp4';
+    el.src = url;
+    const play = () => el.play().catch(() => {});
+    el.addEventListener('loadeddata', play, { once: true });
+    play();
+    el.addEventListener('error', () => {
+      fetch(url).then(r => r.blob()).then(b => {
+        this.blobUrl = URL.createObjectURL(b);
+        el.src = this.blobUrl;
+        el.load();
+        el.play().catch(() => {});
+        el.addEventListener('error', () => this.initGL(), { once: true });
+      }).catch(() => this.initGL());
+    }, { once: true });
+  }
+
+  shots() {
+    const labels = ['DALE PLAY / PLATE 01', 'DALE PLAY / PLATE 02', 'MICHELOB ULTRA / PLATE 01', 'MICHELOB ULTRA / PLATE 02', 'BANDA ETERNA / PLATE 01', 'BANDA ETERNA / PLATE 02'];
+    return labels.map((label, i) => {
+      const src = PLATE(i + 1, label);
+      return {
+        src,
+        alt: label,
+        no: String(i + 1).padStart(2, '0'),
+        open: (e) => { e.preventDefault(); this.openLightbox(src, label); }
+      };
+    });
+  }
+
+  openLightbox(src, alt) {
+    this.setState({ lightboxOpen: true, lightboxSrc: src, lightboxAlt: alt });
+    document.body.style.overflow = 'hidden';
+  }
+  closeLightbox = () => {
+    this.setState({ lightboxOpen: false });
+    document.body.style.overflow = '';
+  };
+
+  renderVals() {
+    return {
+      canvasRef: this.canvasRef,
+      heroVideoRef: this.heroVideoRef,
+      grain: this.props.grain ?? true,
+      shots: this.shots(),
+      lightboxOpen: this.state.lightboxOpen,
+      lightboxSrc: this.state.lightboxSrc,
+      lightboxAlt: this.state.lightboxAlt,
+      lightboxRef: this.lightboxRef,
+      lightboxImgRef: this.lightboxImgRef,
+      closeLightbox: this.closeLightbox
+    };
+  }
+
+  // hide-then-reveal styles only apply once the runtime is alive, so a script
+  // failure leaves all copy readable instead of invisible
+  enableMotionStyles() {
+    document.documentElement.classList.add('vb-js');
+  }
+
+  componentDidUpdate() {
+    this.syncLightbox();
+  }
+
+  componentDidMount() {
+    this.enableMotionStyles();
+    this.onKey = (e) => { if (e.key === 'Escape' && this.state.lightboxOpen) this.closeLightbox(); };
+    window.addEventListener('keydown', this.onKey);
+    this.loadHeroVideo();
+    this.loadDataVideos();
+    this.timer = setTimeout(() => { this.initScroll(); }, 120);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('pointermove', this.onPointer);
+    document.body.style.overflow = '';
+    if (this.blobUrl) URL.revokeObjectURL(this.blobUrl);
+    (this.blobUrls || []).forEach(u => URL.revokeObjectURL(u));
+    if (this.renderer) this.renderer.dispose();
+    if (this.revealIO) this.revealIO.disconnect();
+    if (this.onScrollReveal) {
+      window.removeEventListener('scroll', this.onScrollReveal);
+      window.removeEventListener('resize', this.onScrollReveal);
+    }
+    if (this.onRevealResize) window.removeEventListener('resize', this.onRevealResize);
+    if (window.ScrollTrigger) ScrollTrigger.getAll().forEach(t => t.kill());
+  }
+
+  initGL() {
+    const canvas = this.canvasRef.current;
+    if (!canvas || !window.THREE) return;
+    let renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false }); } catch (e) { return; }
+    this.renderer = renderer;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+    renderer.autoClear = false;
+
+    const intensity = this.props.intensity ?? 1;
+    const bgScene = new THREE.Scene();
+    const bgCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    this.uniforms = {
+      uTime: { value: 0 },
+      uRes: { value: new THREE.Vector2(1, 1) },
+      uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+      uInt: { value: intensity }
+    };
+    const bgMat = new THREE.ShaderMaterial({
+      uniforms: this.uniforms,
+      vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
+      fragmentShader: [
+        'precision highp float;',
+        'varying vec2 vUv;',
+        'uniform float uTime; uniform vec2 uRes; uniform vec2 uMouse; uniform float uInt;',
+        'float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }',
+        'float noise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); vec2 u = f*f*(3.0-2.0*f);',
+        '  return mix(mix(hash(i), hash(i+vec2(1.0,0.0)), u.x), mix(hash(i+vec2(0.0,1.0)), hash(i+vec2(1.0,1.0)), u.x), u.y); }',
+        'float fbm(vec2 p){ float v = 0.0; float a = 0.5; for(int i=0;i<5;i++){ v += a*noise(p); p *= 2.03; a *= 0.5; } return v; }',
+        'void main(){',
+        '  vec2 uv = vUv; vec2 p = uv * vec2(uRes.x/uRes.y, 1.0);',
+        '  float t = uTime * 0.05 * uInt;',
+        '  vec2 q = vec2(fbm(p*2.2 + t), fbm(p*2.2 - t + 4.7));',
+        '  float f = fbm(p*3.0 + q*1.6 + vec2(0.0, t*1.4));',
+        '  float g = mix(0.03, 0.22, smoothstep(0.15, 0.95, f));',
+        '  g += smoothstep(0.62, 1.0, fbm(vec2(p.x*1.4, p.y*7.0 - t*2.0))) * 0.16;',
+        '  g += smoothstep(0.45, 0.0, distance(uv, uMouse)) * 0.07;',
+        '  g += smoothstep(0.004, 0.0, abs(fract(uv.y - uTime*0.045) - 0.5)) * 0.55;',
+        '  g += (hash(uv * uTime) - 0.5) * 0.02;',
+        '  g *= 0.45 + 0.55 * smoothstep(1.15, 0.25, distance(uv, vec2(0.5)));',
+        '  gl_FragColor = vec4(vec3(g), 1.0);',
+        '}'
+      ].join('\n')
+    });
+    bgScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), bgMat));
+
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    cam.position.set(0, 0, 6.2);
+
+    const mat = new THREE.ShaderMaterial({
+      uniforms: { uTime: this.uniforms.uTime },
+      vertexShader: 'varying vec3 vN; varying vec3 vPos; void main(){ vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position,1.0); vPos = mv.xyz; gl_Position = projectionMatrix * mv; }',
+      fragmentShader: [
+        'precision highp float;',
+        'varying vec3 vN; varying vec3 vPos;',
+        'void main(){',
+        '  vec3 n = normalize(vN); vec3 l = normalize(vec3(0.6, 0.85, 0.5));',
+        '  float d = max(dot(n, l), 0.0);',
+        '  float band = d > 0.82 ? 1.0 : d > 0.5 ? 0.62 : d > 0.24 ? 0.30 : 0.12;',
+        '  float rim = pow(1.0 - max(dot(n, normalize(-vPos)), 0.0), 2.6);',
+        '  float g = mix(0.06, 0.92, band) + rim * 0.45;',
+        '  gl_FragColor = vec4(vec3(min(g, 1.0)), 1.0);',
+        '}'
+      ].join('\n')
+    });
+    const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.35, 0.42, 220, 32, 2, 3), mat);
+    scene.add(knot);
+    const wire = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(2.55, 1), 24),
+      new THREE.LineBasicMaterial({ color: 0x333333 })
+    );
+    scene.add(wire);
+
+    this.onResize = () => {
+      const r = canvas.parentElement.getBoundingClientRect();
+      const w = Math.max(1, r.width), h = Math.max(1, r.height);
+      renderer.setSize(w, h, false);
+      this.uniforms.uRes.value.set(w, h);
+      cam.aspect = w / h; cam.updateProjectionMatrix();
+    };
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+
+    const target = { x: 0.5, y: 0.5 };
+    this.onPointer = (e) => {
+      const r = canvas.getBoundingClientRect();
+      target.x = (e.clientX - r.left) / r.width;
+      target.y = 1 - (e.clientY - r.top) / r.height;
+    };
+    window.addEventListener('pointermove', this.onPointer, { passive: true });
+
+    let visible = true;
+    if ('IntersectionObserver' in window) {
+      this.io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0 });
+      this.io.observe(canvas);
+    }
+
+    const clock = new THREE.Clock();
+    const loop = () => {
+      this.raf = requestAnimationFrame(loop);
+      if (!visible) return;
+      const t = clock.getElapsedTime();
+      this.uniforms.uTime.value = t;
+      const m = this.uniforms.uMouse.value;
+      m.x += (target.x - m.x) * 0.05;
+      m.y += (target.y - m.y) * 0.05;
+      knot.rotation.y = t * 0.18 + (m.x - 0.5) * 0.9;
+      knot.rotation.x = Math.sin(t * 0.22) * 0.25 + (m.y - 0.5) * -0.6;
+      wire.rotation.y = -t * 0.06;
+      wire.rotation.x = t * 0.04;
+      renderer.clear();
+      renderer.render(bgScene, bgCam);
+      renderer.clearDepth();
+      renderer.render(scene, cam);
+    };
+    loop();
+  }
+
+  // char-by-char reveal; every glyph keeps its box from the start, so no layout shift
+  splitChars(el) {
+    if (el.__chars) return el.__chars;
+    const byWord = (this.props.typeUnit || 'character') === 'word';
+    const chars = [];
+    const walk = (node) => {
+      [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          const units = byWord ? n.nodeValue.split(/(\s+)/) : [...n.nodeValue];
+          units.forEach(c => {
+            const s = document.createElement('span');
+            s.className = 'tw-u';
+            s.textContent = c;
+            if (!c.trim()) s.style.whiteSpace = 'pre-wrap';
+            frag.appendChild(s);
+            if (c.trim()) chars.push(s);
+            else s.classList.add('tw-on');
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') {
+          walk(n);
+        }
+      });
+    };
+    walk(el);
+    el.__chars = chars;
+    return chars;
+  }
+
+  // reveal driven by scroll position: progress through the viewport maps to revealed glyphs
+  syncScrollReveal() {
+    const vh = window.innerHeight;
+    const span = (this.props.revealWindow ?? 0.28) * vh;
+    const atBottom = window.scrollY + vh >= document.documentElement.scrollHeight - 4;
+    (this.twNodes || []).forEach(el => {
+      const chars = el.__chars || [];
+      if (!chars.length || el.__introRunning) return;
+      const r = el.getBoundingClientRect();
+      const startAt = vh;
+      let p = Math.max(0, Math.min(1, (startAt - r.top) / Math.max(1, span)));
+      // anything already sitting in the upper two thirds of the screen reads in full
+      if (r.top < vh * 0.66) p = 1;
+      if (atBottom && r.top < vh) p = 1;
+      const target = Math.round(p * chars.length);
+      if (el.__shown === target) return;
+      const from = Math.min(el.__shown || 0, target), to = Math.max(el.__shown || 0, target);
+      for (let i = from; i < to; i++) chars[i].classList.toggle('tw-on', i < target);
+      if (target > (el.__shown || 0)) for (let i = 0; i < target; i++) chars[i].classList.add('tw-on');
+      el.__shown = target;
+    });
+  }
+
+  initTypewriter() {
+    const nodes = [...document.querySelectorAll('[data-tw]')];
+    if (!nodes.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      nodes.forEach(el => this.splitChars(el).forEach(s => s.classList.add('tw-on')));
+      return;
+    }
+    this.twNodes = nodes;
+    nodes.forEach(el => { this.splitChars(el); el.__shown = 0; });
+    let queued = false;
+    this.onScrollReveal = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; this.syncScrollReveal(); });
+    };
+    window.addEventListener('scroll', this.onScrollReveal, { passive: true });
+    window.addEventListener('resize', this.onScrollReveal, { passive: true });
+    this.syncScrollReveal();
+    this.introType();
+  }
+
+  // hero sits above the fold on load, so it types itself out on a timer instead of on scroll
+  introType() {
+    const hero = document.querySelector('header#top');
+    if (!hero) return;
+    (this.twNodes || []).filter(el => hero.contains(el)).forEach((el, idx) => {
+      const chars = el.__chars || [];
+      if (!chars.length) return;
+      el.__introRunning = true;
+      chars.forEach(c => c.classList.remove('tw-on'));
+      el.__shown = 0;
+      const start = performance.now() + 180 + idx * 260;
+      const dur = Math.max(500, Math.min(1500, chars.length * 26));
+      const step = now => {
+        const p = Math.max(0, Math.min(1, (now - start) / dur));
+        const target = Math.round(p * chars.length);
+        for (let i = el.__shown; i < target; i++) chars[i].classList.add('tw-on');
+        el.__shown = target;
+        if (p < 1) requestAnimationFrame(step);
+        else el.__introRunning = false;
+      };
+      requestAnimationFrame(step);
+    });
+    hero.querySelectorAll('[data-anim]').forEach((el, i) => {
+      el.style.transitionDelay = (700 + i * 140) + 'ms';
+      requestAnimationFrame(() => el.classList.add('is-in'));
+    });
+  }
+
+  initReveals() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const nodes = [...document.querySelectorAll('[data-anim]')];
+    if (!nodes.length) return;
+
+    // cascade: nodes that sit close together vertically enter in sequence
+    const assign = () => {
+      let step = 0, prevBottom = null;
+      nodes.forEach(el => {
+        const r = el.getBoundingClientRect();
+        const top = r.top + window.scrollY;
+        if (prevBottom !== null && top - prevBottom < 160) step = step >= 3 ? 3 : step + 1;
+        else step = 0;
+        prevBottom = top + r.height;
+        el.__stagger = step * 90;
+      });
+    };
+    assign();
+    this.onRevealResize = () => assign();
+    window.addEventListener('resize', this.onRevealResize, { passive: true });
+
+    this.revealIO = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        const d = entry.isIntersecting ? (el.__stagger || 0) : 0;
+        el.style.transitionDelay = d + 'ms';
+        el.classList.toggle('is-in', entry.isIntersecting);
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+    nodes.forEach(el => this.revealIO.observe(el));
+  }
+
+  initScroll() {
+    this.initReveals();
+    this.initTypewriter();
+    if (!window.gsap || !window.ScrollTrigger) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('[data-tilt]').forEach(el => {
+      gsap.to(el, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+    });
+    ScrollTrigger.refresh();
+  }
+}
+</script>
+</body>
+</html>

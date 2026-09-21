@@ -19,37 +19,29 @@
       "hero.title": "Valentin<br>Barrios<br>graphic<br>designer",
       "hero.lead": "I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design",
       "hero.practice1": "3D modeling",
-      "hero.practice2": "Product design",
-      "hero.practice3": "Branding",
-      "hero.practice4": "3D printing",
+      "hero.practice2": "Branding",
+      "hero.practice3": "Product design",
       "work.title": "Selected work",
       "case.development": "Development",
       "case.pixels-title": "From pixels to real objects",
       "case.pixels-copy": "Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.",
       "case.dale-side-copy": "3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.",
       "case.michelob-copy": "For an upcoming large-scale Michelob ULTRA installation inspired by Messi, I developed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.",
+      "case.michelob-heading2": "An individual message, a collective artwork",
+      "case.michelob-copy2": "Fans insert personal messages into 3D-printed capsules and add them to a panel to reveal a massive Messi mosaic, receiving a commemorative keychain in return",
       "teaser.sub": "Branding · Identity system",
-      "gallery.hint": "Click to enlarge · Drag to scroll",
       "about.eyebrow": "About",
-      "about.heading": "Design as a<br>system, not<br>as decoration",
-      "about.philosophy-label": "Philosophy",
-      "about.philosophy-copy": "I see design as an integral system where the digital and physical worlds converge. My approach seeks the balance between urban aesthetics and maximum technical precision — whether modeling cell-shaded figures, sculpting custom jewelry, or configuring additive manufacturing processes.",
-      "about.years": "Years",
-      "about.disciplines": "Disciplines",
-      "about.output": "Output",
+      "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
+      "about.philosophy-copy": "I approach design as an integral system where the digital and physical worlds converge. My focus is the balance between urban aesthetics and maximum technical precision, whether modeling cell-shaded figures, sculpting custom jewelry or setting up additive manufacturing processes.",
       "about.teammates": "What teammates say",
-      "about.quote1": "“An exceptional designer. His mastery of 3D modeling and his vision for integrating 3D graphic design took our project to another level.”",
-      "about.author1": "Marketing Director — Dale Play",
-      "about.quote2": "“Working on the development of this artwork with him was incredible. He has exceptional attention to detail and speed in executing any project.”",
-      "about.author2": "Gonza Castaño — Visual artist",
-      "clients.title": "Clients &amp; recognition",
+      "about.quote1": "“An exceptional designer. His command of 3D modeling and his vision for integrating 3D graphic design took our project to another level.”",
+      "about.author1": "Marketing director — Dale Play",
+      "about.quote2": "“I've been working with Valen for a while now. He has exceptional attention to detail and is fast at executing any project.”",
+      "about.author2": "Gonzalo Castaño - Visual artist",
       "clients.selected": "Selected",
       "contact.eyebrow": "Contact",
-      "contact.cta": "Let's build<br>something<br>precise",
       "contact.email": "Email",
-      "contact.elsewhere": "Elsewhere",
-      "lightbox.hint": "Esc to close",
-      "gallery.plate": "PLATE"
+      "contact.elsewhere": "Elsewhere"
     },
     es: {
       "nav.work": "Trabajo",
@@ -57,37 +49,29 @@
       "hero.title": "Valentin<br>Barrios<br>diseñador<br>gráfico",
       "hero.lead": "Creo branding, modelado 3D, impresión 3D y diseño de producto.<br>Actualmente trabajando en un laboratorio 3D fabricando ortesis craneales y diseño de producto",
       "hero.practice1": "Modelado 3D",
-      "hero.practice2": "Diseño de producto",
-      "hero.practice3": "Branding",
-      "hero.practice4": "Impresión 3D",
+      "hero.practice2": "Branding",
+      "hero.practice3": "Diseño de producto",
       "work.title": "Trabajo seleccionado",
       "case.development": "Desarrollo",
       "case.pixels-title": "De los píxeles a los objetos reales",
       "case.pixels-copy": "Junto con mi equipo, tuvimos solo una semana para dar vida a este ambicioso proyecto: desde el modelado 3D inicial y el desarrollo hasta la fundición final en alpaca. Trabajar con un plazo tan ajustado hizo de cada etapa un desafío, pero ver las piezas terminadas hizo que la experiencia valiera totalmente la pena.",
       "case.dale-side-copy": "Modelado 3D de cinco placas conmemorativas para el último concierto de Bad Bunny en el Estadio River Plate, desarrolladas para producción con un fuerte foco en el detalle y el terminado de alta calidad.",
       "case.michelob-copy": "Para una próxima instalación a gran escala de Michelob ULTRA inspirada en Messi, desarrollé y produje miles de piezas personalizadas impresas en 3D, llevando el proyecto desde el modelado inicial hasta la producción final.",
+      "case.michelob-heading2": "Un mensaje individual, una obra colectiva",
+      "case.michelob-copy2": "Los fans insertan mensajes personales en cápsulas impresas en 3D y las suman a un panel para revelar un mosaico gigante de Messi, y a cambio reciben un llavero conmemorativo",
       "teaser.sub": "Branding · Sistema de identidad",
-      "gallery.hint": "Click para ampliar · Arrastrá para desplazar",
       "about.eyebrow": "Acerca de",
-      "about.heading": "El diseño como<br>sistema, no<br>como decoración",
-      "about.philosophy-label": "Filosofía",
+      "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
       "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética urbana y la máxima precisión técnica, ya sea modelando figuras con estilo cell-shading, esculpiendo joyería personalizada o configurando procesos de manufactura aditiva.",
-      "about.years": "Años",
-      "about.disciplines": "Disciplinas",
-      "about.output": "Formato",
       "about.teammates": "Lo que dicen mis compañeros",
       "about.quote1": "“Un diseñador excepcional. Su dominio del modelado 3D y su visión para integrar diseño gráfico 3D llevaron nuestro proyecto a otro nivel.”",
       "about.author1": "Director de marketing — Dale Play",
-      "about.quote2": "“Trabajar en el desarrollo de esta obra de arte con él fue increíble. Tiene una atención al detalle excepcional y rapidez para ejecutar cualquier proyecto.”",
-      "about.author2": "Gonza Castaño — Artista plástico",
-      "clients.title": "Clientes y reconocimiento",
+      "about.quote2": "“Vengo trabajando con Valen desde hace un tiempo. Tiene una atención al detalle excepcional y es rápido para ejecutar cualquier proyecto.”",
+      "about.author2": "Gonzalo Castaño - Artista plástico",
       "clients.selected": "Seleccionados",
       "contact.eyebrow": "Contacto",
-      "contact.cta": "Construyamos<br>algo<br>preciso",
       "contact.email": "Email",
-      "contact.elsewhere": "Redes",
-      "lightbox.hint": "Esc para cerrar",
-      "gallery.plate": "PLACA"
+      "contact.elsewhere": "Redes"
     }
   };
 
@@ -393,79 +377,6 @@
   }
 
   /* ---------------------------------------------------------------------
-   * Renders filmstrip + lightbox
-   * ------------------------------------------------------------------- */
-  function plate(seed) {
-    const svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'>"
-      + "<defs><linearGradient id='p" + seed + "' x1='0' y1='0' x2='1' y2='1'>"
-      + "<stop offset='0' stop-color='#" + (seed % 2 ? "6d571f" : "8a6c2a") + "'/>"
-      + "<stop offset='0.45' stop-color='#f3e0a8'/>"
-      + "<stop offset='0.7' stop-color='#b4923f'/>"
-      + "<stop offset='1' stop-color='#4a3a12'/></linearGradient></defs>"
-      + "<rect width='800' height='600' fill='#111111'/>"
-      + "<rect x='" + (60 + seed * 14) + "' y='90' width='" + (560 - seed * 10) + "' height='" + (420 - seed * 8) + "' fill='url(#p" + seed + ")'/>"
-      + "</svg>";
-    return "data:image/svg+xml," + encodeURIComponent(svg);
-  }
-
-  function initGalleryAndLightbox(lang) {
-    const strip = document.getElementById("filmstrip");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightboxImg");
-    const lightboxClose = document.getElementById("lightboxClose");
-    if (!strip || !lightbox || !lightboxImg) return;
-
-    const plateWord = (I18N[lang] || I18N.en)["gallery.plate"];
-    const labels = [
-      "DALE PLAY / " + plateWord + " 01", "DALE PLAY / " + plateWord + " 02",
-      "MICHELOB ULTRA / " + plateWord + " 01", "MICHELOB ULTRA / " + plateWord + " 02",
-      "BANDA ETERNA / " + plateWord + " 01", "BANDA ETERNA / " + plateWord + " 02"
-    ];
-
-    const open = (src, alt) => {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || "";
-      lightbox.classList.add("is-open");
-      document.body.style.overflow = "hidden";
-    };
-    const close = () => {
-      lightbox.classList.remove("is-open");
-      lightboxImg.removeAttribute("src");
-      document.body.style.overflow = "";
-    };
-
-    labels.forEach((label, i) => {
-      const src = plate(i + 1);
-      const no = String(i + 1).padStart(2, "0");
-
-      const figure = document.createElement("figure");
-      figure.className = "film-item";
-
-      const img = document.createElement("img");
-      img.src = src;
-      img.alt = label;
-      img.loading = "lazy";
-      img.addEventListener("click", () => open(src, label));
-
-      const caption = document.createElement("figcaption");
-      const labelSpan = document.createElement("span");
-      labelSpan.textContent = label;
-      const noSpan = document.createElement("span");
-      noSpan.textContent = no;
-      caption.append(labelSpan, noSpan);
-
-      figure.append(img, caption);
-      strip.appendChild(figure);
-    });
-
-    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) close(); });
-    lightboxClose.addEventListener("click", close);
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lightbox.classList.contains("is-open")) close();
-    });
-  }
-
-  /* ---------------------------------------------------------------------
    * GSAP parallax tilt on the Banda Eterna teaser art
    * ------------------------------------------------------------------- */
   function initTilt() {
@@ -481,7 +392,6 @@
     const lang = detectLang();
     initLangToggle(lang); // translate static copy before the typewriter splits any text nodes
     initHeroVideoFallback();
-    initGalleryAndLightbox(lang);
     setTimeout(() => {
       initFadeUp();
       initTypewriter();

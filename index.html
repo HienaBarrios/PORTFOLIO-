@@ -16,8 +16,12 @@
   <nav class="nav">
     <a href="#top" class="nav__brand">Valentin Barrios</a>
     <div class="nav__links">
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </div>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en">EN</button>
+      <button type="button" data-lang-btn="es">ES</button>
     </div>
   </nav>
 
@@ -28,23 +32,23 @@
     </div>
     <div class="hero__content">
       <div>
-        <h1 class="hero__title" data-tw="1">Valentin<br>Barrios<br>graphic<br>designer</h1>
+        <h1 class="hero__title" data-tw="1" data-i18n="hero.title">Valentin<br>Barrios<br>graphic<br>designer</h1>
       </div>
       <div>
-        <p class="hero__lead" data-anim="1">I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design</p>
+        <p class="hero__lead" data-anim="1" data-i18n="hero.lead">I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design</p>
       </div>
       <div class="hero__practice" data-anim="1">
-        <div class="hero__practice-item"><span>01</span><span>3D modeling</span></div>
-        <div class="hero__practice-item"><span>02</span><span>Product design</span></div>
-        <div class="hero__practice-item"><span>03</span><span>Branding</span></div>
-        <div class="hero__practice-item"><span>04</span><span>3D printing</span></div>
+        <div class="hero__practice-item"><span>01</span><span data-i18n="hero.practice1">3D modeling</span></div>
+        <div class="hero__practice-item"><span>02</span><span data-i18n="hero.practice2">Product design</span></div>
+        <div class="hero__practice-item"><span>03</span><span data-i18n="hero.practice3">Branding</span></div>
+        <div class="hero__practice-item"><span>04</span><span data-i18n="hero.practice4">3D printing</span></div>
       </div>
     </div>
   </header>
 
   <section id="work">
     <div class="section-head">
-      <h2 class="section-title" data-tw="1">Selected work</h2>
+      <h2 class="section-title" data-tw="1" data-i18n="work.title">Selected work</h2>
     </div>
 
     <article class="case">
@@ -59,7 +63,7 @@
 
       <div class="case__grid">
         <div class="case__col">
-          <div class="case__label" data-tw="1">Development</div>
+          <div class="case__label" data-tw="1" data-i18n="case.development">Development</div>
 
           <div class="case__dev-media">
             <div class="case__dev-video-wrap">
@@ -77,15 +81,15 @@
           </div>
 
           <div class="pixels-row">
-            <h3 data-tw="1">From pixels to real objects</h3>
+            <h3 data-tw="1" data-i18n="case.pixels-title">From pixels to real objects</h3>
             <img class="pixels-row__side" src="assets/images/bad-bunny-holding-plaques.png" alt="Bad Bunny holding the five commemorative plaques" loading="lazy">
             <img class="pixels-row__case" src="assets/images/bad-bunny-plaques-case.jpg" alt="The five bronze plaques in their presentation case" loading="lazy">
-            <p data-anim="1">Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.</p>
+            <p data-anim="1" data-i18n="case.pixels-copy">Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.</p>
           </div>
         </div>
 
         <div class="case__col">
-          <p class="case__side-copy" data-anim="1">3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.</p>
+          <p class="case__side-copy" data-anim="1" data-i18n="case.dale-side-copy">3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.</p>
           <img class="case__side-image" src="assets/images/bad-bunny-plaque-renders.png" alt="Bad Bunny commemorative plaque renders" loading="lazy">
         </div>
       </div>
@@ -103,8 +107,8 @@
 
       <div class="case__grid">
         <div class="case__col">
-          <div class="case__label" data-tw="1">Development</div>
-          <p class="case__side-copy" data-anim="1">For an upcoming large-scale Michelob ULTRA installation inspired by Messi, I developed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.</p>
+          <div class="case__label" data-tw="1" data-i18n="case.development">Development</div>
+          <p class="case__side-copy" data-anim="1" data-i18n="case.michelob-copy">For an upcoming large-scale Michelob ULTRA installation inspired by Messi, I developed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.</p>
         </div>
         <div class="case__col">
           <div class="case__dev-video-wrap">
@@ -119,7 +123,7 @@
         <span class="teaser__no">03</span>
         <div>
           <div class="teaser__title" data-tw="1">Banda Eterna</div>
-          <div class="teaser__sub" data-tw="1">Branding · Identity system</div>
+          <div class="teaser__sub" data-tw="1" data-i18n="teaser.sub">Branding · Identity system</div>
         </div>
       </div>
       <div class="teaser__art" data-tilt="1">
@@ -132,52 +136,52 @@
   <section id="gallery" class="gallery">
     <div class="gallery__head">
       <h2 class="section-title" data-tw="1">Renders</h2>
-      <div class="gallery__hint" data-anim="1">Click to enlarge · Drag to scroll</div>
+      <div class="gallery__hint" data-anim="1" data-i18n="gallery.hint">Click to enlarge · Drag to scroll</div>
     </div>
     <div class="filmstrip" id="filmstrip"></div>
   </section>
 
   <section id="about" class="about">
     <div class="about__col">
-      <div class="eyebrow" data-tw="1">About</div>
-      <h2 class="about__heading" data-tw="1">Design as a<br>system, not<br>as decoration</h2>
+      <div class="eyebrow" data-tw="1" data-i18n="about.eyebrow">About</div>
+      <h2 class="about__heading" data-tw="1" data-i18n="about.heading">Design as a<br>system, not<br>as decoration</h2>
       <div class="about__philosophy">
-        <div class="about__philosophy-label" data-tw="1">Philosophy</div>
-        <p data-anim="1">Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética urbana y la máxima precisión técnica, ya sea modelando figuras con estilo cell-shading, esculpiendo joyería personalizada o configurando procesos de manufactura aditiva.</p>
+        <div class="about__philosophy-label" data-tw="1" data-i18n="about.philosophy-label">Philosophy</div>
+        <p data-anim="1" data-i18n="about.philosophy-copy">I see design as an integral system where the digital and physical worlds converge. My approach seeks the balance between urban aesthetics and maximum technical precision — whether modeling cell-shaded figures, sculpting custom jewelry, or configuring additive manufacturing processes.</p>
       </div>
       <div class="stats">
         <div class="stat">
           <div class="stat__value">03</div>
-          <div class="stat__label">Years</div>
+          <div class="stat__label" data-i18n="about.years">Years</div>
         </div>
         <div class="stat">
           <div class="stat__value">03</div>
-          <div class="stat__label">Disciplines</div>
+          <div class="stat__label" data-i18n="about.disciplines">Disciplines</div>
         </div>
         <div class="stat">
           <div class="stat__value">2D/3D</div>
-          <div class="stat__label">Output</div>
+          <div class="stat__label" data-i18n="about.output">Output</div>
         </div>
       </div>
     </div>
 
     <div class="about__col about__col--right">
-      <div class="eyebrow" data-tw="1">What teammates say</div>
+      <div class="eyebrow" data-tw="1" data-i18n="about.teammates">What teammates say</div>
       <figure class="testimonial">
-        <blockquote data-anim="1">"Un diseñador excepcional. Su dominio del modelado 3D y su visión para integrar diseño gráfico 3D llevaron nuestro proyecto a otro nivel."</blockquote>
-        <figcaption data-anim="1">Director de marketing — Dale Play</figcaption>
+        <blockquote data-anim="1" data-i18n="about.quote1">"An exceptional designer. His mastery of 3D modeling and his vision for integrating 3D graphic design took our project to another level."</blockquote>
+        <figcaption data-anim="1" data-i18n="about.author1">Marketing Director — Dale Play</figcaption>
       </figure>
       <figure class="testimonial">
-        <blockquote data-anim="1">"Trabajar en el desarrollo de esta obra de arte con él fue increíble. Tiene una atención al detalle excepcional y rapidez para ejecutar cuaquier proyecto"</blockquote>
-        <figcaption data-anim="1">Gonza Castaño — Artista plástico</figcaption>
+        <blockquote data-anim="1" data-i18n="about.quote2">"Working on the development of this artwork with him was incredible. He has exceptional attention to detail and speed in executing any project."</blockquote>
+        <figcaption data-anim="1" data-i18n="about.author2">Gonza Castaño — Visual artist</figcaption>
       </figure>
     </div>
   </section>
 
   <section id="clients" class="clients">
     <div class="clients__head">
-      <h2 class="section-title" data-tw="1">Clients &amp; recognition</h2>
-      <div class="gallery__hint">Selected</div>
+      <h2 class="section-title" data-tw="1" data-i18n="clients.title">Clients &amp; recognition</h2>
+      <div class="gallery__hint" data-i18n="clients.selected">Selected</div>
     </div>
     <div class="clients__grid">
       <div class="client">Dale Play</div>
@@ -187,15 +191,15 @@
   </section>
 
   <section id="contact" class="contact">
-    <div class="eyebrow" data-tw="1">Contact</div>
-    <a href="mailto:valenn.barrios14@gmail.com" class="contact__cta" data-tw="1">Let's build<br>something<br>precise</a>
+    <div class="eyebrow" data-tw="1" data-i18n="contact.eyebrow">Contact</div>
+    <a href="mailto:valenn.barrios14@gmail.com" class="contact__cta" data-tw="1" data-i18n="contact.cta">Let's build<br>something<br>precise</a>
     <div class="contact__grid">
       <div>
-        <div class="contact__label">Email</div>
+        <div class="contact__label" data-i18n="contact.email">Email</div>
         <a class="contact__email" href="mailto:valenn.barrios14@gmail.com">valenn.barrios14@gmail.com</a>
       </div>
       <div>
-        <div class="contact__label">Elsewhere</div>
+        <div class="contact__label" data-i18n="contact.elsewhere">Elsewhere</div>
         <div class="contact__elsewhere">
           <a href="https://www.instagram.com/feeble_studio/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.linkedin.com/in/valent%C3%ADn-barrios/" target="_blank" rel="noopener">LinkedIn</a>
@@ -210,7 +214,7 @@
   <div class="lightbox" id="lightbox">
     <img id="lightboxImg" alt="" loading="lazy">
     <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
-    <div class="lightbox__hint">Esc to close</div>
+    <div class="lightbox__hint" data-i18n="lightbox.hint">Esc to close</div>
   </div>
 
   <div class="grain" aria-hidden="true"></div>

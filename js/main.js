@@ -7,6 +7,123 @@
   const TYPE_UNIT = "character"; // "character" | "word"
 
   /* ---------------------------------------------------------------------
+   * Language: auto-detected from the visitor's browser, overridable by a
+   * manual toggle that's remembered for next time. No separate page or
+   * URL per language — same HTML, text swapped in place before anything
+   * else (typewriter/reveal) reads the DOM.
+   * ------------------------------------------------------------------- */
+  const I18N = {
+    en: {
+      "nav.work": "Work",
+      "nav.contact": "Contact",
+      "hero.title": "Valentin<br>Barrios<br>graphic<br>designer",
+      "hero.lead": "I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design",
+      "hero.practice1": "3D modeling",
+      "hero.practice2": "Product design",
+      "hero.practice3": "Branding",
+      "hero.practice4": "3D printing",
+      "work.title": "Selected work",
+      "case.development": "Development",
+      "case.pixels-title": "From pixels to real objects",
+      "case.pixels-copy": "Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.",
+      "case.dale-side-copy": "3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.",
+      "case.michelob-copy": "For an upcoming large-scale Michelob ULTRA installation inspired by Messi, I developed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.",
+      "teaser.sub": "Branding · Identity system",
+      "gallery.hint": "Click to enlarge · Drag to scroll",
+      "about.eyebrow": "About",
+      "about.heading": "Design as a<br>system, not<br>as decoration",
+      "about.philosophy-label": "Philosophy",
+      "about.philosophy-copy": "I see design as an integral system where the digital and physical worlds converge. My approach seeks the balance between urban aesthetics and maximum technical precision — whether modeling cell-shaded figures, sculpting custom jewelry, or configuring additive manufacturing processes.",
+      "about.years": "Years",
+      "about.disciplines": "Disciplines",
+      "about.output": "Output",
+      "about.teammates": "What teammates say",
+      "about.quote1": "“An exceptional designer. His mastery of 3D modeling and his vision for integrating 3D graphic design took our project to another level.”",
+      "about.author1": "Marketing Director — Dale Play",
+      "about.quote2": "“Working on the development of this artwork with him was incredible. He has exceptional attention to detail and speed in executing any project.”",
+      "about.author2": "Gonza Castaño — Visual artist",
+      "clients.title": "Clients &amp; recognition",
+      "clients.selected": "Selected",
+      "contact.eyebrow": "Contact",
+      "contact.cta": "Let's build<br>something<br>precise",
+      "contact.email": "Email",
+      "contact.elsewhere": "Elsewhere",
+      "lightbox.hint": "Esc to close",
+      "gallery.plate": "PLATE"
+    },
+    es: {
+      "nav.work": "Trabajo",
+      "nav.contact": "Contacto",
+      "hero.title": "Valentin<br>Barrios<br>diseñador<br>gráfico",
+      "hero.lead": "Creo branding, modelado 3D, impresión 3D y diseño de producto.<br>Actualmente trabajando en un laboratorio 3D fabricando ortesis craneales y diseño de producto",
+      "hero.practice1": "Modelado 3D",
+      "hero.practice2": "Diseño de producto",
+      "hero.practice3": "Branding",
+      "hero.practice4": "Impresión 3D",
+      "work.title": "Trabajo seleccionado",
+      "case.development": "Desarrollo",
+      "case.pixels-title": "De los píxeles a los objetos reales",
+      "case.pixels-copy": "Junto con mi equipo, tuvimos solo una semana para dar vida a este ambicioso proyecto: desde el modelado 3D inicial y el desarrollo hasta la fundición final en alpaca. Trabajar con un plazo tan ajustado hizo de cada etapa un desafío, pero ver las piezas terminadas hizo que la experiencia valiera totalmente la pena.",
+      "case.dale-side-copy": "Modelado 3D de cinco placas conmemorativas para el último concierto de Bad Bunny en el Estadio River Plate, desarrolladas para producción con un fuerte foco en el detalle y el terminado de alta calidad.",
+      "case.michelob-copy": "Para una próxima instalación a gran escala de Michelob ULTRA inspirada en Messi, desarrollé y produje miles de piezas personalizadas impresas en 3D, llevando el proyecto desde el modelado inicial hasta la producción final.",
+      "teaser.sub": "Branding · Sistema de identidad",
+      "gallery.hint": "Click para ampliar · Arrastrá para desplazar",
+      "about.eyebrow": "Acerca de",
+      "about.heading": "El diseño como<br>sistema, no<br>como decoración",
+      "about.philosophy-label": "Filosofía",
+      "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética urbana y la máxima precisión técnica, ya sea modelando figuras con estilo cell-shading, esculpiendo joyería personalizada o configurando procesos de manufactura aditiva.",
+      "about.years": "Años",
+      "about.disciplines": "Disciplinas",
+      "about.output": "Formato",
+      "about.teammates": "Lo que dicen mis compañeros",
+      "about.quote1": "“Un diseñador excepcional. Su dominio del modelado 3D y su visión para integrar diseño gráfico 3D llevaron nuestro proyecto a otro nivel.”",
+      "about.author1": "Director de marketing — Dale Play",
+      "about.quote2": "“Trabajar en el desarrollo de esta obra de arte con él fue increíble. Tiene una atención al detalle excepcional y rapidez para ejecutar cualquier proyecto.”",
+      "about.author2": "Gonza Castaño — Artista plástico",
+      "clients.title": "Clientes y reconocimiento",
+      "clients.selected": "Seleccionados",
+      "contact.eyebrow": "Contacto",
+      "contact.cta": "Construyamos<br>algo<br>preciso",
+      "contact.email": "Email",
+      "contact.elsewhere": "Redes",
+      "lightbox.hint": "Esc para cerrar",
+      "gallery.plate": "PLACA"
+    }
+  };
+
+  function detectLang() {
+    try {
+      const saved = localStorage.getItem("vb-lang");
+      if (saved === "en" || saved === "es") return saved;
+    } catch (e) {}
+    const nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+    return nav.startsWith("es") ? "es" : "en";
+  }
+
+  function applyTranslations(lang) {
+    const dict = I18N[lang] || I18N.en;
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key] != null) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+      btn.classList.toggle("is-active", btn.getAttribute("data-lang-btn") === lang);
+    });
+  }
+
+  function initLangToggle(lang) {
+    document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const next = btn.getAttribute("data-lang-btn");
+        try { localStorage.setItem("vb-lang", next); } catch (e) {}
+        location.reload();
+      });
+    });
+    applyTranslations(lang);
+  }
+
+  /* ---------------------------------------------------------------------
    * Hero WebGL fallback — a grayscale noise field + cell-shaded torus knot.
    * Only spun up if the hero video fails to load, so it never competes
    * with the real footage.
@@ -291,17 +408,18 @@
     return "data:image/svg+xml," + encodeURIComponent(svg);
   }
 
-  function initGalleryAndLightbox() {
+  function initGalleryAndLightbox(lang) {
     const strip = document.getElementById("filmstrip");
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
     const lightboxClose = document.getElementById("lightboxClose");
     if (!strip || !lightbox || !lightboxImg) return;
 
+    const plateWord = (I18N[lang] || I18N.en)["gallery.plate"];
     const labels = [
-      "DALE PLAY / PLATE 01", "DALE PLAY / PLATE 02",
-      "MICHELOB ULTRA / PLATE 01", "MICHELOB ULTRA / PLATE 02",
-      "BANDA ETERNA / PLATE 01", "BANDA ETERNA / PLATE 02"
+      "DALE PLAY / " + plateWord + " 01", "DALE PLAY / " + plateWord + " 02",
+      "MICHELOB ULTRA / " + plateWord + " 01", "MICHELOB ULTRA / " + plateWord + " 02",
+      "BANDA ETERNA / " + plateWord + " 01", "BANDA ETERNA / " + plateWord + " 02"
     ];
 
     const open = (src, alt) => {
@@ -360,8 +478,10 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    const lang = detectLang();
+    initLangToggle(lang); // translate static copy before the typewriter splits any text nodes
     initHeroVideoFallback();
-    initGalleryAndLightbox();
+    initGalleryAndLightbox(lang);
     setTimeout(() => {
       initFadeUp();
       initTypewriter();

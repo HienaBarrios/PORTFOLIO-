@@ -29,7 +29,7 @@
       "case.michelob-copy": "For an upcoming large-scale Michelob ULTRA installation inspired by Messi, I developed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.",
       "case.michelob-heading2": "An individual message, a collective artwork",
       "case.michelob-copy2": "Fans insert personal messages into 3D-printed capsules and add them to a panel to reveal a massive Messi mosaic, receiving a commemorative keychain in return",
-      "case.piece-hint": "Drag to rotate · click to change color",
+      "case.piece-hint": "Drag a capsule to spin it",
       "teaser.sub": "Branding · Identity system",
       "about.eyebrow": "About",
       "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
@@ -60,7 +60,7 @@
       "case.michelob-copy": "Para una próxima instalación a gran escala de Michelob ULTRA inspirada en Messi, desarrollé y produje miles de piezas personalizadas impresas en 3D, llevando el proyecto desde el modelado inicial hasta la producción final.",
       "case.michelob-heading2": "Un mensaje individual, una obra colectiva",
       "case.michelob-copy2": "Los fans insertan mensajes personales en cápsulas impresas en 3D y las suman a un panel para revelar un mosaico gigante de Messi, y a cambio reciben un llavero conmemorativo",
-      "case.piece-hint": "Arrastrá para girar · clic para cambiar el color",
+      "case.piece-hint": "Arrastrá una cápsula para girarla",
       "teaser.sub": "Branding · Sistema de identidad",
       "about.eyebrow": "Acerca de",
       "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
@@ -481,6 +481,36 @@
     return geo;
   }
 
+  // Horizontal print layers: a bump pattern along the model's height (mm),
+  // shading each layer as a soft ridge and darkening the seams between
+  // them. Fades out before layers get thin enough to shimmer.
+  function addPrintLayers(material, layerHeight) {
+    material.extensions = { derivatives: true };
+    material.onBeforeCompile = (shader) => {
+      shader.uniforms.uLayer = { value: layerHeight };
+      shader.vertexShader = shader.vertexShader
+        .replace("#include <common>", "#include <common>\nvarying float vLayerY;")
+        .replace("#include <begin_vertex>", "#include <begin_vertex>\nvLayerY = position.y;");
+      shader.fragmentShader = shader.fragmentShader
+        .replace("#include <common>", `#include <common>
+          uniform float uLayer;
+          varying float vLayerY;
+          float layerHeightAt(float y) { return 0.5 + 0.5 * cos(2.0 * PI * y / uLayer); }`)
+        .replace("#include <color_fragment>", `#include <color_fragment>
+          float layerFade = 1.0 - smoothstep(0.2, 0.45, fwidth(vLayerY / uLayer));
+          diffuseColor.rgb *= mix(1.0, mix(0.88, 1.0, layerHeightAt(vLayerY)), layerFade);`)
+        .replace("#include <normal_fragment_maps>", `#include <normal_fragment_maps>
+          {
+            float h = layerHeightAt(vLayerY) * layerFade;
+            vec3 dpdx = dFdx(-vViewPosition), dpdy = dFdy(-vViewPosition);
+            vec3 r1 = cross(dpdy, normal), r2 = cross(normal, dpdx);
+            float det = dot(dpdx, r1);
+            vec3 grad = sign(det) * (dFdx(h) * r1 + dFdy(h) * r2);
+            normal = normalize(abs(det) * normal - grad * 0.12);
+          }`);
+    };
+  }
+
   function initPiece3D() {
     const wrap = document.querySelector(".piece3d");
     if (!wrap || !window.THREE) return;
@@ -495,32 +525,41 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(30, 1, 1, 1000);
-    camera.position.set(0, 0, 105);
+    const camera = new THREE.PerspectiveCamera(30, 1, 1, 2000);
     scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, 0.9));
     const key = new THREE.DirectionalLight(0xffffff, 1.1);
     key.position.set(40, 60, 80);
     scene.add(key);
-    const rim = new THREE.DirectionalLight(0xffffff, 0.6);
-    rim.position.set(-60, -20, -60);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.9); // strong enough to outline the black piece
+    rim.position.set(-60, 30, -80);
     scene.add(rim);
 
-    // Colors of the printed pieces in the Messi mosaic
-    const palette = [0xc9962b, 0xf2f2f2, 0x1f3fbf, 0x8a8a8a]; // black is left out: it vanishes on the page
-    let paletteIndex = 0;
-    const material = new THREE.MeshStandardMaterial({ color: palette[0], roughness: 0.45, metalness: 0.1 });
-    const pivot = new THREE.Group();
-    scene.add(pivot);
+    // One capsule per color printed for the Messi mosaic, laid out in a row
+    const palette = [0xc9962b, 0xf2f2f2, 0x1f3fbf, 0x8a8a8a, 0x262626];
+    const SPACING = 34; // mm between capsule centers (capsules are 25 mm wide, 40 mm tall)
+    const ROW_W = SPACING * (palette.length - 1) + 25;
+    const pieces = palette.map((color, i) => {
+      const material = new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.05 });
+      addPrintLayers(material, 0.4); // FDM-style layer lines, slightly exaggerated to read at this size
+      const pivot = new THREE.Group();
+      pivot.position.x = (i - (palette.length - 1) / 2) * SPACING;
+      scene.add(pivot);
+      return { pivot, material, mesh: null, spin: 0.6 + i * 0.9, spinVel: 0, tilt: 0, tiltVel: 0, hover: 1, hop: 0 };
+    });
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let spinY = 0.6, spinVel = 0, leanX = 0, leanY = 0, targetX = 0, targetY = 0;
-    let dragging = false, moved = 0, lastX = 0, visible = false, loaded = false;
+    let leanX = 0, leanY = 0, targetX = 0, targetY = 0;
+    let grabbed = null, moved = 0, lastX = 0, lastY = 0, hovered = null;
+    let visible = false, loaded = false, enteredAt = 0;
 
+    // Fit the whole row (plus a margin) into the viewer at any aspect ratio
     const resize = () => {
       const w = wrap.clientWidth, h = wrap.clientHeight;
       if (!w || !h) return;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
+      const perUnit = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+      camera.position.set(0, 0, Math.max(78 / perUnit, (ROW_W * 1.15) / (perUnit * camera.aspect)));
       camera.updateProjectionMatrix();
     };
     resize();
@@ -535,76 +574,117 @@
           const geo = parseBinarySTL(buf);
           geo.rotateX(-Math.PI / 2); // STL is Z-up; stand it upright
           geo.center();
-          const mesh = new THREE.Mesh(geo, material);
-          mesh.scale.setScalar(0);
-          pivot.add(mesh);
-          pivot.userData.mesh = mesh;
+          geo.computeBoundingSphere();
+          pieces.forEach((p) => {
+            p.mesh = new THREE.Mesh(geo, p.material);
+            p.mesh.scale.setScalar(0);
+            p.pivot.add(p.mesh);
+          });
+          enteredAt = performance.now();
         })
         .catch(() => wrap.remove());
     };
 
-    // Lean toward the cursor anywhere on the page, not just over the canvas
+    // Which capsule is under the pointer — falls back to the nearest one by x
+    const raycaster = new THREE.Raycaster();
+    const ndc = new THREE.Vector2();
+    const pick = (e, fallback) => {
+      const r = canvas.getBoundingClientRect();
+      ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+      raycaster.setFromCamera(ndc, camera);
+      const meshes = pieces.map((p) => p.mesh).filter(Boolean);
+      const hit = raycaster.intersectObjects(meshes)[0];
+      if (hit) return pieces.find((p) => p.mesh === hit.object);
+      if (!fallback) return null;
+      let best = null, bestD = Infinity;
+      pieces.forEach((p) => {
+        const v = p.pivot.position.clone().project(camera);
+        const d = Math.abs(v.x - ndc.x);
+        if (d < bestD) { bestD = d; best = p; }
+      });
+      return best;
+    };
+
+    // Lean toward the cursor anywhere on the page, not just over the canvas.
+    // Full lean is reached within about one viewer-width of its center.
     window.addEventListener("pointermove", (e) => {
-      if (!visible) return;
+      if (!visible || grabbed) return;
       const r = wrap.getBoundingClientRect();
-      const nx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
-      const ny = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
-      targetY = Math.max(-1, Math.min(1, nx * 2)) * 0.5;
-      targetX = Math.max(-1, Math.min(1, ny * 2)) * 0.35;
+      const nx = (e.clientX - (r.left + r.width / 2)) / r.width;
+      const ny = (e.clientY - (r.top + r.height / 2)) / r.height;
+      targetY = Math.max(-1, Math.min(1, nx * 1.4)) * 0.9;
+      targetX = Math.max(-1, Math.min(1, ny * 1.4)) * 0.6;
     }, { passive: true });
 
+    wrap.addEventListener("pointerleave", () => { hovered = null; });
+
+    // Drag spins (horizontal) and tips (vertical) the capsule you grab
     wrap.addEventListener("pointerdown", (e) => {
-      dragging = true; moved = 0; lastX = e.clientX; spinVel = 0;
+      grabbed = pick(e, true);
+      if (!grabbed) return;
+      moved = 0; lastX = e.clientX; lastY = e.clientY; grabbed.spinVel = 0; grabbed.tiltVel = 0;
       wrap.classList.add("is-dragging", "is-touched");
       wrap.setPointerCapture(e.pointerId);
     });
     wrap.addEventListener("pointermove", (e) => {
-      if (!dragging) return;
-      const dx = e.clientX - lastX;
-      lastX = e.clientX;
-      moved += Math.abs(dx);
-      spinY += dx * 0.012;
-      spinVel = dx * 0.012;
+      if (!grabbed) { if (e.pointerType === "mouse") hovered = pick(e, false); return; }
+      const dx = e.clientX - lastX, dy = e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      grabbed.spinVel = dx * 0.022;
+      grabbed.tiltVel = dy * 0.018;
+      grabbed.spin += grabbed.spinVel;
+      grabbed.tilt = Math.max(-1.3, Math.min(1.3, grabbed.tilt + grabbed.tiltVel));
     });
     const endDrag = () => {
-      if (!dragging) return;
-      dragging = false;
+      if (!grabbed) return;
+      if (moved < 4) { grabbed.hop = 1; grabbed.spinVel = 0.35; } // a click: little hop and twirl
+      grabbed = null;
       wrap.classList.remove("is-dragging");
-      if (moved < 4) { // a click, not a drag
-        paletteIndex = (paletteIndex + 1) % palette.length;
-        material.color.setHex(palette[paletteIndex]);
-        pivot.userData.pulse = 1;
-      }
     };
     wrap.addEventListener("pointerup", endDrag);
     wrap.addEventListener("pointercancel", endDrag);
 
+    // Same spring as the plaques' CSS pop: cubic-bezier(0.34, 1.56, 0.64, 1)
+    const easeOutBack = (t) => 1 + 2.70158 * Math.pow(t - 1, 3) + 1.70158 * Math.pow(t - 1, 2);
+
     const tick = () => {
       if (!visible) return;
       requestAnimationFrame(tick);
-      const mesh = pivot.userData.mesh;
-      if (mesh) {
-        // Pop in on first appearance, with a small bounce on color change
-        const pulse = (pivot.userData.pulse || 0) * 0.85;
-        pivot.userData.pulse = pulse;
-        const s = mesh.scale.x + (1 + pulse * 0.12 - mesh.scale.x) * 0.12;
-        mesh.scale.setScalar(s);
-      }
-      if (!dragging) {
-        spinVel *= 0.95;
-        spinY += spinVel + (reduceMotion ? 0 : 0.004);
-      }
-      leanX += (targetX - leanX) * 0.08;
-      leanY += (targetY - leanY) * 0.08;
-      pivot.rotation.set(leanX, spinY + leanY, 0);
+      const now = performance.now();
+      leanX += (targetX - leanX) * 0.15;
+      leanY += (targetY - leanY) * 0.15;
+      pieces.forEach((p, i) => {
+        if (!p.mesh) return;
+        // Pop in one by one, 140 ms apart, like the plaques
+        const t = reduceMotion ? 1 : Math.max(0, Math.min(1, (now - enteredAt - i * 140) / 650));
+        const pop = t === 0 ? 0 : easeOutBack(t);
+        p.hover += ((p === hovered || p === grabbed ? 1.12 : 1) - p.hover) * 0.2;
+        p.hop *= 0.9;
+        p.mesh.scale.setScalar(Math.max(0, pop) * p.hover * (1 + p.hop * 0.1));
+        p.pivot.position.y = (1 - Math.min(1, pop)) * -12 + Math.sin(p.hop * Math.PI) * 6;
+        if (p !== grabbed) {
+          p.spinVel *= 0.95;
+          p.spin += p.spinVel + (reduceMotion ? 0 : 0.004);
+          p.tiltVel *= 0.9;
+          p.tilt = Math.max(-1.3, Math.min(1.3, p.tilt + p.tiltVel)) * 0.97; // drift back upright
+        }
+        p.pivot.rotation.set(p.tilt + leanX, p.spin + leanY, 0);
+      });
       renderer.render(scene, camera);
     };
 
+    // Replays the pop each time the row scrolls back into view
     new IntersectionObserver(([entry]) => {
       const wasVisible = visible;
       visible = entry.isIntersecting;
-      if (visible) { load(); resize(); if (!wasVisible) requestAnimationFrame(tick); }
-    }, { rootMargin: "200px 0px" }).observe(wrap);
+      if (visible && !wasVisible) {
+        load();
+        resize();
+        enteredAt = performance.now();
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.3 }).observe(wrap);
   }
 
   /* ---------------------------------------------------------------------

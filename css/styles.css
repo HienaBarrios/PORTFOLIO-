@@ -207,9 +207,9 @@ html.js [data-pop].is-settled img:focus-visible { transform: scale(1.05); }
   letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance;
 }
 .case__note { margin: 0; font-size: clamp(15px, 1.4vw, 19px); line-height: 1.5; max-width: 52ch; text-wrap: pretty; }
-/* Interactive 3D mosaic capsule filling the space under the note */
+/* Row of interactive 3D mosaic capsules under the note */
 .piece3d {
-  position: relative; flex: 1 1 auto; min-height: clamp(280px, 32vw, 520px);
+  position: relative; min-height: clamp(160px, 16vw, 300px); margin-top: clamp(12px, 2vw, 32px);
   cursor: grab; touch-action: pan-y; user-select: none;
 }
 .piece3d.is-dragging { cursor: grabbing; }

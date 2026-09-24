@@ -463,9 +463,10 @@
   }
 
   /* ---------------------------------------------------------------------
-   * Interactive 3D capsule — the actual Michelob mosaic piece (binary STL).
-   * Idles with a slow spin, leans toward the cursor, drags to rotate and
-   * cycles through the mosaic's palette on click. Only renders on screen.
+   * Interactive 3D capsules — the actual Michelob mosaic piece (binary STL),
+   * one per print color, showing their "M" face. They wobble gently, lean
+   * toward the cursor, rotate on drag and settle back facing front.
+   * Only renders on screen.
    * ------------------------------------------------------------------- */
   function parseBinarySTL(buffer) {
     const view = new DataView(buffer);
@@ -490,7 +491,7 @@
       shader.uniforms.uLayer = { value: layerHeight };
       shader.vertexShader = shader.vertexShader
         .replace("#include <common>", "#include <common>\nvarying float vLayerY;")
-        .replace("#include <begin_vertex>", "#include <begin_vertex>\nvLayerY = position.y;");
+        .replace("#include <begin_vertex>", "#include <begin_vertex>\nvLayerY = position.z;");
       shader.fragmentShader = shader.fragmentShader
         .replace("#include <common>", `#include <common>
           uniform float uLayer;
@@ -525,7 +526,9 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(30, 1, 1, 2000);
+    // Orthographic so every capsule shows its face flat-on, even at the ends of the row
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000);
+    camera.position.set(0, 0, 200);
     scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, 0.9));
     const key = new THREE.DirectionalLight(0xffffff, 1.1);
     key.position.set(40, 60, 80);
@@ -544,7 +547,7 @@
       const pivot = new THREE.Group();
       pivot.position.x = (i - (palette.length - 1) / 2) * SPACING;
       scene.add(pivot);
-      return { pivot, material, mesh: null, spin: 0.6 + i * 0.9, spinVel: 0, tilt: 0, tiltVel: 0, hover: 1, hop: 0 };
+      return { pivot, material, mesh: null, spin: 0, spinVel: 0, spinTarget: 0, tilt: 0, tiltVel: 0, hover: 1, hop: 0 };
     });
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -557,9 +560,10 @@
       const w = wrap.clientWidth, h = wrap.clientHeight;
       if (!w || !h) return;
       renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      const perUnit = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-      camera.position.set(0, 0, Math.max(78 / perUnit, (ROW_W * 1.15) / (perUnit * camera.aspect)));
+      const aspect = w / h;
+      const viewH = Math.max(48, (ROW_W * 1.15) / aspect); // mm visible top to bottom
+      camera.top = viewH / 2; camera.bottom = -viewH / 2;
+      camera.left = -viewH * aspect / 2; camera.right = viewH * aspect / 2;
       camera.updateProjectionMatrix();
     };
     resize();
@@ -572,7 +576,7 @@
         .then((r) => r.arrayBuffer())
         .then((buf) => {
           const geo = parseBinarySTL(buf);
-          geo.rotateX(-Math.PI / 2); // STL is Z-up; stand it upright
+          geo.rotateX(Math.PI); // turn the logo face (STL bottom, -Z) toward the camera
           geo.center();
           geo.computeBoundingSphere();
           pieces.forEach((p) => {
@@ -612,8 +616,8 @@
       const r = wrap.getBoundingClientRect();
       const nx = (e.clientX - (r.left + r.width / 2)) / r.width;
       const ny = (e.clientY - (r.top + r.height / 2)) / r.height;
-      targetY = Math.max(-1, Math.min(1, nx * 1.4)) * 0.9;
-      targetX = Math.max(-1, Math.min(1, ny * 1.4)) * 0.6;
+      targetY = Math.max(-1, Math.min(1, nx * 1.4)) * 0.45; // enough to feel alive, never hides the M
+      targetX = Math.max(-1, Math.min(1, ny * 1.4)) * 0.35;
     }, { passive: true });
 
     wrap.addEventListener("pointerleave", () => { hovered = null; });
@@ -638,7 +642,10 @@
     });
     const endDrag = () => {
       if (!grabbed) return;
-      if (moved < 4) { grabbed.hop = 1; grabbed.spinVel = 0.35; } // a click: little hop and twirl
+      // Settle on the nearest front-facing turn; a click adds one full twirl
+      const turn = Math.PI * 2;
+      grabbed.spinTarget = Math.round(grabbed.spin / turn) * turn;
+      if (moved < 4) { grabbed.hop = 1; grabbed.spinTarget += turn; }
       grabbed = null;
       wrap.classList.remove("is-dragging");
     };
@@ -664,12 +671,17 @@
         p.mesh.scale.setScalar(Math.max(0, pop) * p.hover * (1 + p.hop * 0.1));
         p.pivot.position.y = (1 - Math.min(1, pop)) * -12 + Math.sin(p.hop * Math.PI) * 6;
         if (p !== grabbed) {
-          p.spinVel *= 0.95;
-          p.spin += p.spinVel + (reduceMotion ? 0 : 0.004);
+          p.spinVel = (p.spinVel + (p.spinTarget - p.spin) * 0.012) * 0.9; // spring back to front
+          p.spin += p.spinVel;
           p.tiltVel *= 0.9;
           p.tilt = Math.max(-1.3, Math.min(1.3, p.tilt + p.tiltVel)) * 0.97; // drift back upright
         }
-        p.pivot.rotation.set(p.tilt + leanX, p.spin + leanY, 0);
+        const wobble = reduceMotion ? 0 : now / 1000 * 0.9 + i * 1.3;
+        p.pivot.rotation.set(
+          p.tilt + leanX + (reduceMotion ? 0 : Math.cos(wobble) * 0.07),
+          p.spin + leanY + (reduceMotion ? 0 : Math.sin(wobble) * 0.12),
+          0
+        );
       });
       renderer.render(scene, camera);
     };

@@ -29,6 +29,7 @@
       "case.michelob-copy": "For an upcoming large-scale Michelob ULTRA installation inspired by Messi, I developed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.",
       "case.michelob-heading2": "An individual message, a collective artwork",
       "case.michelob-copy2": "Fans insert personal messages into 3D-printed capsules and add them to a panel to reveal a massive Messi mosaic, receiving a commemorative keychain in return",
+      "case.piece-hint": "Drag to rotate · click to change color",
       "teaser.sub": "Branding · Identity system",
       "about.eyebrow": "About",
       "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
@@ -59,6 +60,7 @@
       "case.michelob-copy": "Para una próxima instalación a gran escala de Michelob ULTRA inspirada en Messi, desarrollé y produje miles de piezas personalizadas impresas en 3D, llevando el proyecto desde el modelado inicial hasta la producción final.",
       "case.michelob-heading2": "Un mensaje individual, una obra colectiva",
       "case.michelob-copy2": "Los fans insertan mensajes personales en cápsulas impresas en 3D y las suman a un panel para revelar un mosaico gigante de Messi, y a cambio reciben un llavero conmemorativo",
+      "case.piece-hint": "Arrastrá para girar · clic para cambiar el color",
       "teaser.sub": "Branding · Sistema de identidad",
       "about.eyebrow": "Acerca de",
       "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
@@ -461,6 +463,151 @@
   }
 
   /* ---------------------------------------------------------------------
+   * Interactive 3D capsule — the actual Michelob mosaic piece (binary STL).
+   * Idles with a slow spin, leans toward the cursor, drags to rotate and
+   * cycles through the mosaic's palette on click. Only renders on screen.
+   * ------------------------------------------------------------------- */
+  function parseBinarySTL(buffer) {
+    const view = new DataView(buffer);
+    const tris = view.getUint32(80, true);
+    const pos = new Float32Array(tris * 9);
+    for (let t = 0; t < tris; t++) {
+      const o = 84 + t * 50 + 12; // skip the stored normal
+      for (let k = 0; k < 9; k++) pos[t * 9 + k] = view.getFloat32(o + k * 4, true);
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geo.computeVertexNormals();
+    return geo;
+  }
+
+  function initPiece3D() {
+    const wrap = document.querySelector(".piece3d");
+    if (!wrap || !window.THREE) return;
+    const canvas = wrap.querySelector("canvas");
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    } catch (e) {
+      wrap.remove();
+      return;
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, 1, 1, 1000);
+    camera.position.set(0, 0, 105);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, 0.9));
+    const key = new THREE.DirectionalLight(0xffffff, 1.1);
+    key.position.set(40, 60, 80);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.6);
+    rim.position.set(-60, -20, -60);
+    scene.add(rim);
+
+    // Colors of the printed pieces in the Messi mosaic
+    const palette = [0xc9962b, 0xf2f2f2, 0x1f3fbf, 0x8a8a8a]; // black is left out: it vanishes on the page
+    let paletteIndex = 0;
+    const material = new THREE.MeshStandardMaterial({ color: palette[0], roughness: 0.45, metalness: 0.1 });
+    const pivot = new THREE.Group();
+    scene.add(pivot);
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let spinY = 0.6, spinVel = 0, leanX = 0, leanY = 0, targetX = 0, targetY = 0;
+    let dragging = false, moved = 0, lastX = 0, visible = false, loaded = false;
+
+    const resize = () => {
+      const w = wrap.clientWidth, h = wrap.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    };
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+      fetch(wrap.dataset.model)
+        .then((r) => r.arrayBuffer())
+        .then((buf) => {
+          const geo = parseBinarySTL(buf);
+          geo.rotateX(-Math.PI / 2); // STL is Z-up; stand it upright
+          geo.center();
+          const mesh = new THREE.Mesh(geo, material);
+          mesh.scale.setScalar(0);
+          pivot.add(mesh);
+          pivot.userData.mesh = mesh;
+        })
+        .catch(() => wrap.remove());
+    };
+
+    // Lean toward the cursor anywhere on the page, not just over the canvas
+    window.addEventListener("pointermove", (e) => {
+      if (!visible) return;
+      const r = wrap.getBoundingClientRect();
+      const nx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      const ny = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      targetY = Math.max(-1, Math.min(1, nx * 2)) * 0.5;
+      targetX = Math.max(-1, Math.min(1, ny * 2)) * 0.35;
+    }, { passive: true });
+
+    wrap.addEventListener("pointerdown", (e) => {
+      dragging = true; moved = 0; lastX = e.clientX; spinVel = 0;
+      wrap.classList.add("is-dragging", "is-touched");
+      wrap.setPointerCapture(e.pointerId);
+    });
+    wrap.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX;
+      lastX = e.clientX;
+      moved += Math.abs(dx);
+      spinY += dx * 0.012;
+      spinVel = dx * 0.012;
+    });
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove("is-dragging");
+      if (moved < 4) { // a click, not a drag
+        paletteIndex = (paletteIndex + 1) % palette.length;
+        material.color.setHex(palette[paletteIndex]);
+        pivot.userData.pulse = 1;
+      }
+    };
+    wrap.addEventListener("pointerup", endDrag);
+    wrap.addEventListener("pointercancel", endDrag);
+
+    const tick = () => {
+      if (!visible) return;
+      requestAnimationFrame(tick);
+      const mesh = pivot.userData.mesh;
+      if (mesh) {
+        // Pop in on first appearance, with a small bounce on color change
+        const pulse = (pivot.userData.pulse || 0) * 0.85;
+        pivot.userData.pulse = pulse;
+        const s = mesh.scale.x + (1 + pulse * 0.12 - mesh.scale.x) * 0.12;
+        mesh.scale.setScalar(s);
+      }
+      if (!dragging) {
+        spinVel *= 0.95;
+        spinY += spinVel + (reduceMotion ? 0 : 0.004);
+      }
+      leanX += (targetX - leanX) * 0.08;
+      leanY += (targetY - leanY) * 0.08;
+      pivot.rotation.set(leanX, spinY + leanY, 0);
+      renderer.render(scene, camera);
+    };
+
+    new IntersectionObserver(([entry]) => {
+      const wasVisible = visible;
+      visible = entry.isIntersecting;
+      if (visible) { load(); resize(); if (!wasVisible) requestAnimationFrame(tick); }
+    }, { rootMargin: "200px 0px" }).observe(wrap);
+  }
+
+  /* ---------------------------------------------------------------------
    * GSAP parallax tilt on the Banda Eterna teaser art
    * ------------------------------------------------------------------- */
   function initTilt() {
@@ -480,6 +627,7 @@
       initFadeUp();
       initPopReveal();
       initPopLightbox();
+      initPiece3D();
       initTypewriter();
       initTilt();
       if (window.ScrollTrigger) ScrollTrigger.refresh();

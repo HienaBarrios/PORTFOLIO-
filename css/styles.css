@@ -207,6 +207,19 @@ html.js [data-pop].is-settled img:focus-visible { transform: scale(1.05); }
   letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance;
 }
 .case__note { margin: 0; font-size: clamp(15px, 1.4vw, 19px); line-height: 1.5; max-width: 52ch; text-wrap: pretty; }
+/* Interactive 3D mosaic capsule filling the space under the note */
+.piece3d {
+  position: relative; flex: 1 1 auto; min-height: clamp(280px, 32vw, 520px);
+  cursor: grab; touch-action: pan-y; user-select: none;
+}
+.piece3d.is-dragging { cursor: grabbing; }
+.piece3d__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.piece3d__hint {
+  position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  white-space: nowrap; pointer-events: none; transition: opacity 0.4s ease;
+}
+.piece3d.is-touched .piece3d__hint { opacity: 0; }
 
 /* Banda Eterna teaser tile */
 .teaser {

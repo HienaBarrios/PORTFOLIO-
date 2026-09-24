@@ -377,34 +377,36 @@
   }
 
   /* ---------------------------------------------------------------------
-   * Pop-up reveal for the Bad Bunny plaques — each plaque springs in with
-   * a stagger; leaving the viewport resets them like the fade-up.
+   * Pop-up reveal for [data-pop] groups (Bad Bunny plaques, Messi mosaic) —
+   * each image springs in with a stagger; leaving the viewport resets them
+   * like the fade-up.
    * ------------------------------------------------------------------- */
-  function initPlaquesPop() {
-    const row = document.querySelector(".plaques");
-    if (!row) return;
-    [...row.children].forEach((img, i) => img.style.setProperty("--i", i));
+  function initPopReveal() {
+    document.querySelectorAll("[data-pop]").forEach((group) => {
+      const imgs = [...group.querySelectorAll("img")];
+      imgs.forEach((img, i) => img.style.setProperty("--i", i));
 
-    // After the last plaque lands, switch to the quick hover transition
-    const settleAfter = (row.children.length - 1) * 140 + 650;
-    let settleTimer;
-    const io = new IntersectionObserver(([entry]) => {
-      row.classList.toggle("is-in", entry.isIntersecting);
-      clearTimeout(settleTimer);
-      if (entry.isIntersecting) settleTimer = setTimeout(() => row.classList.add("is-settled"), settleAfter);
-      else row.classList.remove("is-settled");
-    }, { threshold: 0.3, rootMargin: "0px 0px -8% 0px" });
+      // After the last image lands, switch to the quick hover transition
+      const settleAfter = (imgs.length - 1) * 140 + 650;
+      let settleTimer;
+      const io = new IntersectionObserver(([entry]) => {
+        group.classList.toggle("is-in", entry.isIntersecting);
+        clearTimeout(settleTimer);
+        if (entry.isIntersecting) settleTimer = setTimeout(() => group.classList.add("is-settled"), settleAfter);
+        else group.classList.remove("is-settled");
+      }, { threshold: 0.3, rootMargin: "0px 0px -8% 0px" });
 
-    io.observe(row);
+      io.observe(group);
+    });
   }
 
   /* ---------------------------------------------------------------------
-   * Lightbox — clicking a plaque opens it full size. Arrows step through
-   * the set; Esc, the × or a click outside the image closes it.
+   * Lightbox — clicking a [data-pop] image opens it full size. Arrows step
+   * through the rest of its group; Esc, the × or a click outside closes it.
    * ------------------------------------------------------------------- */
-  function initPlaquesLightbox() {
-    const imgs = [...document.querySelectorAll(".plaques img")];
-    if (!imgs.length || !window.HTMLDialogElement) return;
+  function initPopLightbox() {
+    const groups = [...document.querySelectorAll("[data-pop]")];
+    if (!groups.length || !window.HTMLDialogElement) return;
 
     const box = document.createElement("dialog");
     box.className = "lightbox";
@@ -415,6 +417,7 @@
       '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next">→</button>';
     document.body.appendChild(box);
     const big = box.querySelector("img");
+    let imgs = [];
     let current = 0;
 
     const show = (i) => {
@@ -425,13 +428,22 @@
       void big.offsetWidth; // replay the pop on every change
       big.style.animation = "";
     };
+    const open = (set, i) => {
+      imgs = set;
+      box.classList.toggle("lightbox--single", set.length < 2);
+      show(i);
+      box.showModal();
+    };
 
-    imgs.forEach((img, i) => {
-      img.tabIndex = 0;
-      img.setAttribute("role", "button");
-      img.addEventListener("click", () => { show(i); box.showModal(); });
-      img.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(i); box.showModal(); }
+    groups.forEach((group) => {
+      const set = [...group.querySelectorAll("img")];
+      set.forEach((img, i) => {
+        img.tabIndex = 0;
+        img.setAttribute("role", "button");
+        img.addEventListener("click", () => open(set, i));
+        img.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(set, i); }
+        });
       });
     });
 
@@ -441,6 +453,7 @@
     big.addEventListener("click", () => box.close());
     box.addEventListener("click", (e) => { if (e.target === box) box.close(); });
     box.addEventListener("keydown", (e) => {
+      if (imgs.length < 2) return;
       if (e.key === "ArrowLeft") show(current - 1);
       if (e.key === "ArrowRight") show(current + 1);
     });
@@ -465,8 +478,8 @@
     initHeroVideoFallback();
     setTimeout(() => {
       initFadeUp();
-      initPlaquesPop();
-      initPlaquesLightbox();
+      initPopReveal();
+      initPopLightbox();
       initTypewriter();
       initTilt();
       if (window.ScrollTrigger) ScrollTrigger.refresh();

@@ -121,25 +121,25 @@ img, video { max-width: 100%; }
 
 .plaques { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 0.8vw, 12px); }
 .plaques img { display: block; width: 100%; height: auto; background: var(--panel); }
-/* Pop-up: plaques spring in one by one when the row scrolls into view */
-html.js .plaques img {
+/* Pop-up: [data-pop] images spring in one by one when their group scrolls into view */
+html.js [data-pop] img {
   opacity: 0; transform: translateY(40px) scale(0.6);
   transition: opacity 0.4s ease, transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
   transition-delay: calc(var(--i, 0) * 140ms);
 }
-html.js .plaques.is-in img { opacity: 1; transform: none; }
-html.js .plaques:not(.is-in) img { transition-delay: 0ms; }
-/* Once the entrance has played, hover grows the plaque slightly */
-.plaques img { cursor: zoom-in; }
-html.js .plaques.is-settled img { transition: transform 0.3s ease; transition-delay: 0ms; }
-html.js .plaques.is-settled img:hover,
-html.js .plaques.is-settled img:focus-visible { transform: scale(1.05); }
-.plaques img:focus-visible { outline: 1px solid var(--fg); outline-offset: 4px; }
+html.js [data-pop].is-in img { opacity: 1; transform: none; }
+html.js [data-pop]:not(.is-in) img { transition-delay: 0ms; }
+/* Once the entrance has played, hover grows the image slightly */
+[data-pop] img { cursor: zoom-in; }
+html.js [data-pop].is-settled img { transition: transform 0.3s ease; transition-delay: 0ms; }
+html.js [data-pop].is-settled img:hover,
+html.js [data-pop].is-settled img:focus-visible { transform: scale(1.05); }
+[data-pop] img:focus-visible { outline: 1px solid var(--fg); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
-  html.js .plaques img { opacity: 1; transform: none; transition: none; }
+  html.js [data-pop] img { opacity: 1; transform: none; transition: none; }
 }
 
-/* Lightbox for the plaques */
+/* Lightbox for [data-pop] images */
 .lightbox {
   width: 100vw; height: 100vh; max-width: none; max-height: none;
   margin: 0; padding: clamp(16px, 4vw, 48px); border: 0;
@@ -162,6 +162,8 @@ html.js .plaques.is-settled img:focus-visible { transform: scale(1.05); }
 .lightbox__nav { top: 50%; transform: translateY(-50%); }
 .lightbox__nav--prev { left: 8px; }
 .lightbox__nav--next { right: 8px; }
+/* A lone image has nothing to step through */
+.lightbox--single .lightbox__nav { display: none; }
 @keyframes lightbox-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .lightbox[open] img { animation: none; } }
 
@@ -198,6 +200,8 @@ html.js .plaques.is-settled img:focus-visible { transform: scale(1.05); }
   margin-top: clamp(24px, 4vw, 64px);
 }
 .case__square-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Let the pop and hover grow past the frame instead of being clipped */
+.case__square-media[data-pop] { overflow: visible; background: none; }
 .case__heading2 {
   margin: 0; font-size: clamp(26px, 3.4vw, 48px); font-weight: 900; line-height: 0.94;
   letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance;

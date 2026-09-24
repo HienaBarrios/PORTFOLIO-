@@ -377,6 +377,22 @@
   }
 
   /* ---------------------------------------------------------------------
+   * Pop-up reveal for the Bad Bunny plaques — each plaque springs in with
+   * a stagger; leaving the viewport resets them like the fade-up.
+   * ------------------------------------------------------------------- */
+  function initPlaquesPop() {
+    const row = document.querySelector(".plaques");
+    if (!row) return;
+    [...row.children].forEach((img, i) => img.style.setProperty("--i", i));
+
+    const io = new IntersectionObserver(([entry]) => {
+      row.classList.toggle("is-in", entry.isIntersecting);
+    }, { threshold: 0.3, rootMargin: "0px 0px -8% 0px" });
+
+    io.observe(row);
+  }
+
+  /* ---------------------------------------------------------------------
    * GSAP parallax tilt on the Banda Eterna teaser art
    * ------------------------------------------------------------------- */
   function initTilt() {
@@ -394,6 +410,7 @@
     initHeroVideoFallback();
     setTimeout(() => {
       initFadeUp();
+      initPlaquesPop();
       initTypewriter();
       initTilt();
       if (window.ScrollTrigger) ScrollTrigger.refresh();

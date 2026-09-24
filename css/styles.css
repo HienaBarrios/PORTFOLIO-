@@ -121,6 +121,17 @@ img, video { max-width: 100%; }
 
 .plaques { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 0.8vw, 12px); }
 .plaques img { display: block; width: 100%; height: auto; background: var(--panel); }
+/* Pop-up: plaques spring in one by one when the row scrolls into view */
+html.js .plaques img {
+  opacity: 0; transform: translateY(40px) scale(0.6);
+  transition: opacity 0.4s ease, transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--i, 0) * 140ms);
+}
+html.js .plaques.is-in img { opacity: 1; transform: none; }
+html.js .plaques:not(.is-in) img { transition-delay: 0ms; }
+@media (prefers-reduced-motion: reduce) {
+  html.js .plaques img { opacity: 1; transform: none; transition: none; }
+}
 
 .pixels-row {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 44%);

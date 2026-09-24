@@ -129,9 +129,41 @@ html.js .plaques img {
 }
 html.js .plaques.is-in img { opacity: 1; transform: none; }
 html.js .plaques:not(.is-in) img { transition-delay: 0ms; }
+/* Once the entrance has played, hover grows the plaque slightly */
+.plaques img { cursor: zoom-in; }
+html.js .plaques.is-settled img { transition: transform 0.3s ease; transition-delay: 0ms; }
+html.js .plaques.is-settled img:hover,
+html.js .plaques.is-settled img:focus-visible { transform: scale(1.05); }
+.plaques img:focus-visible { outline: 1px solid var(--fg); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
   html.js .plaques img { opacity: 1; transform: none; transition: none; }
 }
+
+/* Lightbox for the plaques */
+.lightbox {
+  width: 100vw; height: 100vh; max-width: none; max-height: none;
+  margin: 0; padding: clamp(16px, 4vw, 48px); border: 0;
+  background: transparent; color: var(--fg);
+  display: flex; align-items: center; justify-content: center;
+}
+.lightbox:not([open]) { display: none; }
+.lightbox::backdrop { background: rgba(0, 0, 0, 0.9); }
+.lightbox img {
+  display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
+  cursor: zoom-out;
+}
+.lightbox[open] img { animation: lightbox-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.lightbox__close, .lightbox__nav {
+  position: absolute; background: none; border: 0; padding: 12px;
+  color: var(--fg); font: inherit; font-size: 28px; line-height: 1; cursor: pointer;
+}
+.lightbox__close:hover, .lightbox__nav:hover { color: var(--muted); }
+.lightbox__close { top: 12px; right: 12px; }
+.lightbox__nav { top: 50%; transform: translateY(-50%); }
+.lightbox__nav--prev { left: 8px; }
+.lightbox__nav--next { right: 8px; }
+@keyframes lightbox-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .lightbox[open] img { animation: none; } }
 
 .pixels-row {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 44%);

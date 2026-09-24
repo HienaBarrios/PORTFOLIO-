@@ -385,11 +385,66 @@
     if (!row) return;
     [...row.children].forEach((img, i) => img.style.setProperty("--i", i));
 
+    // After the last plaque lands, switch to the quick hover transition
+    const settleAfter = (row.children.length - 1) * 140 + 650;
+    let settleTimer;
     const io = new IntersectionObserver(([entry]) => {
       row.classList.toggle("is-in", entry.isIntersecting);
+      clearTimeout(settleTimer);
+      if (entry.isIntersecting) settleTimer = setTimeout(() => row.classList.add("is-settled"), settleAfter);
+      else row.classList.remove("is-settled");
     }, { threshold: 0.3, rootMargin: "0px 0px -8% 0px" });
 
     io.observe(row);
+  }
+
+  /* ---------------------------------------------------------------------
+   * Lightbox — clicking a plaque opens it full size. Arrows step through
+   * the set; Esc, the × or a click outside the image closes it.
+   * ------------------------------------------------------------------- */
+  function initPlaquesLightbox() {
+    const imgs = [...document.querySelectorAll(".plaques img")];
+    if (!imgs.length || !window.HTMLDialogElement) return;
+
+    const box = document.createElement("dialog");
+    box.className = "lightbox";
+    box.innerHTML =
+      '<img alt="">' +
+      '<button class="lightbox__close" type="button" aria-label="Close">×</button>' +
+      '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous">←</button>' +
+      '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next">→</button>';
+    document.body.appendChild(box);
+    const big = box.querySelector("img");
+    let current = 0;
+
+    const show = (i) => {
+      current = (i + imgs.length) % imgs.length;
+      big.src = imgs[current].src;
+      big.alt = imgs[current].alt;
+      big.style.animation = "none";
+      void big.offsetWidth; // replay the pop on every change
+      big.style.animation = "";
+    };
+
+    imgs.forEach((img, i) => {
+      img.tabIndex = 0;
+      img.setAttribute("role", "button");
+      img.addEventListener("click", () => { show(i); box.showModal(); });
+      img.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(i); box.showModal(); }
+      });
+    });
+
+    box.querySelector(".lightbox__close").addEventListener("click", () => box.close());
+    box.querySelector(".lightbox__nav--prev").addEventListener("click", () => show(current - 1));
+    box.querySelector(".lightbox__nav--next").addEventListener("click", () => show(current + 1));
+    big.addEventListener("click", () => box.close());
+    box.addEventListener("click", (e) => { if (e.target === box) box.close(); });
+    box.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") show(current - 1);
+      if (e.key === "ArrowRight") show(current + 1);
+    });
+    box.addEventListener("close", () => imgs[current].focus({ preventScroll: true }));
   }
 
   /* ---------------------------------------------------------------------
@@ -411,6 +466,7 @@
     setTimeout(() => {
       initFadeUp();
       initPlaquesPop();
+      initPlaquesLightbox();
       initTypewriter();
       initTilt();
       if (window.ScrollTrigger) ScrollTrigger.refresh();

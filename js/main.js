@@ -709,7 +709,6 @@
       initPopLightbox();
       initPiece3D();
       initTypewriter();
-      if (window.ScrollTrigger) ScrollTrigger.refresh();
     }, 120);
   });
 })();

@@ -221,36 +221,6 @@ html.js [data-pop].is-settled img:focus-visible { transform: scale(1.05); }
 }
 .piece3d.is-touched .piece3d__hint { opacity: 0; }
 
-/* Banda Eterna teaser tile */
-.teaser {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  align-items: center; gap: clamp(16px, 3vw, 40px);
-  padding: clamp(20px, 3vw, 36px) clamp(20px, 3.5vw, 48px);
-  scroll-margin-top: 64px;
-}
-.teaser:hover { background: var(--panel); }
-.teaser__left { display: flex; gap: 20px; align-items: flex-start; }
-.teaser__no { font-size: 12px; font-weight: 800; letter-spacing: 0.1em; color: var(--muted); padding-top: 10px; }
-.teaser__title {
-  font-size: clamp(30px, 5vw, 68px); font-weight: 900; line-height: 0.9;
-  letter-spacing: -0.035em; text-transform: uppercase;
-}
-.teaser__sub { margin-top: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-.teaser__art {
-  position: relative; aspect-ratio: 16 / 10; background: var(--panel); overflow: hidden;
-  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease;
-}
-.teaser__art:hover { transform: scale(1.02); filter: contrast(1.2); }
-.teaser__art-fill {
-  position: absolute; inset: 0;
-  background: linear-gradient(100deg, #4a3a12 0%, #c9a85c 38%, #f3e0a8 52%, #4a3a12 100%);
-}
-.teaser__art-label {
-  position: absolute; left: 12px; bottom: 12px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
-}
-
 /* About */
 .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
 .about__col { padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); }
@@ -285,7 +255,8 @@ html.js [data-pop].is-settled img:focus-visible { transform: scale(1.05); }
 .clients__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-end; }
 .clients__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0; margin-top: clamp(22px, 3vw, 36px); }
 .client { background: #000000; padding: 26px 20px; font-size: clamp(18px, 2vw, 26px); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; }
-.client:hover { background: var(--panel); }
+.client { display: block; text-decoration: none; transition: background 0.3s ease; }
+.client:hover { background: var(--panel); color: var(--fg); }
 
 /* Contact */
 .contact { padding: clamp(40px, 7vw, 110px) clamp(20px, 3.5vw, 48px) clamp(28px, 3vw, 48px); }

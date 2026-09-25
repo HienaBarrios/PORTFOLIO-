@@ -30,13 +30,13 @@
       "case.michelob-heading2": "An individual message, a collective artwork",
       "case.michelob-copy2": "Fans insert personal messages into 3D-printed capsules and add them to a panel to reveal a massive Messi mosaic, receiving a commemorative keychain in return",
       "case.piece-hint": "Drag a capsule to spin it",
-      "teaser.sub": "Branding · Identity system",
+      "case.bubble-sub": "Branding System",
       "about.eyebrow": "About",
       "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
       "about.philosophy-copy": "I approach design as an integral system where the digital and physical worlds converge. My focus is the balance between urban aesthetics and maximum technical precision, whether modeling cell-shaded figures, sculpting custom jewelry or setting up additive manufacturing processes.",
       "about.teammates": "What teammates say",
-      "about.quote1": "“An exceptional designer. His command of 3D modeling and his vision for integrating 3D graphic design took our project to another level.”",
-      "about.author1": "Marketing director — Dale Play",
+      "about.quote1": "“With Valen we have done all our branding design, and 3d stuff for our videos, he is amazing in his work.”",
+      "about.author1": "Bubble team - Somosbubble",
       "about.quote2": "“I've been working with Valen for a while now. He has exceptional attention to detail and is fast at executing any project.”",
       "about.author2": "Gonzalo Castaño - Visual artist",
       "clients.selected": "Selected",
@@ -61,13 +61,13 @@
       "case.michelob-heading2": "Un mensaje individual, una obra colectiva",
       "case.michelob-copy2": "Los fans insertan mensajes personales en cápsulas impresas en 3D y las suman a un panel para revelar un mosaico gigante de Messi, y a cambio reciben un llavero conmemorativo",
       "case.piece-hint": "Arrastrá una cápsula para girarla",
-      "teaser.sub": "Branding · Sistema de identidad",
+      "case.bubble-sub": "Sistema de marca",
       "about.eyebrow": "Acerca de",
       "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
       "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética urbana y la máxima precisión técnica, ya sea modelando figuras con estilo cell-shading, esculpiendo joyería personalizada o configurando procesos de manufactura aditiva.",
       "about.teammates": "Lo que dicen mis compañeros",
-      "about.quote1": "“Un diseñador excepcional. Su dominio del modelado 3D y su visión para integrar diseño gráfico 3D llevaron nuestro proyecto a otro nivel.”",
-      "about.author1": "Director de marketing — Dale Play",
+      "about.quote1": "“Con Valen hicimos todo el diseño de nuestra marca y lo 3D para nuestros videos, es increíble en lo que hace.”",
+      "about.author1": "Equipo Bubble - Somosbubble",
       "about.quote2": "“Vengo trabajando con Valen desde hace un tiempo. Tiene una atención al detalle excepcional y es rápido para ejecutar cualquier proyecto.”",
       "about.author2": "Gonzalo Castaño - Artista plástico",
       "clients.selected": "Seleccionados",
@@ -699,18 +699,6 @@
     }, { threshold: 0.3 }).observe(wrap);
   }
 
-  /* ---------------------------------------------------------------------
-   * GSAP parallax tilt on the Banda Eterna teaser art
-   * ------------------------------------------------------------------- */
-  function initTilt() {
-    if (!window.gsap || !window.ScrollTrigger) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll("[data-tilt]").forEach((el) => {
-      gsap.to(el, { yPercent: -6, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.6 } });
-    });
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     const lang = detectLang();
     initLangToggle(lang); // translate static copy before the typewriter splits any text nodes
@@ -721,7 +709,6 @@
       initPopLightbox();
       initPiece3D();
       initTypewriter();
-      initTilt();
       if (window.ScrollTrigger) ScrollTrigger.refresh();
     }, 120);
   });

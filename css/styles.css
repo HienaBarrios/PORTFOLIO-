@@ -138,6 +138,18 @@ html.js [data-pop].is-settled img:focus-visible { transform: scale(1.05); }
 @media (prefers-reduced-motion: reduce) {
   html.js [data-pop] img { opacity: 1; transform: none; transition: none; }
 }
+/* 3D tilt: once settled, each image turns to face the cursor (angles set in JS) */
+html.js [data-tilt3d].is-settled img {
+  transform: perspective(var(--persp, 800px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  filter: brightness(var(--lit, 1));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+html.js [data-tilt3d].is-settled img:hover,
+html.js [data-tilt3d].is-settled img:focus-visible {
+  transform: perspective(var(--persp, 800px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.05);
+}
+/* The big mosaic poster needs a longer lens so the tilt doesn't warp it */
+.case__square-media[data-tilt3d] img { --persp: 2000px; }
 
 /* Lightbox for [data-pop] images */
 .lightbox {

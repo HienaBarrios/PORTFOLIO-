@@ -33,9 +33,9 @@
       "case.bubble-sub": "Branding System",
       "about.eyebrow": "About",
       "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
-      "about.philosophy-copy": "I approach design as an integral system where the digital and physical worlds converge. My focus is the balance between urban aesthetics and maximum technical precision, whether modeling cell-shaded figures, sculpting custom jewelry or setting up additive manufacturing processes.",
-      "about.teammates": "What teammates say",
-      "about.quote1": "“With Valen we have done all our branding design, and 3d stuff for our videos, he is amazing in his work.”",
+      "about.philosophy-copy": "I approach design as an integral system where the digital and physical worlds converge. My focus is the balance between aesthetics and good design, whether in graphic design, custom 3D product modeling or setting up printing processes.",
+      "about.teammates": "What clients say",
+      "about.quote1": "“With Valen we did all of our brand design and the 3D props for our videos, he is amazing at what he does.”",
       "about.author1": "Bubble team - Somosbubble",
       "about.quote2": "“I've been working with Valen for a while now. He has exceptional attention to detail and is fast at executing any project.”",
       "about.author2": "Gonzalo Castaño - Visual artist",
@@ -64,9 +64,9 @@
       "case.bubble-sub": "Sistema de marca",
       "about.eyebrow": "Acerca de",
       "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
-      "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética urbana y la máxima precisión técnica, ya sea modelando figuras con estilo cell-shading, esculpiendo joyería personalizada o configurando procesos de manufactura aditiva.",
-      "about.teammates": "Lo que dicen mis compañeros",
-      "about.quote1": "“Con Valen hicimos todo el diseño de nuestra marca y lo 3D para nuestros videos, es increíble en lo que hace.”",
+      "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética y el buen diseño, ya sea en diseño gráfico, modelado de productos 3D personalizados o configurando procesos de impresión.",
+      "about.teammates": "Lo que dicen mis clientes",
+      "about.quote1": "“Con Valen hicimos todo el diseño de nuestra marca y props 3D para nuestros videos, es increíble en lo que hace.”",
       "about.author1": "Equipo Bubble - Somosbubble",
       "about.quote2": "“Vengo trabajando con Valen desde hace un tiempo. Tiene una atención al detalle excepcional y es rápido para ejecutar cualquier proyecto.”",
       "about.author2": "Gonzalo Castaño - Artista plástico",
@@ -403,6 +403,44 @@
   }
 
   /* ---------------------------------------------------------------------
+   * 3D tilt for [data-tilt3d] groups (Bad Bunny plaques, Messi mosaic) —
+   * each image turns to face the cursor like a metal plate, brightening as
+   * it tips up toward the light. The attribute value scales the angle
+   * (default 1). Mouse/trackpad only; waits for the pop entrance.
+   * ------------------------------------------------------------------- */
+  function initTilt3D() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    const groups = [...document.querySelectorAll("[data-tilt3d]")];
+    if (!groups.length) return;
+    const clamp = (v) => Math.max(-1, Math.min(1, v));
+    let x = -1, y = -1, queued = false;
+
+    const update = () => {
+      queued = false;
+      groups.forEach((group) => {
+        if (!group.classList.contains("is-settled")) return;
+        const span = group.getBoundingClientRect().width;
+        const k = parseFloat(group.dataset.tilt3d) || 1;
+        group.querySelectorAll("img").forEach((img) => {
+          const r = img.getBoundingClientRect();
+          const off = x < 0; // cursor left the window: settle flat
+          const nx = off ? 0 : clamp((x - (r.left + r.width / 2)) / (span * 0.6));
+          const ny = off ? 0 : clamp((y - (r.top + r.height / 2)) / (r.height * 1.5));
+          img.style.setProperty("--ry", (nx * 18 * k).toFixed(2) + "deg");
+          img.style.setProperty("--rx", (-ny * 14 * k).toFixed(2) + "deg");
+          img.style.setProperty("--lit", (1 - ny * 0.12 * k).toFixed(3));
+        });
+      });
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+
+    window.addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; queue(); }, { passive: true });
+    window.addEventListener("scroll", queue, { passive: true });
+    document.documentElement.addEventListener("mouseleave", () => { x = -1; queue(); });
+  }
+
+  /* ---------------------------------------------------------------------
    * Lightbox — clicking a [data-pop] image opens it full size. Arrows step
    * through the rest of its group; Esc, the × or a click outside closes it.
    * ------------------------------------------------------------------- */
@@ -706,6 +744,7 @@
     setTimeout(() => {
       initFadeUp();
       initPopReveal();
+      initTilt3D();
       initPopLightbox();
       initPiece3D();
       initTypewriter();

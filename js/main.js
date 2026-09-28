@@ -442,7 +442,8 @@
 
   /* ---------------------------------------------------------------------
    * Lightbox — clicking a [data-pop] image opens it full size. Arrows step
-   * through the rest of its group; Esc, the × or a click outside closes it.
+   * through the rest of its group, or its whole [data-gallery] when it sits
+   * in one; Esc, the × or a click outside closes it.
    * ------------------------------------------------------------------- */
   function initPopLightbox() {
     const groups = [...document.querySelectorAll("[data-pop]")];
@@ -476,8 +477,10 @@
     };
 
     groups.forEach((group) => {
-      const set = [...group.querySelectorAll("img")];
+      const gallery = group.closest("[data-gallery]");
+      const set = [...(gallery || group).querySelectorAll("[data-pop] img")];
       set.forEach((img, i) => {
+        if (!group.contains(img)) return; // wired up by its own group
         img.tabIndex = 0;
         img.setAttribute("role", "button");
         img.addEventListener("click", () => open(set, i));

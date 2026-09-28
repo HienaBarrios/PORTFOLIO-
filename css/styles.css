@@ -262,27 +262,22 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 }
 .piece3d.is-touched .piece3d__hint { opacity: 0; }
 
-/* About */
-.about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
-.about__col { padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); }
-.about__col--right { background: var(--panel); }
-.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-.about__heading {
-  margin: 18px 0 0; font-size: clamp(30px, 4.2vw, 60px); font-weight: 900; line-height: 0.9;
-  letter-spacing: -0.035em; text-transform: uppercase;
+/* What clients say */
+.testimonials { background: var(--panel); padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); }
+.testimonials__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: clamp(28px, 4vw, 64px); margin-top: clamp(12px, 2vw, 24px);
 }
-.about__philosophy { margin-top: clamp(24px, 3vw, 40px); padding-top: 20px; }
-.about__philosophy p { margin: 0; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5; max-width: 52ch; text-wrap: pretty; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
-.testimonial { margin: 28px 0 0; padding-top: 22px; }
-.testimonial + .testimonial { margin-top: 32px; }
+.testimonial { margin: 0; padding-top: 22px; }
 .testimonial blockquote {
   margin: 0; font-size: clamp(18px, 2vw, 26px); line-height: 1.32; font-weight: 500;
   letter-spacing: -0.015em; text-wrap: pretty;
 }
 .testimonial figcaption { margin-top: 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 .testimonial--photo {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: clamp(20px, 3vw, 40px); align-items: center;
 }
 .testimonial__photo {
@@ -290,6 +285,16 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   width: 100%; max-width: 220px;
 }
 .testimonial__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* About — closing section before contact: heading left, philosophy right */
+.about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+.about__col { padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); }
+.about__heading {
+  margin: 18px 0 0; font-size: clamp(30px, 4.2vw, 60px); font-weight: 900; line-height: 0.9;
+  letter-spacing: -0.035em; text-transform: uppercase;
+}
+.about__philosophy { align-self: end; }
+.about__philosophy p { margin: 0; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5; max-width: 52ch; text-wrap: pretty; }
 
 /* Clients */
 .clients { padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px); }

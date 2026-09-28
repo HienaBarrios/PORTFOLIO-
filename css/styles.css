@@ -229,6 +229,14 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   grid-column: 1 / -1; margin: calc(-1 * clamp(16px, 2vw, 32px) + 10px) 0 0;
   max-width: 60ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.2; color: #cccccc;
 }
+/* Large desktop monitors only: at the site's capped 1600px width the
+   paragraph already fills the full row, and the render photo only fills
+   ~73% of its column next to it — both look undersized there. Mobile
+   and laptop-scale screens never hit this cap, so they're unaffected. */
+@media (min-width: 1600px) {
+  .pixels-row p { max-width: 44%; margin-left: auto; }
+  .case__side-image { max-width: 640px; }
+}
 
 .case__side-copy {
   margin: 0; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.22; font-weight: 500;

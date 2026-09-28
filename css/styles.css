@@ -182,6 +182,14 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 @media (max-width: 640px) {
   .bubble-gallery__brand, .bubble-gallery__palette-block { grid-template-columns: 1fr; }
 }
+/* Large desktop monitors only: the 880:506 column split leaves the
+   short "Brand manual" copy looking tiny next to how big the square
+   Instagram mockup gets in its own (wider, in absolute px) column —
+   grow the copy and rein in the mockup's width to balance them. */
+@media (min-width: 1600px) {
+  .bubble-gallery__brand .case__side-copy { font-size: clamp(24px, 1.6vw, 32px); max-width: 36ch; }
+  .bubble-gallery__redes-img { max-width: 440px; margin-inline: auto; }
+}
 
 /* Lightbox for [data-pop] images */
 .lightbox {
@@ -229,13 +237,14 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   grid-column: 1 / -1; margin: calc(-1 * clamp(16px, 2vw, 32px) + 10px) 0 0;
   max-width: 60ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.2; color: #cccccc;
 }
-/* Large desktop monitors only: at the site's capped 1600px width the
-   paragraph already fills the full row, and the render photo only fills
-   ~73% of its column next to it — both look undersized there. Mobile
-   and laptop-scale screens never hit this cap, so they're unaffected. */
-@media (min-width: 1600px) {
-  .pixels-row p { max-width: 44%; margin-left: auto; }
-  .case__side-image { max-width: 640px; }
+/* On large desktop monitors only, JS relocates this caption to sit under
+   the render photo in the next column instead (see initWideReflow in
+   main.js) — once it's a plain child of .case__col instead of nested in
+   .pixels-row, the rule above no longer applies, so give it a normal
+   caption margin instead of the negative one meant for its old spot. */
+.case__col > .case__pixels-caption {
+  margin: clamp(16px, 2vw, 24px) 0 0;
+  max-width: none;
 }
 
 .case__side-copy {
@@ -245,6 +254,12 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 .case__side-image {
   display: block; width: 100%; max-width: 531px; aspect-ratio: 531 / 1061; height: auto;
   object-fit: cover; background: var(--panel);
+}
+/* Large desktop monitors only: once the caption moves under it (JS),
+   let the render fill its column's full width like the case photo does
+   in the column beside it, instead of stopping short at 531px. */
+@media (min-width: 1600px) {
+  .case__side-image { max-width: 100%; }
 }
 
 .case__square-media {

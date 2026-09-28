@@ -752,10 +752,33 @@
     }, { threshold: 0.3 }).observe(wrap);
   }
 
+  /* ---------------------------------------------------------------------
+   * Wide desktop monitors only: relocate the Dale Play "one week" caption
+   * to sit under the render photo in the next column instead of under
+   * the case photo in this one, where the column otherwise runs out of
+   * content early. Mobile/laptop layouts never cross this breakpoint, so
+   * they keep the original placement untouched.
+   * ------------------------------------------------------------------- */
+  function initWideReflow() {
+    const caption = document.querySelector(".case__pixels-caption");
+    const caseImg = document.querySelector(".pixels-row__case");
+    const renderImg = document.querySelector(".case__side-image");
+    if (!caption || !caseImg || !renderImg) return;
+
+    const mq = window.matchMedia("(min-width: 1600px)");
+    const place = () => {
+      if (mq.matches) renderImg.after(caption);
+      else caseImg.after(caption);
+    };
+    place();
+    mq.addEventListener("change", place);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const lang = detectLang();
     initLangToggle(lang); // translate static copy before the typewriter splits any text nodes
     initHeroVideoFallback();
+    initWideReflow(); // move DOM before anything measures positions below
     setTimeout(() => {
       initFadeUp();
       initPopReveal();

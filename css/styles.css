@@ -151,28 +151,33 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 /* The big mosaic poster needs a longer lens so the tilt doesn't warp it */
 .case__square-media[data-tilt3d] img { --persp: 2000px; }
 
-/* Somosbubble brand gallery: a bento grid with wide pieces spanning the full
-   width and two rows split narrow | wide (column ratio matches the art so
-   neighbours line up in height) */
+/* Somosbubble brand gallery: wide pieces span the full width, with the
+   brand-manual block (copy + images in two columns) in between */
 .bubble-gallery {
   display: flex; flex-direction: column; gap: clamp(12px, 2vw, 28px);
   padding: clamp(24px, 3vw, 48px) clamp(20px, 3.5vw, 48px) 0;
 }
 .bubble-gallery img { display: block; width: 100%; height: auto; }
 .bubble-gallery [data-tilt3d] img { --persp: 2000px; }
-.bubble-gallery__row {
-  display: grid; grid-template-columns: 506fr 880fr;
-  gap: clamp(12px, 2vw, 28px); align-items: stretch;
+/* Brand manual block: copy | Instagram on top, typography | note below.
+   Two grid rows, so the typography only starts once Instagram ends —
+   images never overlap in height, like the Michelob case layout */
+.bubble-gallery__brand {
+  display: grid; grid-template-columns: 880fr 506fr;
+  column-gap: clamp(24px, 3vw, 48px); row-gap: clamp(24px, 4vw, 64px);
+  margin: clamp(12px, 2vw, 36px) 0; align-items: start;
 }
-.bubble-gallery__stack {
-  display: flex; flex-direction: column; justify-content: space-between;
-  gap: clamp(12px, 2vw, 28px);
+.bubble-gallery__copy { display: flex; flex-direction: column; gap: 18px; }
+/* Closer text sizes than the other cases: the two paragraphs sit side by side here */
+.bubble-gallery__brand .case__side-copy { font-size: clamp(19px, 1.9vw, 27px); max-width: 34ch; }
+.bubble-gallery .case__note { font-size: clamp(16px, 1.6vw, 22px); line-height: 1.35; }
+/* Palette block: justification copy on the left, the (larger) palette on the right */
+.bubble-gallery__palette-block {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 48px);
+  align-items: center; margin: clamp(12px, 2vw, 36px) 0;
 }
-.bubble-gallery__row > img { align-self: start; } /* stretch is for the stack only; images keep their ratio */
-.bubble-gallery img.bubble-gallery__palette { width: 43.75%; }
 @media (max-width: 640px) {
-  .bubble-gallery__row { grid-template-columns: 1fr; }
-  .bubble-gallery img.bubble-gallery__palette { width: 60%; }
+  .bubble-gallery__brand, .bubble-gallery__palette-block { grid-template-columns: 1fr; }
 }
 
 /* Lightbox for [data-pop] images */

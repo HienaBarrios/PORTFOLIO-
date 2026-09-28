@@ -24,7 +24,10 @@ a:hover { color: var(--muted); }
 :focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
 img, video { max-width: 100%; }
 
-.site { min-height: 100vh; background: var(--bg); position: relative; }
+/* Caps runaway stretching on wide desktop monitors (uncapped, a 1920px+
+   screen leaves huge gaps in the grids below); body is the same solid
+   black outside the cap, so nothing visible changes on narrower screens. */
+.site { min-height: 100vh; background: var(--bg); position: relative; max-width: 1600px; margin: 0 auto; }
 
 /* Nav */
 .nav {

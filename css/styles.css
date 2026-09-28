@@ -237,15 +237,6 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   grid-column: 1 / -1; margin: calc(-1 * clamp(16px, 2vw, 32px) + 10px) 0 0;
   max-width: 60ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.2; color: #cccccc;
 }
-/* On large desktop monitors only, JS relocates this caption to sit under
-   the render photo in the next column instead (see initWideReflow in
-   main.js) — once it's a plain child of .case__col instead of nested in
-   .pixels-row, the rule above no longer applies, so give it a normal
-   caption margin instead of the negative one meant for its old spot. */
-.case__col > .case__pixels-caption {
-  margin: clamp(16px, 2vw, 24px) 0 0;
-  max-width: none;
-}
 
 .case__side-copy {
   margin: 0; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.22; font-weight: 500;
@@ -319,8 +310,13 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   margin: 18px 0 0; font-size: clamp(30px, 4.2vw, 60px); font-weight: 900; line-height: 0.9;
   letter-spacing: -0.035em; text-transform: uppercase;
 }
-.about__philosophy { align-self: end; }
-.about__philosophy p { margin: 0; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5; max-width: 52ch; text-wrap: pretty; }
+.about__philosophy {
+  align-self: end; display: flex; flex-wrap: wrap; align-items: flex-end;
+  gap: clamp(20px, 3vw, 40px);
+}
+.about__photo { flex: 0 0 auto; width: clamp(140px, 18vw, 240px); }
+.about__photo img { display: block; width: 100%; height: auto; background: var(--panel); }
+.about__philosophy p { flex: 1 1 260px; margin: 0; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5; max-width: 52ch; text-wrap: pretty; }
 
 /* Clients */
 .clients { padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px); }

@@ -754,7 +754,11 @@
         const w = canvas.clientWidth, h = canvas.clientHeight;
         if (!w || !h) return;
         renderer.setSize(w, h, false);
-        const aspect = w / h, viewH = 42; // mm, a tight frame around one capsule
+        // Size the frame from the model's own bounding sphere, not a guessed
+        // constant — a capsule is far longer end-to-end than it is wide, so
+        // a frame tuned for the flat "M" face clips it once it turns side-on.
+        const radius = sharedGeo?.boundingSphere?.radius || 20;
+        const aspect = w / h, viewH = radius * 2.3;
         camera.top = viewH / 2; camera.bottom = -viewH / 2;
         camera.left = -viewH * aspect / 2; camera.right = viewH * aspect / 2;
         camera.updateProjectionMatrix();

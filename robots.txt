@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio-beta-henna-45.vercel.app/sitemap.xml

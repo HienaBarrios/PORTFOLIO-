@@ -611,6 +611,7 @@
     let leanX = 0, leanY = 0, targetX = 0, targetY = 0;
     let grabbed = null, moved = 0, lastX = 0, lastY = 0, hovered = null;
     let visible = false, loaded = false, enteredAt = 0;
+    let sharedGeo = null;
 
     // Fit the whole row (plus a margin) into the viewer at any aspect ratio
     const resize = () => {
@@ -636,6 +637,7 @@
           geo.rotateX(Math.PI); // turn the logo face (STL bottom, -Z) toward the camera
           geo.center();
           geo.computeBoundingSphere();
+          sharedGeo = geo;
           pieces.forEach((p) => {
             p.mesh = new THREE.Mesh(geo, p.material);
             p.mesh.scale.setScalar(0);
@@ -699,15 +701,124 @@
     });
     const endDrag = () => {
       if (!grabbed) return;
+      const clicked = grabbed;
       // Settle on the nearest front-facing turn; a click adds one full twirl
       const turn = Math.PI * 2;
       grabbed.spinTarget = Math.round(grabbed.spin / turn) * turn;
-      if (moved < 4) { grabbed.hop = 1; grabbed.spinTarget += turn; }
+      if (moved < 4) {
+        grabbed.hop = 1;
+        grabbed.spinTarget += turn;
+        openPieceLightbox(pieces.indexOf(clicked));
+      }
       grabbed = null;
       wrap.classList.remove("is-dragging");
     };
     wrap.addEventListener("pointerup", endDrag);
     wrap.addEventListener("pointercancel", endDrag);
+
+    /* ---------------------------------------------------------------------
+     * Click-to-enlarge — same lightbox pattern as the Bad Bunny plaques,
+     * but with its own small Three.js scene so the capsule stays spinnable
+     * at the bigger size instead of becoming a flat image.
+     * ------------------------------------------------------------------- */
+    let lb = null; // { el, canvas, renderer, scene, camera, mesh, spin, tilt, dragging, raf }
+    let lbIndex = 0;
+
+    function buildLightbox() {
+      if (lb || !window.HTMLDialogElement) return;
+      const el = document.createElement("dialog");
+      el.className = "lightbox lightbox--3d";
+      el.innerHTML =
+        '<canvas class="lightbox__canvas"></canvas>' +
+        '<button class="lightbox__close" type="button" aria-label="Close">×</button>' +
+        '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous">←</button>' +
+        '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next">→</button>';
+      document.body.appendChild(el);
+      const canvas = el.querySelector("canvas");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      const scene = new THREE.Scene();
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, 0.9));
+      const key = new THREE.DirectionalLight(0xffffff, 1.1);
+      key.position.set(40, 60, 80);
+      scene.add(key);
+      const rim = new THREE.DirectionalLight(0xffffff, 0.9);
+      rim.position.set(-60, 30, -80);
+      scene.add(rim);
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000);
+      camera.position.set(0, 0, 200);
+
+      lb = { el, canvas, renderer, scene, camera, mesh: null, spin: 0, tilt: 0, dragging: false, raf: 0 };
+
+      const resizeLb = () => {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        if (!w || !h) return;
+        renderer.setSize(w, h, false);
+        const aspect = w / h, viewH = 42; // mm, a tight frame around one capsule
+        camera.top = viewH / 2; camera.bottom = -viewH / 2;
+        camera.left = -viewH * aspect / 2; camera.right = viewH * aspect / 2;
+        camera.updateProjectionMatrix();
+      };
+      window.addEventListener("resize", () => { if (el.open) resizeLb(); }, { passive: true });
+      lb.resize = resizeLb;
+
+      let lastX = 0, lastY = 0;
+      canvas.addEventListener("pointerdown", (e) => {
+        lb.dragging = true; lastX = e.clientX; lastY = e.clientY;
+        canvas.style.cursor = "grabbing";
+        canvas.setPointerCapture(e.pointerId);
+      });
+      canvas.addEventListener("pointermove", (e) => {
+        if (!lb.dragging) return;
+        const dx = e.clientX - lastX, dy = e.clientY - lastY;
+        lastX = e.clientX; lastY = e.clientY;
+        lb.spin += dx * 0.022;
+        lb.tilt = Math.max(-1.3, Math.min(1.3, lb.tilt + dy * 0.018));
+      });
+      const releaseLb = () => { lb.dragging = false; canvas.style.cursor = "grab"; };
+      canvas.addEventListener("pointerup", releaseLb);
+      canvas.addEventListener("pointercancel", releaseLb);
+
+      const tickLb = () => {
+        lb.raf = requestAnimationFrame(tickLb);
+        if (!lb.dragging && !reduceMotion) lb.spin += 0.004; // gentle idle spin
+        if (lb.mesh) lb.mesh.rotation.set(lb.tilt, lb.spin, 0);
+        renderer.render(scene, camera);
+      };
+
+      el.querySelector(".lightbox__close").addEventListener("click", () => el.close());
+      el.querySelector(".lightbox__nav--prev").addEventListener("click", () => showInLightbox(lbIndex - 1));
+      el.querySelector(".lightbox__nav--next").addEventListener("click", () => showInLightbox(lbIndex + 1));
+      el.addEventListener("click", (e) => { if (e.target === el) el.close(); });
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") showInLightbox(lbIndex - 1);
+        if (e.key === "ArrowRight") showInLightbox(lbIndex + 1);
+      });
+      el.addEventListener("close", () => cancelAnimationFrame(lb.raf));
+
+      lb.tick = tickLb;
+    }
+
+    function showInLightbox(i) {
+      lbIndex = (i + palette.length) % palette.length;
+      if (lb.mesh) { lb.scene.remove(lb.mesh); lb.mesh.material.dispose(); }
+      const material = new THREE.MeshStandardMaterial({ color: palette[lbIndex], roughness: 0.55, metalness: 0.05 });
+      addPrintLayers(material, 0.4);
+      lb.mesh = new THREE.Mesh(sharedGeo, material);
+      lb.spin = pieces[lbIndex].spin % (Math.PI * 2);
+      lb.tilt = 0;
+      lb.scene.add(lb.mesh);
+    }
+
+    function openPieceLightbox(index) {
+      if (!sharedGeo) return; // model still loading
+      buildLightbox();
+      showInLightbox(index);
+      lb.el.showModal();
+      lb.resize();
+      cancelAnimationFrame(lb.raf);
+      lb.tick();
+    }
 
     // Same spring as the plaques' CSS pop: cubic-bezier(0.34, 1.56, 0.64, 1)
     const easeOutBack = (t) => 1 + 2.70158 * Math.pow(t - 1, 3) + 1.70158 * Math.pow(t - 1, 2);

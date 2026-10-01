@@ -48,7 +48,9 @@
       "clients.selected": "Selected",
       "contact.eyebrow": "Contact",
       "contact.email": "Email",
-      "contact.elsewhere": "Elsewhere"
+      "contact.elsewhere": "Elsewhere",
+      "contact.cv-label": "Resume",
+      "contact.cv-download": "Download CV"
     },
     es: {
       "nav.work": "Trabajo",
@@ -85,7 +87,9 @@
       "clients.selected": "Seleccionados",
       "contact.eyebrow": "Contacto",
       "contact.email": "Email",
-      "contact.elsewhere": "Redes"
+      "contact.elsewhere": "Redes",
+      "contact.cv-label": "CV",
+      "contact.cv-download": "Descargar CV"
     }
   };
 

@@ -758,7 +758,7 @@
         // constant — a capsule is far longer end-to-end than it is wide, so
         // a frame tuned for the flat "M" face clips it once it turns side-on.
         const radius = sharedGeo?.boundingSphere?.radius || 20;
-        const aspect = w / h, viewH = radius * 2.3;
+        const aspect = w / h, viewH = radius * 2.8;
         camera.top = viewH / 2; camera.bottom = -viewH / 2;
         camera.left = -viewH * aspect / 2; camera.right = viewH * aspect / 2;
         camera.updateProjectionMatrix();
@@ -820,6 +820,10 @@
       showInLightbox(index);
       lb.el.showModal();
       lb.resize();
+      // Dialog layout can land a frame late on some mobile browsers --
+      // measuring again next frame catches a canvas that read 0x0 the
+      // first time and was left on the camera's tiny constructor default.
+      requestAnimationFrame(lb.resize);
       cancelAnimationFrame(lb.raf);
       lb.tick();
     }

@@ -457,6 +457,23 @@
   }
 
   /* ---------------------------------------------------------------------
+   * Cursor-following glare on each case study's hero banner — a soft
+   * highlight that tracks the pointer, like light sliding across a glossy
+   * print or a 3D-printed surface. Mouse/trackpad only.
+   * ------------------------------------------------------------------- */
+  function initHeroGlare() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    document.querySelectorAll(".case__hero").forEach((hero) => {
+      hero.addEventListener("pointermove", (e) => {
+        const r = hero.getBoundingClientRect();
+        hero.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+        hero.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
    * Lightbox — clicking a [data-pop] image opens it full size. Arrows step
    * through the rest of its group, or its whole [data-gallery] when it sits
    * in one; Esc, the × or a click outside closes it.
@@ -883,6 +900,7 @@
       initFadeUp();
       initPopReveal();
       initTilt3D();
+      initHeroGlare();
       initPopLightbox();
       initPiece3D();
       initTypewriter();

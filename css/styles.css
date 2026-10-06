@@ -314,6 +314,11 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   width: 100%; max-width: 220px;
 }
 .testimonial__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.testimonial__photo--placeholder {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  border: 1px dashed var(--muted); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 12px;
+}
 
 /* About — closing section before contact: heading left, philosophy right */
 .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }

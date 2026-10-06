@@ -265,12 +265,14 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   .case__side-image { max-width: 100%; }
 }
 
-.case__flyer-photo {
-  display: block; width: 100%; max-width: 420px; aspect-ratio: 1159 / 1440; height: auto;
-  object-fit: cover; background: var(--panel); margin-top: clamp(16px, 2.5vw, 28px);
+.case__flyer-row {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: clamp(16px, 2.5vw, 28px); margin-top: clamp(16px, 2.5vw, 28px);
 }
-@media (min-width: 1600px) {
-  .case__flyer-photo { max-width: 100%; }
+.case__flyer-row .case__side-copy { flex: 1 1 220px; max-width: 32ch; }
+.case__flyer-photo {
+  display: block; flex: 0 1 220px; max-width: 220px;
+  aspect-ratio: 1159 / 1440; height: auto; object-fit: cover; background: var(--panel);
 }
 
 .case__square-media {

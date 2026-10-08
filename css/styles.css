@@ -309,18 +309,18 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 .case__carousel-track {
   display: flex; width: max-content; gap: clamp(12px, 1.6vw, 20px);
   padding: 0 clamp(6px, 0.8vw, 10px); will-change: transform;
-  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .case__carousel-track img {
   display: block; width: clamp(180px, 20vw, 280px); height: clamp(225px, 25vw, 350px);
   object-fit: cover; background: var(--panel); cursor: zoom-in;
-  transition: transform 0.5s ease; transform: scale(1);
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); transform: scale(1);
 }
 /* Beats the [data-pop] entrance/hover rules' specificity (styles.css ~L135-146),
    which otherwise force this same img back to transform: none once it has settled. */
 html.js [data-pop].is-in img.is-center,
 html.js [data-pop].is-settled img.is-center {
-  transform: scale(1.14);
+  transform: scale(1.25);
 }
 .case__carousel-track img.is-center { position: relative; z-index: 2; }
 @media (prefers-reduced-motion: reduce) {

@@ -503,7 +503,7 @@
       };
 
       const advance = () => { index = (index + 1) % imgs.length; center(); };
-      const start = () => { stop(); timer = setInterval(advance, 3200); };
+      const start = () => { stop(); timer = setInterval(advance, 3600); };
       function stop() { clearInterval(timer); }
 
       center();

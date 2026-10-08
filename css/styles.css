@@ -299,35 +299,37 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 }
 .piece3d.is-touched .piece3d__hint { opacity: 0; }
 
-/* Campaign photo carousel — click any photo to enlarge it, same lightbox
-   as the Dale Play plaques. Every few seconds JS (initCaseCarousel) slides
-   the next photo to center and scales it up via .is-center; the transform
-   here only handles the transition timing, JS drives the actual values. */
+/* Campaign photo carousel — continuous infinite auto-scroll, filmstrip
+   style: uniform height, natural (varying) width per photo. Click any
+   photo to enlarge it, same lightbox as the Dale Play plaques. The track
+   holds the real photo set plus a decorative duplicate so the loop has
+   no seam; the duplicate is aria-hidden and sits outside the data-pop
+   group, so it never shows up in the lightbox or its arrow navigation. */
 .case__carousel {
-  margin: clamp(32px, 5vw, 64px) calc(-1 * clamp(20px, 3.5vw, 48px)) 0; overflow: hidden;
+  margin: clamp(32px, 5vw, 64px) calc(-1 * clamp(20px, 3.5vw, 48px)) 0;
+  overflow: hidden; background: #000;
 }
 .case__carousel-track {
-  display: flex; align-items: flex-start; width: max-content; gap: clamp(12px, 1.6vw, 20px);
-  padding: 0 clamp(6px, 0.8vw, 10px); will-change: transform;
-  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; align-items: center; width: max-content;
+  animation: case-carousel-scroll 32s linear infinite;
 }
-.case__carousel-track img {
-  display: block; width: clamp(180px, 20vw, 280px); height: clamp(225px, 25vw, 350px);
-  object-fit: cover; background: var(--panel); cursor: zoom-in;
-  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); transform: scale(1);
-  transform-origin: top center; /* grow downward only, so every photo keeps the same top edge */
+.case__carousel:hover .case__carousel-track { animation-play-state: paused; }
+.case__carousel-set { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 30px); padding: clamp(16px, 2vw, 24px) clamp(10px, 1.2vw, 15px); }
+.case__carousel-set img {
+  display: block; height: clamp(140px, 20vw, 300px); width: auto;
+  background: var(--panel); cursor: zoom-in;
 }
-/* Beats the [data-pop] entrance/hover rules' specificity (styles.css ~L135-146),
-   which otherwise force this same img back to transform: none once it has settled. */
-html.js [data-pop].is-in img.is-center,
-html.js [data-pop].is-settled img.is-center {
-  transform: scale(1.25);
+@keyframes case-carousel-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
-.case__carousel-track img.is-center { position: relative; z-index: 2; }
+@media (max-width: 640px) {
+  .case__carousel-set img { height: clamp(110px, 32vw, 160px); }
+}
 @media (prefers-reduced-motion: reduce) {
-  .case__carousel-track { transition: none; transform: none !important; }
-  .case__carousel-track img { transition: none; transform: none !important; }
+  .case__carousel-track { animation: none; }
   .case__carousel { overflow-x: auto; }
+  .case__carousel-set[aria-hidden] { display: none; }
 }
 
 /* What clients say */

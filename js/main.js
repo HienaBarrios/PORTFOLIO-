@@ -476,6 +476,45 @@
   }
 
   /* ---------------------------------------------------------------------
+   * Campaign photo carousel — every few seconds the next photo slides to
+   * the middle and scales up a touch, like a slow coverflow. Clicking any
+   * photo still opens it full size via initPopLightbox (same [data-pop]
+   * wiring as the Dale Play plaques).
+   * ------------------------------------------------------------------- */
+  function initCaseCarousel() {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.querySelectorAll(".case__carousel").forEach((carousel) => {
+      const track = carousel.querySelector(".case__carousel-track");
+      const imgs = [...track.querySelectorAll("img")];
+      if (reduceMotion || imgs.length < 2) return;
+
+      let index = 0;
+      let shift = 0; // running translateX applied to the track, in px
+      let timer = null;
+
+      const center = () => {
+        imgs.forEach((img) => img.classList.remove("is-center"));
+        const carouselRect = carousel.getBoundingClientRect();
+        const activeRect = imgs[index].getBoundingClientRect(); // unscaled, class just removed
+        const delta = (carouselRect.left + carouselRect.width / 2) - (activeRect.left + activeRect.width / 2);
+        shift += delta;
+        track.style.transform = `translateX(${shift}px)`;
+        imgs[index].classList.add("is-center");
+      };
+
+      const advance = () => { index = (index + 1) % imgs.length; center(); };
+      const start = () => { stop(); timer = setInterval(advance, 3200); };
+      function stop() { clearInterval(timer); }
+
+      center();
+      start();
+      carousel.addEventListener("pointerenter", stop);
+      carousel.addEventListener("pointerleave", start);
+      window.addEventListener("resize", center, { passive: true });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
    * Lightbox — clicking a [data-pop] image opens it full size. Arrows step
    * through the rest of its group, or its whole [data-gallery] when it sits
    * in one; Esc, the × or a click outside closes it.
@@ -903,6 +942,7 @@
       initPopReveal();
       initTilt3D();
       initHeroGlare();
+      initCaseCarousel();
       initPopLightbox();
       initPiece3D();
       initTypewriter();

@@ -265,13 +265,17 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   .case__side-image { max-width: 100%; }
 }
 
+/* Video + flyer photo sit in their own grid row (siblings, not nested in
+   .case__col) so both start flush at the same line regardless of how
+   tall the content above them ran in each column. */
+.case__flyer-row { align-items: start; margin-top: clamp(24px, 4vw, 64px); }
 .case__flyer-photo {
   display: block; width: 100%; max-width: 531px; aspect-ratio: 1159 / 1440; height: auto;
-  object-fit: cover; background: var(--panel); margin-top: clamp(16px, 2.5vw, 28px);
+  object-fit: cover; background: var(--panel);
 }
 .case__flyer-video {
   display: block; width: 100%; max-width: 531px; aspect-ratio: 480 / 600; height: auto;
-  object-fit: cover; background: #000; margin-top: clamp(24px, 4vw, 64px);
+  object-fit: cover; background: #000;
 }
 @media (min-width: 1600px) {
   .case__flyer-photo, .case__flyer-video { max-width: 100%; }

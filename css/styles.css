@@ -265,12 +265,20 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   .case__side-image { max-width: 100%; }
 }
 
+.case__flyer-media {
+  display: flex; flex-wrap: wrap; align-items: flex-start;
+  gap: clamp(16px, 2.5vw, 28px); margin-top: clamp(16px, 2.5vw, 28px);
+}
 .case__flyer-photo {
-  display: block; width: 100%; max-width: 531px; aspect-ratio: 1159 / 1440; height: auto;
-  object-fit: cover; background: var(--panel); margin-top: clamp(16px, 2.5vw, 28px);
+  display: block; flex: 1 1 180px; max-width: 270px; aspect-ratio: 1159 / 1440; height: auto;
+  width: 100%; object-fit: cover; background: var(--panel);
+}
+.case__flyer-video {
+  display: block; flex: 1 1 180px; max-width: 270px; aspect-ratio: 480 / 854; height: auto;
+  width: 100%; object-fit: cover; background: #000;
 }
 @media (min-width: 1600px) {
-  .case__flyer-photo { max-width: 100%; }
+  .case__flyer-photo, .case__flyer-video { max-width: 380px; }
 }
 
 .case__square-media {

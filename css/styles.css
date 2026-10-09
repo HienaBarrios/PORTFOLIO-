@@ -324,15 +324,22 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 .case__carousel:hover .case__carousel-track { animation-play-state: paused; }
 .case__carousel-set { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 30px); padding: clamp(16px, 2vw, 24px) clamp(10px, 1.2vw, 15px); }
 .case__carousel-set img {
-  display: block; height: clamp(140px, 20vw, 300px); width: auto;
+  display: block; height: clamp(220px, 30vw, 460px); width: auto;
   background: var(--panel); cursor: zoom-in;
+}
+/* This group's images must never use the [data-pop] scroll-reveal fade
+   (styles.css ~L135) — they're mid-loop in a continuous marquee, not a
+   gallery that reveals once, so fading them in/out looks like a glitch. */
+html.js .case__carousel-set[data-pop] img,
+html.js .case__carousel-set[data-pop]:not(.is-in) img {
+  opacity: 1; transform: none; transition: none;
 }
 @keyframes case-carousel-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 @media (max-width: 640px) {
-  .case__carousel-set img { height: clamp(110px, 32vw, 160px); }
+  .case__carousel-set img { height: clamp(160px, 42vw, 260px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .case__carousel-track { animation: none; }

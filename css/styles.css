@@ -270,7 +270,7 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   object-fit: cover; background: var(--panel); margin-top: clamp(16px, 2.5vw, 28px);
 }
 .case__flyer-video {
-  display: block; width: 100%; max-width: 280px; aspect-ratio: 480 / 854; height: auto;
+  display: block; width: 100%; max-width: 320px; aspect-ratio: 480 / 600; height: auto;
   object-fit: cover; background: #000; margin-top: clamp(24px, 4vw, 64px);
 }
 @media (min-width: 1600px) {

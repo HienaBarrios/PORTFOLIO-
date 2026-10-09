@@ -265,6 +265,22 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   .case__side-image { max-width: 100%; }
 }
 
+/* Video + flyer photo sit in their own grid row (siblings, not nested in
+   .case__col) so both start flush at the same line regardless of how
+   tall the content above them ran in each column. */
+.case__flyer-row { align-items: start; margin-top: clamp(24px, 4vw, 64px); }
+.case__flyer-photo {
+  display: block; width: 100%; max-width: 531px; aspect-ratio: 1159 / 1440; height: auto;
+  object-fit: cover; background: var(--panel);
+}
+.case__flyer-video {
+  display: block; width: 100%; max-width: 531px; aspect-ratio: 480 / 600; height: auto;
+  object-fit: cover; background: #000;
+}
+@media (min-width: 1600px) {
+  .case__flyer-photo, .case__flyer-video { max-width: 100%; }
+}
+
 .case__square-media {
   position: relative; aspect-ratio: 1 / 1; background: var(--panel); overflow: hidden;
   margin-top: clamp(24px, 4vw, 64px);
@@ -290,6 +306,39 @@ html.js [data-tilt3d].is-settled img:focus-visible {
   white-space: nowrap; pointer-events: none; transition: opacity 0.4s ease;
 }
 .piece3d.is-touched .piece3d__hint { opacity: 0; }
+
+/* Campaign photo carousel — continuous infinite auto-scroll, filmstrip
+   style: uniform height, natural (varying) width per photo. Click any
+   photo to enlarge it, same lightbox as the Dale Play plaques. The track
+   holds the real photo set plus a decorative duplicate so the loop has
+   no seam; the duplicate is aria-hidden and sits outside the data-pop
+   group, so it never shows up in the lightbox or its arrow navigation. */
+.case__carousel {
+  margin: clamp(32px, 5vw, 64px) calc(-1 * clamp(20px, 3.5vw, 48px)) 0;
+  overflow: hidden; background: #000;
+}
+.case__carousel-track {
+  display: flex; align-items: center; width: max-content;
+  animation: case-carousel-scroll 32s linear infinite;
+}
+.case__carousel:hover .case__carousel-track { animation-play-state: paused; }
+.case__carousel-set { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 30px); padding: clamp(16px, 2vw, 24px) clamp(10px, 1.2vw, 15px); }
+.case__carousel-set img {
+  display: block; height: clamp(140px, 20vw, 300px); width: auto;
+  background: var(--panel); cursor: zoom-in;
+}
+@keyframes case-carousel-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (max-width: 640px) {
+  .case__carousel-set img { height: clamp(110px, 32vw, 160px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case__carousel-track { animation: none; }
+  .case__carousel { overflow-x: auto; }
+  .case__carousel-set[aria-hidden] { display: none; }
+}
 
 /* What clients say */
 .testimonials { background: var(--panel); padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); }

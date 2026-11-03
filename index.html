@@ -34,8 +34,10 @@
     <a href="#top" class="nav__brand">Valentin Barrios</a>
     <div class="nav__links">
       <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
     </div>
+    <a class="nav__cta" href="mailto:valentinbarrios.design@gmail.com?subject=New%20project&amp;body=Hi%20Valentin%2C%0A%0AI'd%20like%20to%20talk%20about..." data-i18n="nav.hire">Start a project</a>
     <div class="lang-toggle" role="group" aria-label="Language">
       <button type="button" data-lang-btn="en">EN</button>
       <button type="button" data-lang-btn="es">ES</button>
@@ -54,11 +56,6 @@
       <div>
         <p class="hero__lead" data-anim="1" data-i18n="hero.lead">I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design</p>
       </div>
-      <div class="hero__practice" data-anim="1">
-        <a href="#michelob" class="hero__practice-item hero__practice-link"><span>01</span><span data-i18n="hero.practice1">Michelob Ultra - Product Design</span></a>
-        <a href="#dale-play" class="hero__practice-item hero__practice-link"><span>02</span><span data-i18n="hero.practice2">Dale Play - 3D Modeling</span></a>
-        <a href="#banda-eterna" class="hero__practice-item hero__practice-link"><span>03</span><span data-i18n="hero.practice3">Somosbubble - Branding Identity</span></a>
-      </div>
     </div>
   </header>
 
@@ -67,14 +64,45 @@
       <h2 class="section-title" data-tw="1" data-i18n="work.title">Selected work</h2>
     </div>
 
+    <div class="work-rail" data-anim="1">
+      <a class="work-rail__card" href="#michelob">
+        <div class="work-rail__media">
+          <video src="assets/videos/michelob-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </div>
+        <div class="work-rail__index">01</div>
+        <div class="work-rail__title">Michelob Ultra</div>
+        <div class="work-rail__tag" data-i18n="work.rail-card1-tag">Product Design · Campaign</div>
+      </a>
+      <a class="work-rail__card" href="#dale-play">
+        <div class="work-rail__media">
+          <video src="assets/videos/dale-play-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </div>
+        <div class="work-rail__index">02</div>
+        <div class="work-rail__title">Dale Play Live</div>
+        <div class="work-rail__tag" data-i18n="work.rail-card2-tag">3D Modeling · Fabrication</div>
+      </a>
+      <a class="work-rail__card" href="#banda-eterna">
+        <div class="work-rail__media">
+          <video src="assets/videos/somosbubble-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </div>
+        <div class="work-rail__index">03</div>
+        <div class="work-rail__title">Somosbubble</div>
+        <div class="work-rail__tag" data-i18n="work.rail-card3-tag">Branding · Identity</div>
+      </a>
+    </div>
+
     <article id="michelob" class="case">
       <div class="case__hero">
         <video src="assets/videos/michelob-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
         <div class="case__hero-scrim"></div>
         <div class="case__hero-caption">
-          <div class="case__hero-title" data-tw="1">Michelob Ultra</div>
+          <h3 class="case__hero-title" data-tw="1">Michelob Ultra</h3>
           <div class="case__hero-sub" data-tw="1">Lionel Messi</div>
         </div>
+      </div>
+      <div class="case__meta">
+        <span class="case__meta-index">01</span>
+        <span class="case__meta-tags" data-i18n="case.michelob-tags">Product Design · 3D Printing · Campaign</span>
       </div>
 
       <div class="case__grid">
@@ -134,9 +162,13 @@
         <video src="assets/videos/dale-play-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
         <div class="case__hero-scrim"></div>
         <div class="case__hero-caption">
-          <div class="case__hero-title" data-tw="1">Dale Play Live</div>
+          <h3 class="case__hero-title" data-tw="1">Dale Play Live</h3>
           <div class="case__hero-sub" data-tw="1">Bad Bunny</div>
         </div>
+      </div>
+      <div class="case__meta">
+        <span class="case__meta-index">02</span>
+        <span class="case__meta-tags" data-i18n="case.daleplay-tags">3D Modeling · Casting · Award Design</span>
       </div>
 
       <div class="case__grid">
@@ -178,9 +210,13 @@
         <video src="assets/videos/somosbubble-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
         <div class="case__hero-scrim"></div>
         <div class="case__hero-caption">
-          <div class="case__hero-title" data-tw="1">Somosbubble</div>
+          <h3 class="case__hero-title" data-tw="1">Somosbubble</h3>
           <div class="case__hero-sub" data-tw="1" data-i18n="case.bubble-sub">Branding System</div>
         </div>
+      </div>
+      <div class="case__meta">
+        <span class="case__meta-index">03</span>
+        <span class="case__meta-tags" data-i18n="case.bubble-tags">Branding · Identity · Social</span>
       </div>
 
       <div class="bubble-gallery" data-gallery>
@@ -216,8 +252,38 @@
     </article>
   </section>
 
+  <section id="services" class="services">
+    <h2 class="section-title" data-tw="1" data-i18n="services.heading">What I do</h2>
+    <div class="services__grid">
+      <div class="services__list">
+        <button class="services__item is-active" type="button" data-service="1">
+          <span class="services__item-row"><span class="services__item-index">01</span><span class="services__item-title" data-i18n="services.item1-title">Product &amp; Campaign Design</span></span>
+          <span class="services__item-copy" data-i18n="services.item1-copy">Concepting and designing the physical pieces a brand activation needs, from first sketch to the object someone holds at the event.</span>
+        </button>
+        <button class="services__item" type="button" data-service="2">
+          <span class="services__item-row"><span class="services__item-index">02</span><span class="services__item-title" data-i18n="services.item2-title">3D Modeling &amp; Rendering</span></span>
+          <span class="services__item-copy" data-i18n="services.item2-copy">Building clean, production-ready 3D models and renders for objects that need to look real before they're real.</span>
+        </button>
+        <button class="services__item" type="button" data-service="3">
+          <span class="services__item-row"><span class="services__item-index">03</span><span class="services__item-title" data-i18n="services.item3-title">3D Printing &amp; Fabrication</span></span>
+          <span class="services__item-copy" data-i18n="services.item3-copy">Taking a model through printing, casting and finishing until it's a physical object, not a file.</span>
+        </button>
+        <button class="services__item" type="button" data-service="4">
+          <span class="services__item-row"><span class="services__item-index">04</span><span class="services__item-title" data-i18n="services.item4-title">Branding &amp; Identity</span></span>
+          <span class="services__item-copy" data-i18n="services.item4-copy">Logo, type, color and the rules that keep a brand consistent across feed, print and video.</span>
+        </button>
+      </div>
+      <div class="services__media">
+        <img data-service-img="1" src="assets/images/michelob-mosaic-panel.webp" alt="Michelob ULTRA x Messi 3D-printed mosaic panel" class="is-active" loading="lazy">
+        <img data-service-img="2" src="assets/images/bad-bunny-plaque-renders.webp" alt="Bad Bunny commemorative plaque renders" loading="lazy">
+        <img data-service-img="3" src="assets/images/bad-bunny-holding-plaques.webp" alt="Bad Bunny holding the five commemorative plaques" loading="lazy">
+        <img data-service-img="4" src="assets/images/somosbubble-portada.webp" alt="Somosbubble YouTube channel banner" loading="lazy">
+      </div>
+    </div>
+  </section>
+
   <section id="testimonials" class="testimonials">
-    <div class="eyebrow" data-tw="1" data-i18n="about.teammates">What clients say</div>
+    <h2 class="section-title" data-tw="1" data-i18n="about.teammates">What clients say</h2>
     <div class="testimonials__grid">
       <figure class="testimonial testimonial--photo">
         <div class="testimonial__photo">
@@ -240,20 +306,8 @@
     </div>
   </section>
 
-  <section id="clients" class="clients">
-    <div class="clients__head">
-      <div class="eyebrow" data-i18n="clients.selected">Selected</div>
-    </div>
-    <div class="clients__grid">
-      <a class="client" href="#dale-play">Dale Play</a>
-      <a class="client" href="#banda-eterna">Somosbubble</a>
-      <a class="client" href="#michelob">Michelob Ultra</a>
-    </div>
-  </section>
-
   <section id="about" class="about">
     <div class="about__col">
-      <div class="eyebrow" data-tw="1" data-i18n="about.eyebrow">About</div>
       <h2 class="about__heading" data-tw="1" data-i18n="about.heading">i'm a multimedial designer based in Buenos Aires Argentina</h2>
     </div>
     <div class="about__col about__philosophy">
@@ -265,7 +319,8 @@
   </section>
 
   <section id="contact" class="contact">
-    <div class="eyebrow" data-tw="1" data-i18n="contact.eyebrow">Contact</div>
+    <h2 class="contact__cta" data-tw="1" data-i18n="contact.cta-heading">Got a brief? Let's build it.</h2>
+    <p class="contact__cta-sub" data-anim="1" data-i18n="contact.cta-sub">Email, call or send a brief — I usually reply the same day.</p>
     <div class="contact__grid">
       <div>
         <div class="contact__label" data-i18n="contact.email">Email</div>
@@ -284,6 +339,22 @@
       </div>
       <div class="contact__foot">
         <div class="contact__copyright">© 2026 Valentin Barrios · Buenos Aires, Argentina</div>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <div class="marquee__set">
+          <span>Valentin Barrios</span><span>&middot;</span>
+          <span>Valentin Barrios</span><span>&middot;</span>
+          <span>Valentin Barrios</span><span>&middot;</span>
+          <span>Valentin Barrios</span><span>&middot;</span>
+        </div>
+        <div class="marquee__set">
+          <span>Valentin Barrios</span><span>&middot;</span>
+          <span>Valentin Barrios</span><span>&middot;</span>
+          <span>Valentin Barrios</span><span>&middot;</span>
+          <span>Valentin Barrios</span><span>&middot;</span>
+        </div>
       </div>
     </div>
   </section>

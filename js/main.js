@@ -15,14 +15,19 @@
   const I18N = {
     en: {
       "nav.work": "Work",
+      "nav.services": "Services",
       "nav.contact": "Contact",
+      "nav.hire": "Start a project",
       "hero.title": "Valentin<br>Barrios<br>graphic<br>designer",
       "hero.lead": "I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design",
-      "hero.practice1": "Michelob Ultra - Product Design",
-      "hero.practice2": "Dale Play - 3D Modeling",
-      "hero.practice3": "Somosbubble - Branding Identity",
       "work.title": "Selected work",
+      "work.rail-card1-tag": "Product Design · Campaign",
+      "work.rail-card2-tag": "3D Modeling · Fabrication",
+      "work.rail-card3-tag": "Branding · Identity",
       "case.development": "Development",
+      "case.michelob-tags": "Product Design · 3D Printing · Campaign",
+      "case.daleplay-tags": "3D Modeling · Casting · Award Design",
+      "case.bubble-tags": "Branding · Identity · Social",
       "case.pixels-title": "From pixels to real objects",
       "case.pixels-copy": "Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.",
       "case.dale-side-copy": "3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.",
@@ -37,7 +42,15 @@
       "case.bubble-palette-copy": "The palette comes from the logo's gradient: magenta, orange and yellow carry Bubble's energy, humor and youthful tone, while white adds air and contrast so the content can breathe. Vibrant colors that stand out instantly in a busy feed.",
       "case.bubble-note": "We chose Poppins for its round, geometric shapes, which echo the curves of the logo and the idea of a bubble. It stays clear and legible on small screens, works for both big titles and short copy, and brings a friendly, modern tone without losing personality.",
       "case.bubble-copy": "Somos Bubble, a space where we bet on dynamic entertainment with a fresh, youthful tone. Bubble is a vibrant bubble where anything can happen and everyone wants in.",
-      "about.eyebrow": "About",
+      "services.heading": "What I do",
+      "services.item1-title": "Product &amp; Campaign Design",
+      "services.item1-copy": "Concepting and designing the physical pieces a brand activation needs, from first sketch to the object someone holds at the event.",
+      "services.item2-title": "3D Modeling &amp; Rendering",
+      "services.item2-copy": "Building clean, production-ready 3D models and renders for objects that need to look real before they're real.",
+      "services.item3-title": "3D Printing &amp; Fabrication",
+      "services.item3-copy": "Taking a model through printing, casting and finishing until it's a physical object, not a file.",
+      "services.item4-title": "Branding &amp; Identity",
+      "services.item4-copy": "Logo, type, color and the rules that keep a brand consistent across feed, print and video.",
       "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
       "about.philosophy-copy": "I approach design as an integral system where the digital and physical worlds converge. My focus is the balance between aesthetics and good design, whether in graphic design, custom 3D product modeling or setting up printing processes.",
       "about.teammates": "What clients say",
@@ -45,8 +58,8 @@
       "about.author1": "Bubble team - Somosbubble",
       "about.quote2": "“I've been working with Valen for a while now. He has exceptional attention to detail and is fast at executing any project.”",
       "about.author2": "Gonzalo Castaño - Visual artist",
-      "clients.selected": "Selected",
-      "contact.eyebrow": "Contact",
+      "contact.cta-heading": "Got a brief? Let's build it.",
+      "contact.cta-sub": "Email, call or send a brief — I usually reply the same day.",
       "contact.email": "Email",
       "contact.elsewhere": "Elsewhere",
       "contact.cv-label": "Resume",
@@ -54,14 +67,19 @@
     },
     es: {
       "nav.work": "Trabajo",
+      "nav.services": "Servicios",
       "nav.contact": "Contacto",
+      "nav.hire": "Iniciar un proyecto",
       "hero.title": "Valentin<br>Barrios<br>diseñador<br>gráfico",
       "hero.lead": "Creo branding, modelado 3D, impresión 3D y diseño de producto.<br>Actualmente trabajando en un laboratorio 3D fabricando ortesis craneales y diseño de producto",
-      "hero.practice1": "Michelob Ultra - Diseño de Producto",
-      "hero.practice2": "Dale Play - Modelado 3D",
-      "hero.practice3": "Somosbubble - Identidad de Marca",
       "work.title": "Trabajo seleccionado",
+      "work.rail-card1-tag": "Diseño de Producto · Campaña",
+      "work.rail-card2-tag": "Modelado 3D · Fabricación",
+      "work.rail-card3-tag": "Branding · Identidad",
       "case.development": "Desarrollo",
+      "case.michelob-tags": "Diseño de Producto · Impresión 3D · Campaña",
+      "case.daleplay-tags": "Modelado 3D · Fundición · Diseño de Premios",
+      "case.bubble-tags": "Branding · Identidad · Redes",
       "case.pixels-title": "De los píxeles a los objetos reales",
       "case.pixels-copy": "Junto con mi equipo, tuvimos solo una semana para dar vida a este ambicioso proyecto: desde el modelado 3D inicial y el desarrollo hasta la fundición final en alpaca. Trabajar con un plazo tan ajustado hizo de cada etapa un desafío, pero ver las piezas terminadas hizo que la experiencia valiera totalmente la pena.",
       "case.dale-side-copy": "Modelado 3D de cinco placas conmemorativas para el último concierto de Bad Bunny en el Estadio River Plate, desarrolladas para producción con un fuerte foco en el detalle y el terminado de alta calidad.",
@@ -76,7 +94,15 @@
       "case.bubble-palette-copy": "La paleta nace del degradé del logo: el magenta, el naranja y el amarillo transmiten la energía, el humor y el tono juvenil de Bubble, y el blanco aporta aire y contraste para que el contenido respire. Colores vibrantes que se reconocen al instante en un feed lleno de estímulos.",
       "case.bubble-note": "Elegimos Poppins por sus formas geométricas y redondeadas, que dialogan con las curvas del logo y la idea de burbuja. Es clara y legible en pantallas chicas, funciona tanto en títulos grandes como en textos cortos y aporta un tono amigable y moderno sin perder personalidad.",
       "case.bubble-copy": "Somos Bubble, un espacio donde apostamos por el entretenimiento dinámico y con tono fresco y juvenil. Bubble es una burbuja vibrante donde todo puede pasar y todos quieren entrar.",
-      "about.eyebrow": "Acerca de",
+      "services.heading": "Qué hago",
+      "services.item1-title": "Diseño de Producto y Campaña",
+      "services.item1-copy": "Pienso y diseño las piezas físicas que necesita una activación de marca, desde el primer boceto hasta el objeto que alguien sostiene en el evento.",
+      "services.item2-title": "Modelado 3D y Renders",
+      "services.item2-copy": "Construyo modelos 3D limpios y listos para producción, con renders que tienen que verse reales antes de serlo.",
+      "services.item3-title": "Impresión 3D y Fabricación",
+      "services.item3-copy": "Llevo un modelo a través de la impresión, el fundido y el terminado hasta que es un objeto físico, no un archivo.",
+      "services.item4-title": "Branding e Identidad",
+      "services.item4-copy": "Logo, tipografía, color y las reglas que mantienen una marca consistente entre feed, impresos y video.",
       "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
       "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética y el buen diseño, ya sea en diseño gráfico, modelado de productos 3D personalizados o configurando procesos de impresión.",
       "about.teammates": "Lo que dicen mis clientes",
@@ -84,8 +110,8 @@
       "about.author1": "Equipo Bubble - Somosbubble",
       "about.quote2": "“Vengo trabajando con Valen desde hace un tiempo. Tiene una atención al detalle excepcional y es rápido para ejecutar cualquier proyecto.”",
       "about.author2": "Gonzalo Castaño - Artista plástico",
-      "clients.selected": "Seleccionados",
-      "contact.eyebrow": "Contacto",
+      "contact.cta-heading": "¿Tenés un brief? Construyámoslo.",
+      "contact.cta-sub": "Escribime, llamame o mandame el brief — suelo responder el mismo día.",
       "contact.email": "Email",
       "contact.elsewhere": "Redes",
       "contact.cv-label": "CV",
@@ -892,10 +918,95 @@
     }, { threshold: 0.3 }).observe(wrap);
   }
 
+  /* ---------------------------------------------------------------------
+   * Work rail — the horizontal project strip under the hero. Native
+   * scroll-snap carries touch/trackpad; on a mouse (vertical wheel only)
+   * the wheel delta is redirected into horizontal scroll so the rail reads
+   * like a single horizontal gesture instead of being ignored.
+   * ------------------------------------------------------------------- */
+  function initWorkRail() {
+    const rail = document.querySelector(".work-rail");
+    if (!rail) return;
+    rail.addEventListener("wheel", (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // already horizontal
+      const atStart = rail.scrollLeft <= 0;
+      const atEnd = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 1;
+      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return; // let the page scroll past the ends
+      e.preventDefault();
+      rail.scrollLeft += e.deltaY;
+    }, { passive: false });
+
+    let dragging = false, startX = 0, startScroll = 0, moved = false;
+    rail.addEventListener("pointerdown", (e) => {
+      dragging = true; moved = false;
+      startX = e.clientX; startScroll = rail.scrollLeft;
+      rail.setPointerCapture(e.pointerId);
+    });
+    rail.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 6) moved = true;
+      rail.scrollLeft = startScroll - dx;
+    });
+    const endDrag = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      // A drag that actually moved the rail shouldn't also follow the card's link
+      if (moved) rail.querySelectorAll("a").forEach((a) => a.addEventListener("click", (ev) => ev.preventDefault(), { once: true }));
+    };
+    rail.addEventListener("pointerup", endDrag);
+    rail.addEventListener("pointercancel", endDrag);
+  }
+
+  /* ---------------------------------------------------------------------
+   * Services accordion — clicking (or, with a mouse, hovering) a numbered
+   * item makes it active and swaps the picture beside it to the real
+   * project image for that discipline.
+   * ------------------------------------------------------------------- */
+  function initServicesAccordion() {
+    const items = [...document.querySelectorAll(".services__item")];
+    if (!items.length) return;
+    const imgs = [...document.querySelectorAll("[data-service-img]")];
+    const activate = (n) => {
+      items.forEach((btn) => btn.classList.toggle("is-active", btn.dataset.service === n));
+      imgs.forEach((img) => img.classList.toggle("is-active", img.dataset.serviceImg === n));
+    };
+    items.forEach((btn) => {
+      btn.addEventListener("click", () => activate(btn.dataset.service));
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        btn.addEventListener("pointerenter", () => activate(btn.dataset.service));
+      }
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Custom cursor — a small dot that follows the pointer and grows over
+   * anything clickable. Mouse/trackpad only; never replaces focus rings.
+   * ------------------------------------------------------------------- */
+  function initCursorDot() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    const dot = document.createElement("div");
+    dot.className = "cursor-dot";
+    document.body.appendChild(dot);
+    let x = -50, y = -50, visible = false;
+    window.addEventListener("pointermove", (e) => {
+      x = e.clientX; y = e.clientY;
+      if (!visible) { visible = true; dot.classList.add("is-visible"); }
+      dot.style.transform = `translate(${x}px, ${y}px)`;
+      const over = e.target.closest("a, button, [data-pop] img, .piece3d");
+      dot.classList.toggle("is-big", !!over);
+    }, { passive: true });
+    document.documentElement.addEventListener("mouseleave", () => { visible = false; dot.classList.remove("is-visible"); });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const lang = detectLang();
     initLangToggle(lang); // translate static copy before the typewriter splits any text nodes
     initHeroVideoFallback();
+    initWorkRail();
+    initServicesAccordion();
+    initCursorDot();
     setTimeout(() => {
       initFadeUp();
       initPopReveal();

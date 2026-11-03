@@ -34,9 +34,7 @@ img, video { max-width: 100%; }
   position: sticky; top: 0; z-index: 40;
   display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px;
   padding: 14px 24px;
-  background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--bg);
 }
 .nav__brand {
   font-size: 13px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
@@ -46,6 +44,12 @@ img, video { max-width: 100%; }
   display: flex; flex-wrap: wrap; gap: 22px;
   font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
 }
+.nav__cta {
+  background: #ffffff; color: #000000; padding: 9px 16px;
+  font-size: 12px; font-weight: 700; white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+.nav__cta:hover { color: #000000; opacity: 0.8; }
 .lang-toggle { display: flex; gap: 10px; margin-left: 22px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; }
 .lang-toggle button {
   background: none; border: none; padding: 0; font: inherit; color: var(--muted); cursor: pointer;
@@ -72,14 +76,6 @@ img, video { max-width: 100%; }
   letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance;
 }
 .hero__lead { margin: 0; font-size: 15px; line-height: 1.5; max-width: 46ch; }
-.hero__practice { display: flex; flex-direction: column; gap: 0.12em; margin-top: auto; margin-bottom: clamp(24px, 4vw, 64px); }
-.hero__practice-item {
-  display: flex; align-items: baseline; gap: 0.4em;
-  font-size: clamp(17px, 1.7vw, 27px); font-weight: 900; line-height: 1.22;
-  letter-spacing: -0.035em; text-transform: uppercase;
-}
-.hero__practice-link { color: var(--fg); text-decoration: none; transition: opacity 0.3s ease; }
-.hero__practice-link:hover { opacity: 0.6; color: var(--fg); }
 
 /* Shared section heads */
 .section-head {
@@ -90,6 +86,32 @@ img, video { max-width: 100%; }
   margin: 0; font-size: clamp(28px, 4vw, 56px); font-weight: 900;
   letter-spacing: -0.03em; text-transform: uppercase; line-height: 0.9;
 }
+
+/* Work rail — horizontal strip of the three projects under the section
+   heading; native scroll-snap for touch, wheel redirected to horizontal
+   scroll for a mouse (js), drag to pan. No scrollbar shown: the cards
+   themselves and the edge-of-screen crop signal there's more. */
+.work-rail {
+  display: flex; gap: clamp(16px, 2vw, 28px);
+  padding: 0 clamp(20px, 3.5vw, 48px) clamp(32px, 5vw, 64px);
+  overflow-x: auto; overscroll-behavior-x: contain; cursor: grab;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.work-rail:active { cursor: grabbing; }
+.work-rail::-webkit-scrollbar { display: none; }
+.work-rail__card {
+  flex: 0 0 min(78vw, 480px); scroll-snap-align: start;
+  display: block; color: var(--fg); text-decoration: none;
+}
+.work-rail__media {
+  position: relative; aspect-ratio: 4 / 5; background: var(--panel); overflow: hidden;
+}
+.work-rail__media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.work-rail__card:hover .work-rail__media video { transform: scale(1.04); }
+.work-rail__index { margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.work-rail__title { margin-top: 4px; font-size: clamp(20px, 2.2vw, 28px); font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; line-height: 1.05; }
+.work-rail__tag { margin-top: 4px; font-size: 14px; color: var(--muted); }
 
 /* Case studies */
 .case { padding: 0 0 clamp(40px, 6vw, 96px); position: relative; scroll-margin-top: 64px; }
@@ -112,6 +134,13 @@ img, video { max-width: 100%; }
   letter-spacing: -0.035em; text-transform: uppercase;
 }
 .case__hero-sub { margin-top: 6px; font-size: clamp(13px, 1.4vw, 18px); font-weight: 800; letter-spacing: 0.02em; }
+
+.case__meta {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px;
+  padding: clamp(14px, 1.6vw, 22px) clamp(20px, 3.5vw, 48px) 0;
+  font-size: 14px; color: var(--muted);
+}
+.case__meta-index { font-weight: 700; color: var(--fg); }
 
 .case__grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
@@ -347,13 +376,49 @@ html.js .case__carousel-set[data-pop]:not(.is-in) img {
   .case__carousel-set[aria-hidden] { display: none; }
 }
 
+/* Services — numbered accordion on the left, the matching real project
+   image on the right, cross-fading between the four stacked images. */
+.services { padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px) clamp(40px, 6vw, 80px); }
+.services__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: clamp(24px, 4vw, 64px); margin-top: clamp(20px, 3vw, 36px); align-items: start;
+}
+.services__list { display: flex; flex-direction: column; }
+.services__item {
+  display: block; width: 100%; text-align: left; background: none; border: 0;
+  padding: clamp(14px, 1.8vw, 22px) 0; font: inherit; color: var(--fg); cursor: pointer;
+}
+.services__item-row { display: flex; align-items: baseline; gap: 0.5em; }
+.services__item-index { font-size: 14px; font-weight: 700; color: var(--muted); transition: color 0.25s ease; }
+.services__item.is-active .services__item-index { color: var(--fg); }
+.services__item-title {
+  font-size: clamp(20px, 2.6vw, 32px); font-weight: 900; letter-spacing: -0.03em;
+  text-transform: uppercase; color: var(--muted); transition: color 0.25s ease;
+}
+.services__item.is-active .services__item-title { color: var(--fg); }
+.services__item-copy {
+  display: block; max-width: 48ch; font-size: 15px; line-height: 1.5; color: var(--muted);
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.35s ease;
+}
+.services__item.is-active .services__item-copy { max-height: 140px; opacity: 1; margin-top: 10px; }
+.services__media { position: relative; aspect-ratio: 4 / 5; background: var(--panel); overflow: hidden; }
+.services__media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.services__media img.is-active { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .services__item-copy { transition: none; }
+  .services__media img { transition: none; }
+}
+
 /* What clients say */
 .testimonials { background: var(--panel); padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); }
 .testimonials__grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
   gap: clamp(28px, 4vw, 64px); margin-top: clamp(12px, 2vw, 24px);
 }
-.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
 .testimonial { margin: 0; padding-top: 22px; }
 .testimonial blockquote {
@@ -375,7 +440,7 @@ html.js .case__carousel-set[data-pop]:not(.is-in) img {
 .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
 .about__col { padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 48px); }
 .about__heading {
-  margin: 18px 0 0; font-size: clamp(30px, 4.2vw, 60px); font-weight: 900; line-height: 0.9;
+  margin: 0; font-size: clamp(30px, 4.2vw, 60px); font-weight: 900; line-height: 0.9;
   letter-spacing: -0.035em; text-transform: uppercase;
 }
 .about__philosophy {
@@ -386,25 +451,57 @@ html.js .case__carousel-set[data-pop]:not(.is-in) img {
 .about__photo img { display: block; width: 100%; height: auto; background: var(--panel); }
 .about__philosophy p { flex: 1 1 260px; margin: 0; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5; max-width: 52ch; text-wrap: pretty; }
 
-/* Clients */
-.clients { padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px); }
-.clients__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-end; }
-.clients__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0; margin-top: clamp(22px, 3vw, 36px); }
-.client { background: #000000; padding: 26px 20px; font-size: clamp(18px, 2vw, 26px); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; }
-.client { display: block; text-decoration: none; transition: background 0.3s ease; }
-.client:hover { background: var(--panel); color: var(--fg); }
-
 /* Contact */
-.contact { padding: clamp(40px, 7vw, 110px) clamp(20px, 3.5vw, 48px) clamp(28px, 3vw, 48px); }
+.contact { padding: clamp(40px, 7vw, 110px) clamp(20px, 3.5vw, 48px) 0; }
+.contact__cta {
+  margin: 0; font-size: clamp(34px, 5.5vw, 80px); font-weight: 900; line-height: 0.94;
+  letter-spacing: -0.035em; text-transform: uppercase; max-width: 16ch;
+}
+.contact__cta-sub { margin: 16px 0 0; font-size: clamp(15px, 1.4vw, 19px); color: var(--muted); max-width: 46ch; }
 .contact__grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-  gap: 24px; margin-top: clamp(32px, 5vw, 64px); padding-top: 20px;
+  gap: 24px; margin-top: clamp(32px, 5vw, 64px); padding-top: 20px; padding-bottom: clamp(28px, 3vw, 48px);
 }
 .contact__label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .contact__email { font-size: 15px; font-weight: 700; }
 .contact__elsewhere { display: flex; flex-wrap: wrap; gap: 16px; font-size: 15px; font-weight: 700; }
 .contact__foot { display: flex; align-items: flex-end; }
 .contact__copyright { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+/* Closing marquee — the page's last beat: the name on loop, inverted to
+   white ground / black ink as the one deliberate field-colour change on
+   the page. Full-bleed within .site, same negative-margin trick as the
+   photo carousel above. */
+.marquee {
+  margin: clamp(32px, 5vw, 56px) calc(-1 * clamp(20px, 3.5vw, 48px)) 0;
+  background: #ffffff; color: #000000; overflow: hidden;
+}
+.marquee__track { display: flex; width: max-content; animation: marquee-scroll 22s linear infinite; }
+.marquee__set { display: flex; align-items: center; flex-shrink: 0; }
+.marquee__set span {
+  display: inline-block; padding: clamp(18px, 3vw, 36px) clamp(16px, 2vw, 28px);
+  font-size: clamp(32px, 6vw, 96px); font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; white-space: nowrap;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+  .marquee { overflow-x: auto; }
+}
+
+/* Custom cursor — a small dot that tracks the pointer and grows over
+   anything clickable (js adds/removes is-visible / is-big). Desktop
+   pointer only; never replaces the real focus ring. */
+.cursor-dot {
+  position: fixed; top: 0; left: 0; z-index: 60; pointer-events: none;
+  width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%;
+  background: #ffffff; mix-blend-mode: difference;
+  opacity: 0; transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease, margin 0.2s ease;
+}
+.cursor-dot.is-visible { opacity: 1; }
+.cursor-dot.is-big { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
 
 /* Film grain overlay */
 .grain {

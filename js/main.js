@@ -18,19 +18,19 @@
       "nav.services": "Services",
       "nav.contact": "Contact",
       "nav.hire": "Start a project",
-      "hero.title": "Valentin<br>Barrios<br>graphic<br>designer",
-      "hero.lead": "I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design",
+      "hero.title": "Valentin Barrios<br>Graphic Designer",
+      "hero.lead": "I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses.",
       "work.title": "Selected work",
       "work.rail-card1-tag": "Product Design · Campaign",
       "work.rail-card2-tag": "3D Modeling · Fabrication",
       "case.development": "Development",
       "case.michelob-tags": "Product Design · 3D Printing · Campaign",
       "case.daleplay-tags": "3D Modeling · Casting · Award Design",
-      "case.pixels-title": "From pixels to real objects",
+      "case.pixels-title": "Pixels become objects",
       "case.pixels-copy": "Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.",
-      "case.dale-side-copy": "3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.",
-      "case.michelob-copy": "For the large-scale Michelob ULTRA installation inspired by Messi, for his farewell from the Argentina national team, I designed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.",
-      "case.michelob-heading2": "An individual message, a collective artwork",
+      "case.dale-side-copy": "Five commemorative award plaques for Bad Bunny's final River Plate concert, modeled and finished to a high standard of detail.",
+      "case.michelob-copy": "For Michelob ULTRA's farewell installation for Messi, I designed and produced thousands of custom 3D-printed pieces, from first model to final production.",
+      "case.michelob-heading2": "One message, one shared mosaic",
       "case.michelob-copy2": "Fans insert personal messages into 3D-printed capsules and add them to a panel to reveal a massive Messi mosaic, receiving a commemorative keychain in return",
       "case.piece-hint": "Drag a capsule to spin it",
       "services.heading": "What I do",
@@ -40,7 +40,7 @@
       "services.item2-copy": "Building clean, production-ready 3D models and renders for objects that need to look real before they're real.",
       "services.item3-title": "3D Printing &amp; Fabrication",
       "services.item3-copy": "Taking a model through printing, casting and finishing until it's a physical object, not a file.",
-      "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
+      "about.heading": "Multimedial design, Buenos Aires",
       "about.philosophy-copy": "I approach design as an integral system where the digital and physical worlds converge. My focus is the balance between aesthetics and good design, whether in graphic design, custom 3D product modeling or setting up printing processes.",
       "about.teammates": "What clients say",
       "about.quote2": "“I've been working with Valen for a while now. He has exceptional attention to detail and is fast at executing any project.”",
@@ -57,19 +57,19 @@
       "nav.services": "Servicios",
       "nav.contact": "Contacto",
       "nav.hire": "Iniciar un proyecto",
-      "hero.title": "Valentin<br>Barrios<br>diseñador<br>gráfico",
-      "hero.lead": "Creo branding, modelado 3D, impresión 3D y diseño de producto.<br>Actualmente trabajando en un laboratorio 3D fabricando ortesis craneales y diseño de producto",
+      "hero.title": "Valentin Barrios<br>Diseñador Gráfico",
+      "hero.lead": "Creo branding, modelado 3D, impresión 3D y diseño de producto.<br>Actualmente en un laboratorio 3D fabricando ortesis craneales.",
       "work.title": "Trabajo seleccionado",
       "work.rail-card1-tag": "Diseño de Producto · Campaña",
       "work.rail-card2-tag": "Modelado 3D · Fabricación",
       "case.development": "Desarrollo",
       "case.michelob-tags": "Diseño de Producto · Impresión 3D · Campaña",
       "case.daleplay-tags": "Modelado 3D · Fundición · Diseño de Premios",
-      "case.pixels-title": "De los píxeles a los objetos reales",
+      "case.pixels-title": "De píxeles a objetos",
       "case.pixels-copy": "Junto con mi equipo, tuvimos solo una semana para dar vida a este ambicioso proyecto: desde el modelado 3D inicial y el desarrollo hasta la fundición final en alpaca. Trabajar con un plazo tan ajustado hizo de cada etapa un desafío, pero ver las piezas terminadas hizo que la experiencia valiera totalmente la pena.",
-      "case.dale-side-copy": "Modelado 3D de cinco placas conmemorativas para el último concierto de Bad Bunny en el Estadio River Plate, desarrolladas para producción con un fuerte foco en el detalle y el terminado de alta calidad.",
-      "case.michelob-copy": "Para la instalación a gran escala de Michelob ULTRA inspirada en Messi, para su despedida de la selección argentina, diseñé y produje miles de fichas personalizadas e impresas en 3D, llevando el proyecto desde el modelado inicial hasta la producción final.",
-      "case.michelob-heading2": "Un mensaje individual, una obra colectiva",
+      "case.dale-side-copy": "Cinco placas conmemorativas para el último show de Bad Bunny en River Plate, modeladas y terminadas con un fuerte foco en el detalle.",
+      "case.michelob-copy": "Para la instalación de despedida de Michelob ULTRA a Messi, diseñé y produje miles de fichas impresas en 3D, desde el primer modelo hasta la producción final.",
+      "case.michelob-heading2": "Un mensaje, un mosaico compartido",
       "case.michelob-copy2": "Los fans insertan mensajes personales en cápsulas impresas en 3D y las suman a un panel para revelar un mosaico gigante de Messi, y a cambio reciben un llavero conmemorativo",
       "case.piece-hint": "Arrastrá una cápsula para girarla",
       "services.heading": "Qué hago",
@@ -79,7 +79,7 @@
       "services.item2-copy": "Construyo modelos 3D limpios y listos para producción, con renders que tienen que verse reales antes de serlo.",
       "services.item3-title": "Impresión 3D y Fabricación",
       "services.item3-copy": "Llevo un modelo a través de la impresión, el fundido y el terminado hasta que es un objeto físico, no un archivo.",
-      "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
+      "about.heading": "Diseño multimedial, Buenos Aires",
       "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética y el buen diseño, ya sea en diseño gráfico, modelado de productos 3D personalizados o configurando procesos de impresión.",
       "about.teammates": "Lo que dicen mis clientes",
       "about.quote2": "“Vengo trabajando con Valen desde hace un tiempo. Tiene una atención al detalle excepcional y es rápido para ejecutar cualquier proyecto.”",
@@ -304,9 +304,9 @@
       if (r.top < vh * 0.66) p = 1; // already comfortably on screen: show it in full
       if (atBottom && r.top < vh) p = 1;
       const target = Math.round(p * chars.length);
-      if (el.__shown === target) return;
-      for (let i = 0; i < target; i++) chars[i].classList.add("tw-on");
-      for (let i = target; i < (el.__shown || 0); i++) chars[i].classList.remove("tw-on");
+      const prev = el.__shown || 0;
+      if (target <= prev) return; // once revealed, a glyph stays revealed
+      for (let i = prev; i < target; i++) chars[i].classList.add("tw-on");
       el.__shown = target;
     });
   }
@@ -360,8 +360,7 @@
 
   /* ---------------------------------------------------------------------
    * Fade-up reveal for paragraphs — entries near each other in the flow
-   * cascade in with a short stagger; leaving the viewport resets them so
-   * the reveal plays again on re-entry.
+   * cascade in with a short stagger, once, the first time each one enters.
    * ------------------------------------------------------------------- */
   function initFadeUp() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -384,10 +383,11 @@
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
         const el = entry.target;
-        const d = entry.isIntersecting ? (el.__stagger || 0) : 0;
-        el.style.transitionDelay = d + "ms";
-        el.classList.toggle("is-in", entry.isIntersecting);
+        el.style.transitionDelay = (el.__stagger || 0) + "ms";
+        el.classList.add("is-in");
+        io.unobserve(el);
       });
     }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
 
@@ -396,8 +396,8 @@
 
   /* ---------------------------------------------------------------------
    * Pop-up reveal for [data-pop] groups (Bad Bunny plaques, Messi mosaic) —
-   * each image springs in with a stagger; leaving the viewport resets them
-   * like the fade-up.
+   * each image springs in with a stagger, once, the first time its group
+   * enters the viewport.
    * ------------------------------------------------------------------- */
   function initPopReveal() {
     document.querySelectorAll("[data-pop]").forEach((group) => {
@@ -406,12 +406,11 @@
 
       // After the last image lands, switch to the quick hover transition
       const settleAfter = (imgs.length - 1) * 140 + 650;
-      let settleTimer;
       const io = new IntersectionObserver(([entry]) => {
-        group.classList.toggle("is-in", entry.isIntersecting);
-        clearTimeout(settleTimer);
-        if (entry.isIntersecting) settleTimer = setTimeout(() => group.classList.add("is-settled"), settleAfter);
-        else group.classList.remove("is-settled");
+        if (!entry.isIntersecting) return;
+        group.classList.add("is-in");
+        setTimeout(() => group.classList.add("is-settled"), settleAfter);
+        io.disconnect();
       }, { threshold: 0.3, rootMargin: "0px 0px -8% 0px" });
 
       io.observe(group);

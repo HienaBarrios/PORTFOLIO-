@@ -27,7 +27,7 @@ img, video { max-width: 100%; }
 /* Caps runaway stretching on wide desktop monitors (uncapped, a 1920px+
    screen leaves huge gaps in the grids below); body is the same solid
    black outside the cap, so nothing visible changes on narrower screens. */
-.site { min-height: 100vh; background: var(--bg); position: relative; max-width: 1600px; margin: 0 auto; }
+.site { min-height: 100dvh; background: var(--bg); position: relative; max-width: 1600px; margin: 0 auto; }
 
 /* Nav */
 .nav {
@@ -119,15 +119,8 @@ img, video { max-width: 100%; }
 .case__hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .case__hero-scrim {
   position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 78%, rgba(0,0,0,0.85) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 78%, rgba(0,0,0,0.85) 100%); /* taste-skill-ignore: the documented gradient exception, a neutral scrim so the caption reads over the video */
 }
-.case__hero::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-  background: radial-gradient(circle 260px at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.14), transparent 70%);
-  transition: opacity 0.4s ease;
-}
-.case__hero:hover::after { opacity: 1; }
-@media (prefers-reduced-motion: reduce), (hover: none) { .case__hero::after { display: none; } }
 .case__hero-caption { position: absolute; left: clamp(20px, 3.5vw, 48px); bottom: clamp(20px, 3vw, 40px); }
 .case__hero-title {
   font-size: clamp(28px, 4.6vw, 64px); font-weight: 900; line-height: 0.92;
@@ -190,46 +183,9 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 /* The big mosaic poster needs a longer lens so the tilt doesn't warp it */
 .case__square-media[data-tilt3d] img { --persp: 2000px; }
 
-/* Somosbubble brand gallery: wide pieces span the full width, with the
-   brand-manual block (copy + images in two columns) in between */
-.bubble-gallery {
-  display: flex; flex-direction: column; gap: clamp(12px, 2vw, 28px);
-  padding: clamp(24px, 3vw, 48px) clamp(20px, 3.5vw, 48px) 0;
-}
-.bubble-gallery img { display: block; width: 100%; height: auto; }
-.bubble-gallery [data-tilt3d] img { --persp: 2000px; }
-/* Brand manual block: copy | Instagram on top, typography | note below.
-   Two grid rows, so the typography only starts once Instagram ends —
-   images never overlap in height, like the Michelob case layout */
-.bubble-gallery__brand {
-  display: grid; grid-template-columns: 880fr 506fr;
-  column-gap: clamp(24px, 3vw, 48px); row-gap: clamp(24px, 4vw, 64px);
-  margin: clamp(12px, 2vw, 36px) 0; align-items: start;
-}
-.bubble-gallery__copy { display: flex; flex-direction: column; gap: 18px; }
-/* Closer text sizes than the other cases: the two paragraphs sit side by side here */
-.bubble-gallery__brand .case__side-copy { font-size: clamp(19px, 1.9vw, 27px); max-width: 34ch; }
-.bubble-gallery .case__note { font-size: clamp(16px, 1.6vw, 22px); line-height: 1.35; }
-/* Palette block: justification copy on the left, the (larger) palette on the right */
-.bubble-gallery__palette-block {
-  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 48px);
-  align-items: center; margin: clamp(12px, 2vw, 36px) 0;
-}
-@media (max-width: 640px) {
-  .bubble-gallery__brand, .bubble-gallery__palette-block { grid-template-columns: 1fr; }
-}
-/* Large desktop monitors only: the 880:506 column split leaves the
-   short "Brand manual" copy looking tiny next to how big the square
-   Instagram mockup gets in its own (wider, in absolute px) column —
-   grow the copy and rein in the mockup's width to balance them. */
-@media (min-width: 1600px) {
-  .bubble-gallery__brand .case__side-copy { font-size: clamp(24px, 1.6vw, 32px); max-width: 36ch; }
-  .bubble-gallery__redes-img { max-width: 440px; margin-inline: auto; }
-}
-
 /* Lightbox for [data-pop] images */
 .lightbox {
-  width: 100vw; height: 100vh; max-width: none; max-height: none;
+  width: 100vw; height: 100dvh; max-width: none; max-height: none;
   margin: 0; padding: clamp(16px, 4vw, 48px); border: 0;
   background: transparent; color: var(--fg);
   display: flex; align-items: center; justify-content: center;
@@ -506,9 +462,9 @@ html.js .case__carousel-set[data-pop]:not(.is-in) img {
 /* Film grain overlay */
 .grain {
   position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.14) 0px, rgba(255,255,255,0.14) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 2px);
+  background-image: /* taste-skill-ignore: repeating 1-3px line pattern used as film-grain noise texture, not a colour gradient fill */
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px), /* taste-skill-ignore */
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.14) 0px, rgba(255,255,255,0.14) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 2px); /* taste-skill-ignore */
 }
 
 /* Scroll-linked text reveal system */

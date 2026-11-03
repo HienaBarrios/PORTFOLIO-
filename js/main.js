@@ -15,80 +15,94 @@
   const I18N = {
     en: {
       "nav.work": "Work",
-      "nav.contact": "Contact",
-      "hero.title": "Valentin<br>Barrios<br>graphic<br>designer",
-      "hero.lead": "I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design",
-      "hero.practice1": "Michelob Ultra - Product Design",
-      "hero.practice2": "Dale Play - 3D Modeling",
-      "hero.practice3": "Somosbubble - Branding Identity",
-      "work.title": "Selected work",
+      "nav.cta": "Hire me",
+      "hero.title": "Valentin Barrios",
+      "hero.lead": "I design things that leave the screen and get made.",
+      "hero.spec-discipline": "3D &amp; Product Design",
+      "hero.cta": "Start a project",
+      "hero.spec-location": "Buenos Aires, open to freelance work",
+      "hero.scroll-cue": "See the work",
+      "work.title": "Work, start to finish",
       "case.development": "Development",
+      "case.michelob-role": "Product design &amp; activation, with Lionel Messi",
+      "case.daleplay-role": "3D modeling for production: Bad Bunny's commemorative plaques",
+      "case.bubble-role": "Branding &amp; identity system: logo, palette, type, templates",
       "case.pixels-title": "From pixels to real objects",
       "case.pixels-copy": "Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.",
       "case.dale-side-copy": "3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.",
       "case.michelob-copy": "For the large-scale Michelob ULTRA installation inspired by Messi, for his farewell from the Argentina national team, I designed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.",
-      "case.michelob-heading2": "An individual message, a collective artwork",
+      "case.michelob-heading2": "One message, one shared mosaic",
       "case.michelob-copy2": "Fans insert personal messages into 3D-printed capsules and add them to a panel to reveal a massive Messi mosaic, receiving a commemorative keychain in return",
       "case.piece-hint": "Drag a capsule to spin it",
-      "case.bubble-sub": "Branding System",
       "case.bubble-label": "Brand manual",
       "case.bubble-palette-label": "Color palette",
       "case.bubble-type-label": "Typography",
       "case.bubble-palette-copy": "The palette comes from the logo's gradient: magenta, orange and yellow carry Bubble's energy, humor and youthful tone, while white adds air and contrast so the content can breathe. Vibrant colors that stand out instantly in a busy feed.",
       "case.bubble-note": "We chose Poppins for its round, geometric shapes, which echo the curves of the logo and the idea of a bubble. It stays clear and legible on small screens, works for both big titles and short copy, and brings a friendly, modern tone without losing personality.",
       "case.bubble-copy": "Somos Bubble, a space where we bet on dynamic entertainment with a fresh, youthful tone. Bubble is a vibrant bubble where anything can happen and everyone wants in.",
-      "about.eyebrow": "About",
-      "about.heading": "i'm a multimedial designer based in Buenos Aires Argentina",
-      "about.philosophy-copy": "I approach design as an integral system where the digital and physical worlds converge. My focus is the balance between aesthetics and good design, whether in graphic design, custom 3D product modeling or setting up printing processes.",
-      "about.teammates": "What clients say",
+      "features.title": "Three ways to work with me",
+      "features.stmt1": "Product design, made to ship",
+      "features.stmt2": "3D modeling built to manufacture",
+      "features.stmt3": "Brand systems your team can use",
+      "testimonials.title": "What it's like to work with me",
+      "about.heading": "Who you'd be hiring",
+      "about.role": "Multimedia &amp; 3D product designer, based in Buenos Aires",
+      "about.philosophy-copy": "I design as one system across digital and physical: from a 3D model to the object your audience actually holds. A one-week turnaround or a six-month build gets the same attention to detail.",
+      "about.trait1": "Handles a one-week deadline without cutting corners",
+      "about.trait2": "Takes a concept from screen to physical production",
+      "about.trait3": "Builds brand systems a whole team can run with",
       "about.quote1": "“With Valen we did all of our brand design and the 3D props for our videos, he is amazing at what he does.”",
       "about.author1": "Bubble team - Somosbubble",
       "about.quote2": "“I've been working with Valen for a while now. He has exceptional attention to detail and is fast at executing any project.”",
       "about.author2": "Gonzalo Castaño - Visual artist",
-      "clients.selected": "Selected",
-      "contact.eyebrow": "Contact",
-      "contact.email": "Email",
-      "contact.elsewhere": "Elsewhere",
-      "contact.cv-label": "Resume",
+      "contact.title": "Let's work together",
+      "contact.prompt": "Tell me about your project, timeline and budget.",
       "contact.cv-download": "Download CV"
     },
     es: {
       "nav.work": "Trabajo",
-      "nav.contact": "Contacto",
-      "hero.title": "Valentin<br>Barrios<br>diseñador<br>gráfico",
-      "hero.lead": "Creo branding, modelado 3D, impresión 3D y diseño de producto.<br>Actualmente trabajando en un laboratorio 3D fabricando ortesis craneales y diseño de producto",
-      "hero.practice1": "Michelob Ultra - Diseño de Producto",
-      "hero.practice2": "Dale Play - Modelado 3D",
-      "hero.practice3": "Somosbubble - Identidad de Marca",
-      "work.title": "Trabajo seleccionado",
+      "nav.cta": "Contratame",
+      "hero.title": "Valentin Barrios",
+      "hero.lead": "Diseño cosas que salen de la pantalla y se fabrican.",
+      "hero.spec-discipline": "Diseño 3D y de producto",
+      "hero.cta": "Iniciar un proyecto",
+      "hero.spec-location": "Buenos Aires, disponible para freelance",
+      "hero.scroll-cue": "Ver el trabajo",
+      "work.title": "Trabajo, de punta a punta",
       "case.development": "Desarrollo",
+      "case.michelob-role": "Diseño de producto y activación, con Lionel Messi",
+      "case.daleplay-role": "Modelado 3D para producción: placas conmemorativas de Bad Bunny",
+      "case.bubble-role": "Sistema de marca e identidad: logo, paleta, tipografía, plantillas",
       "case.pixels-title": "De los píxeles a los objetos reales",
       "case.pixels-copy": "Junto con mi equipo, tuvimos solo una semana para dar vida a este ambicioso proyecto: desde el modelado 3D inicial y el desarrollo hasta la fundición final en alpaca. Trabajar con un plazo tan ajustado hizo de cada etapa un desafío, pero ver las piezas terminadas hizo que la experiencia valiera totalmente la pena.",
       "case.dale-side-copy": "Modelado 3D de cinco placas conmemorativas para el último concierto de Bad Bunny en el Estadio River Plate, desarrolladas para producción con un fuerte foco en el detalle y el terminado de alta calidad.",
       "case.michelob-copy": "Para la instalación a gran escala de Michelob ULTRA inspirada en Messi, para su despedida de la selección argentina, diseñé y produje miles de fichas personalizadas e impresas en 3D, llevando el proyecto desde el modelado inicial hasta la producción final.",
-      "case.michelob-heading2": "Un mensaje individual, una obra colectiva",
+      "case.michelob-heading2": "Un mensaje, un mosaico compartido",
       "case.michelob-copy2": "Los fans insertan mensajes personales en cápsulas impresas en 3D y las suman a un panel para revelar un mosaico gigante de Messi, y a cambio reciben un llavero conmemorativo",
       "case.piece-hint": "Arrastrá una cápsula para girarla",
-      "case.bubble-sub": "Sistema de marca",
       "case.bubble-label": "Manual de marca",
       "case.bubble-palette-label": "Paleta de colores",
       "case.bubble-type-label": "Tipografía",
       "case.bubble-palette-copy": "La paleta nace del degradé del logo: el magenta, el naranja y el amarillo transmiten la energía, el humor y el tono juvenil de Bubble, y el blanco aporta aire y contraste para que el contenido respire. Colores vibrantes que se reconocen al instante en un feed lleno de estímulos.",
       "case.bubble-note": "Elegimos Poppins por sus formas geométricas y redondeadas, que dialogan con las curvas del logo y la idea de burbuja. Es clara y legible en pantallas chicas, funciona tanto en títulos grandes como en textos cortos y aporta un tono amigable y moderno sin perder personalidad.",
       "case.bubble-copy": "Somos Bubble, un espacio donde apostamos por el entretenimiento dinámico y con tono fresco y juvenil. Bubble es una burbuja vibrante donde todo puede pasar y todos quieren entrar.",
-      "about.eyebrow": "Acerca de",
-      "about.heading": "soy un diseñador multimedial de Buenos Aires, Argentina",
-      "about.philosophy-copy": "Concibo el diseño como un sistema integral donde el mundo digital y el físico convergen. Mi enfoque busca el equilibrio entre la estética y el buen diseño, ya sea en diseño gráfico, modelado de productos 3D personalizados o configurando procesos de impresión.",
-      "about.teammates": "Lo que dicen mis clientes",
+      "features.title": "Tres formas de ayudarte",
+      "features.stmt1": "Diseño de producto, listo para producir",
+      "features.stmt2": "Modelado 3D listo para fabricar",
+      "features.stmt3": "Sistemas de marca para tu equipo",
+      "testimonials.title": "Cómo es trabajar conmigo",
+      "about.heading": "A quién vas a contratar",
+      "about.role": "Diseñador multimedial y de producto 3D, con base en Buenos Aires",
+      "about.philosophy-copy": "Diseño como un sistema único entre lo digital y lo físico: desde un modelo 3D hasta el objeto que tu público realmente sostiene. Un plazo de una semana o un desarrollo de seis meses reciben la misma atención al detalle.",
+      "about.trait1": "Cumple plazos de una semana sin resignar calidad",
+      "about.trait2": "Lleva un concepto de la pantalla a la producción física",
+      "about.trait3": "Arma sistemas de marca que todo el equipo puede usar",
       "about.quote1": "“Con Valen hicimos todo el diseño de nuestra marca y props 3D para nuestros videos, es increíble en lo que hace.”",
       "about.author1": "Equipo Bubble - Somosbubble",
       "about.quote2": "“Vengo trabajando con Valen desde hace un tiempo. Tiene una atención al detalle excepcional y es rápido para ejecutar cualquier proyecto.”",
       "about.author2": "Gonzalo Castaño - Artista plástico",
-      "clients.selected": "Seleccionados",
-      "contact.eyebrow": "Contacto",
-      "contact.email": "Email",
-      "contact.elsewhere": "Redes",
-      "contact.cv-label": "CV",
+      "contact.title": "Trabajemos juntos",
+      "contact.prompt": "Contame sobre tu proyecto, el tiempo y el presupuesto.",
       "contact.cv-download": "Descargar CV"
     }
   };
@@ -454,23 +468,6 @@
     window.addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; queue(); }, { passive: true });
     window.addEventListener("scroll", queue, { passive: true });
     document.documentElement.addEventListener("mouseleave", () => { x = -1; queue(); });
-  }
-
-  /* ---------------------------------------------------------------------
-   * Cursor-following glare on each case study's hero banner — a soft
-   * highlight that tracks the pointer, like light sliding across a glossy
-   * print or a 3D-printed surface. Mouse/trackpad only.
-   * ------------------------------------------------------------------- */
-  function initHeroGlare() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    document.querySelectorAll(".case__hero").forEach((hero) => {
-      hero.addEventListener("pointermove", (e) => {
-        const r = hero.getBoundingClientRect();
-        hero.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
-        hero.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
-      });
-    });
   }
 
   /* ---------------------------------------------------------------------
@@ -900,7 +897,6 @@
       initFadeUp();
       initPopReveal();
       initTilt3D();
-      initHeroGlare();
       initPopLightbox();
       initPiece3D();
       initTypewriter();

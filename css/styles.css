@@ -81,6 +81,23 @@ img, video { max-width: 100%; }
   letter-spacing: -0.03em; text-transform: uppercase; line-height: 0.9;
 }
 
+/* Work rail */
+.work__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 1.6vw, 22px);
+  padding: 0 clamp(20px, 3.5vw, 48px) clamp(32px, 4.5vw, 64px);
+}
+.work__item { display: block; color: var(--fg); }
+.work__media { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: var(--panel); }
+.work__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+.work__item:hover .work__media img { transform: scale(1.03); }
+.work__meta {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-top: 12px; font-size: clamp(14px, 1.2vw, 18px); font-weight: 600;
+}
+@media (max-width: 720px) {
+  .work__grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
 /* Case studies */
 .case { padding: 0 0 clamp(40px, 6vw, 96px); position: relative; scroll-margin-top: 64px; }
 .case__hero { position: relative; aspect-ratio: 21 / 9; background: var(--panel); overflow: hidden; }

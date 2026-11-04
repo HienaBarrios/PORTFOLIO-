@@ -52,6 +52,8 @@
       "contact.cta-sub": "Email, call or send a brief — I usually reply the same day.",
       "contact.email": "Email",
       "contact.elsewhere": "Elsewhere",
+      "contact.pages-label": "Pages",
+      "contact.based-label": "Based in",
       "contact.cv-label": "Resume",
       "contact.cv-download": "Download CV"
     },
@@ -94,6 +96,8 @@
       "contact.cta-sub": "Escribime, llamame o mandame el brief — suelo responder el mismo día.",
       "contact.email": "Email",
       "contact.elsewhere": "Redes",
+      "contact.pages-label": "Páginas",
+      "contact.based-label": "Con base en",
       "contact.cv-label": "CV",
       "contact.cv-download": "Descargar CV"
     }

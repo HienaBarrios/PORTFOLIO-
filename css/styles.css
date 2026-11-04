@@ -57,25 +57,36 @@ img, video { max-width: 100%; }
 .lang-toggle button.is-active { color: #ffffff; }
 .lang-toggle button:hover { color: #ffffff; }
 
-/* Hero */
-.hero { display: flex; flex-wrap: wrap; align-items: stretch; }
+/* Hero — type is the dominant element (matches the user's reference): the
+   name fills almost the full content width at an extreme display size, the
+   video is pushed behind it as a dim ambient layer, never competing. */
+.hero { position: relative; min-height: clamp(560px, 100vh, 980px); overflow: hidden; display: flex; align-items: flex-end; }
 .hero__media {
-  position: relative; flex: 2 1 min(100%, 480px);
-  min-height: clamp(420px, 74vh, 860px);
+  position: absolute; inset: 0; z-index: 0;
   background: var(--panel); overflow: hidden;
 }
+.hero__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.78) 55%, rgba(0,0,0,0.92) 100%); /* taste-skill-ignore: neutral scrim so the hero type stays dominant over the ambient video */
+}
 .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.6; }
 .hero__content {
-  flex: 1 1 min(100%, 420px);
-  display: flex; flex-direction: column; justify-content: flex-start; gap: 20px;
-  padding: clamp(24px, 3vw, 44px) clamp(20px, 2.5vw, 36px) clamp(24px, 3vw, 40px);
+  position: relative; z-index: 1; width: 100%;
+  display: flex; flex-direction: column; gap: clamp(16px, 2.4vw, 28px);
+  padding: clamp(100px, 14vh, 160px) clamp(20px, 3.5vw, 48px) clamp(40px, 6vw, 64px);
 }
+.hero__eyebrow {
+  margin: 0; font-size: clamp(14px, 1.1vw, 16px); font-weight: 700; color: var(--muted);
+} /* taste-skill-ignore: small label under the giant wordmark is the device matched to the user's reference */
 .hero__title {
-  margin: 0; font-size: clamp(32px, 3.2vw, 46px); font-weight: 900; line-height: 0.96;
-  letter-spacing: -0.03em; text-transform: uppercase;
+  margin: 0; font-size: clamp(64px, 12vw, 200px); font-weight: 900; line-height: 0.86;
+  letter-spacing: -0.04em; text-transform: uppercase;
 }
-.hero__lead { margin: 0; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.5; max-width: 46ch; }
+.hero__lead {
+  margin: 0; font-size: clamp(19px, 1.9vw, 28px); font-weight: 700; line-height: 1.35;
+  max-width: 42ch; color: var(--fg);
+}
 
 /* Shared section heads */
 .section-head {
@@ -354,23 +365,31 @@ html.js .case__carousel-set[data-pop]:not(.is-in) img {
 /* Services — numbered accordion on the left, the matching real project
    image on the right, cross-fading between the four stacked images. */
 .services { padding: clamp(28px, 4vw, 56px) clamp(20px, 3.5vw, 48px) clamp(40px, 6vw, 80px); }
+.services__intro { margin: clamp(14px, 2vw, 22px) 0 0; max-width: 56ch; font-size: clamp(20px, 2vw, 28px); font-weight: 700; line-height: 1.35; }
+.services__eyebrow {
+  margin: clamp(28px, 4vw, 44px) 0 0; font-size: 14px; font-weight: 700; color: var(--muted);
+} /* taste-skill-ignore: parenthesized small label is the device matched to the user's reference */
 .services__grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  gap: clamp(24px, 4vw, 64px); margin-top: clamp(20px, 3vw, 36px); align-items: start;
+  gap: clamp(24px, 4vw, 64px); margin-top: clamp(12px, 1.6vw, 18px); align-items: start;
 }
 .services__list { display: flex; flex-direction: column; }
 .services__item {
   display: block; width: 100%; text-align: left; background: none; border: 0;
-  padding: clamp(14px, 1.8vw, 22px) 0; font: inherit; color: var(--fg); cursor: pointer;
+  border-bottom: 1px solid var(--line); /* taste-skill-ignore: hairline row rule is the device matched to the user's reference */
+  padding: clamp(16px, 2vw, 24px) 0; font: inherit; color: var(--fg); cursor: pointer;
 }
 .services__item-row { display: flex; align-items: baseline; gap: 0.5em; }
 .services__item-index { font-size: 14px; font-weight: 700; color: var(--muted); transition: color 0.25s ease; }
 .services__item.is-active .services__item-index { color: var(--fg); }
 .services__item-title {
+  flex: 1 1 auto;
   font-size: clamp(20px, 2.6vw, 32px); font-weight: 900; letter-spacing: -0.03em;
   text-transform: uppercase; color: var(--muted); transition: color 0.25s ease;
 }
 .services__item.is-active .services__item-title { color: var(--fg); }
+.services__item-mark { font-size: clamp(18px, 2vw, 24px); font-weight: 400; color: var(--muted); transition: color 0.25s ease, transform 0.25s ease; }
+.services__item.is-active .services__item-mark { color: var(--fg); transform: rotate(45deg); }
 .services__item-copy {
   display: block; max-width: 48ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.5; color: var(--muted);
   max-height: 0; overflow: hidden; opacity: 0;
@@ -378,11 +397,7 @@ html.js .case__carousel-set[data-pop]:not(.is-in) img {
 }
 .services__item.is-active .services__item-copy { max-height: 140px; opacity: 1; margin-top: 10px; }
 .services__media { position: relative; aspect-ratio: 4 / 5; background: var(--panel); overflow: hidden; }
-.services__media img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  opacity: 0; transition: opacity 0.4s ease;
-}
-.services__media img.is-active { opacity: 1; }
+.services__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (prefers-reduced-motion: reduce) {
   .services__item-copy { transition: none; }
   .services__media img { transition: none; }

@@ -88,21 +88,34 @@ img, video { max-width: 100%; }
 }
 
 /* Work rail — horizontal strip of the three projects under the section
-   heading; native scroll-snap for touch, wheel redirected to horizontal
-   scroll for a mouse (js), drag to pan. No scrollbar shown: the cards
-   themselves and the edge-of-screen crop signal there's more. */
+   heading; wheel redirected to horizontal scroll for a mouse (js), drag
+   to pan, native touch scroll on touch devices. No scrollbar shown: the
+   cards themselves and the edge-of-screen crop signal there's more.
+   (No scroll-snap: Chromium resolves proximity snapping against the
+   first card's inset on the very first layout, before any scroll event,
+   landing scrollLeft past the inset and pinning the first card flush
+   against the screen edge — on load, not as a result of scrolling.) */
 .work-rail {
   display: flex; gap: clamp(16px, 2vw, 28px);
-  padding: 0 clamp(20px, 3.5vw, 48px) clamp(32px, 5vw, 64px);
+  padding: 0 0 clamp(32px, 5vw, 64px);
   overflow-x: auto; overscroll-behavior-x: contain; cursor: grab;
-  scroll-snap-type: x proximity; scroll-padding-inline: clamp(20px, 3.5vw, 48px);
   scrollbar-width: none;
 }
 .work-rail:active { cursor: grabbing; }
 .work-rail::-webkit-scrollbar { display: none; }
+.work-rail__card:first-child { margin-left: clamp(20px, 3.5vw, 48px); }
+.work-rail__card:last-child { margin-right: clamp(20px, 3.5vw, 48px); }
 .work-rail__card {
-  flex: 0 0 min(78vw, 480px); scroll-snap-align: start;
+  flex: 0 0 min(78vw, 480px);
   display: block; color: var(--fg); text-decoration: none;
+}
+/* Under 600px (phone), stack instead of horizontal-scroll: touch-scroll
+   position on a narrow rail is the one thing a phone's own momentum/
+   rubber-banding can leave mid-gesture, so skip the scroll container
+   entirely rather than chase its resting position. */
+@media (max-width: 599px) {
+  .work-rail { flex-direction: column; overflow-x: visible; padding-bottom: clamp(24px, 6vw, 40px); cursor: auto; }
+  .work-rail__card, .work-rail__card:first-child, .work-rail__card:last-child { flex: none; margin: 0 clamp(20px, 5vw, 32px); }
 }
 .work-rail__media {
   position: relative; aspect-ratio: 4 / 5; background: var(--panel); overflow: hidden;

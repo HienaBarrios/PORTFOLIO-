@@ -16,7 +16,7 @@
     en: {
       "nav.work": "Work",
       "nav.contact": "Contact",
-      "hero.title": "Valentin<br>Barrios<br>graphic<br>designer",
+      "hero.title": "Feeble Studio",
       "hero.lead": "I create branding, 3D modeling, 3D printing and product design.<br>Currently working on a 3D lab making cranial orthoses and product design",
       "hero.practice1": "Michelob Ultra - Product Design",
       "hero.practice2": "Dale Play - 3D Modeling",
@@ -55,7 +55,7 @@
     es: {
       "nav.work": "Trabajo",
       "nav.contact": "Contacto",
-      "hero.title": "Valentin<br>Barrios<br>diseñador<br>gráfico",
+      "hero.title": "Feeble Studio",
       "hero.lead": "Creo branding, modelado 3D, impresión 3D y diseño de producto.<br>Actualmente trabajando en un laboratorio 3D fabricando ortesis craneales y diseño de producto",
       "hero.practice1": "Michelob Ultra - Diseño de Producto",
       "hero.practice2": "Dale Play - Modelado 3D",

@@ -68,7 +68,6 @@ img, video { max-width: 100%; }
   animation: hero-title-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.1s;
 }
-.hero__title-mask--2 .hero__title-line { animation-delay: 0.22s; }
 @keyframes hero-title-in {
   to { transform: translateY(0); opacity: 1; }
 }

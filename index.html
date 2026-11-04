@@ -44,7 +44,10 @@
 
   <header id="top" class="hero">
     <div class="hero__type">
-      <h1 class="hero__title" data-tw="1" data-i18n="hero.title">Feeble Studio</h1>
+      <h1 class="hero__title">
+        <span class="hero__title-mask hero__title-mask--1"><span class="hero__title-line">Feeble</span></span>
+        <span class="hero__title-mask hero__title-mask--2"><span class="hero__title-line">Studio</span></span>
+      </h1>
     </div>
     <div class="hero__media">
       <canvas class="hero__canvas" id="heroCanvas"></canvas>
@@ -58,183 +61,15 @@
     </div>
 
     <div class="work__grid">
-      <a href="#michelob" class="work__item">
+      <a href="michelob.html" class="work__item">
         <div class="work__media"><img src="assets/images/michelob-flyer.webp" alt="Michelob Ultra — leave your message for Leo" loading="lazy"></div>
         <div class="work__meta"><span data-i18n="work.item1.name">Michelob Ultra</span><span>2026</span></div>
       </a>
-      <a href="#dale-play" class="work__item">
+      <a href="dale-play.html" class="work__item">
         <div class="work__media"><img src="assets/images/bad-bunny-holding-plaques.webp" alt="Dale Play — Bad Bunny award plaques on set" loading="lazy"></div>
         <div class="work__meta"><span data-i18n="work.item2.name">Dale Play</span><span>2026</span></div>
       </a>
     </div>
-
-    <article id="michelob" class="case">
-      <div class="case__intro">
-        <a href="#work" class="case__back" data-i18n="case.back">&larr; All projects</a>
-        <h2 class="case__big-title" data-tw="1">Michelob Ultra</h2>
-        <dl class="case__meta">
-          <div class="case__meta-item"><dt data-i18n="case.meta-year">(Year)</dt><dd>2026</dd></div>
-          <div class="case__meta-item"><dt data-i18n="case.meta-client">(Client)</dt><dd>Michelob Ultra</dd></div>
-          <div class="case__meta-item"><dt data-i18n="case.meta-services">(Services)</dt><dd data-i18n="case.michelob-services">3D Printing, Product Design</dd></div>
-          <div class="case__meta-item"><dt data-i18n="case.meta-category">(Category)</dt><dd data-i18n="case.michelob-category">Campaign, Installation</dd></div>
-        </dl>
-      </div>
-
-      <div class="case__hero">
-        <video src="assets/videos/michelob-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
-      </div>
-
-      <div class="case__overview">
-        <div class="case__overview-label" data-i18n="case.overview-label">(Overview)</div>
-        <p data-anim="1" data-i18n="case.michelob-copy">For the large-scale Michelob ULTRA installation inspired by Messi, for his farewell from the Argentina national team, I designed and produced thousands of custom 3D-printed pieces, taking the project from initial modeling through final production.</p>
-      </div>
-
-      <div class="case__grid">
-        <div class="case__col">
-          <div class="case__label" data-tw="1" data-i18n="case.development">Development</div>
-          <div class="case__square-media" data-pop data-tilt3d="0.6">
-            <img src="assets/images/michelob-mosaic-panel.webp" alt="Michelob ULTRA x Messi 3D-printed mosaic panel" loading="lazy">
-          </div>
-        </div>
-        <div class="case__col">
-          <div class="case__dev-video-wrap">
-            <video src="assets/videos/michelob-development.mp4" autoplay loop muted playsinline preload="metadata"></video>
-          </div>
-          <h3 class="case__heading2" data-tw="1" data-i18n="case.michelob-heading2">An individual message, a collective artwork</h3>
-          <p class="case__note" data-anim="1" data-i18n="case.michelob-copy2">Fans insert personal messages into 3D-printed capsules and add them to a panel to reveal a massive Messi mosaic, receiving a commemorative keychain in return</p>
-          <div class="piece3d" data-model="assets/models/michelob-piece.stl" aria-label="3D models of the Michelob ULTRA mosaic capsules in each print color — drag one to spin it" role="img">
-            <canvas class="piece3d__canvas"></canvas>
-            <span class="piece3d__hint" data-i18n="case.piece-hint">Drag a capsule to spin it</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="case__grid case__flyer-row">
-        <video class="case__flyer-video" src="assets/videos/michelob-flyer-message.mp4" autoplay loop muted playsinline preload="metadata"></video>
-        <img class="case__flyer-photo" src="assets/images/michelob-flyer.webp" alt="Michelob ULTRA flyer — leave your message for Leo, October 6th at Figueroa Alcorta and Juramento" loading="lazy">
-      </div>
-
-      <div class="case__carousel">
-        <div class="case__carousel-track">
-          <div class="case__carousel-set" data-pop>
-            <img src="assets/images/michelob-carousel-1.webp" alt="Michelob ULTRA — Siempre haciendo Lío" loading="lazy">
-            <img src="assets/images/michelob-carousel-2.webp" alt="Michelob ULTRA — Fuimos testigos" loading="lazy">
-            <img src="assets/images/michelob-carousel-3.webp" alt="Michelob ULTRA — Orgulloso de haber cumplido este sueño con todos ustedes, 6.10.2026" loading="lazy">
-            <img src="assets/images/michelob-carousel-4.webp" alt="Michelob ULTRA x Messi 3D-printed mosaic panel, close-up" loading="lazy">
-            <img src="assets/images/michelob-carousel-5.webp" alt="Interview in front of the Michelob ULTRA x Messi mosaic panel" loading="lazy">
-            <img src="assets/images/michelob-carousel-6.webp" alt="Live interview beside the Michelob ULTRA x Messi mosaic panel" loading="lazy">
-            <img src="assets/images/michelob-carousel-7.webp" alt="Fans posing beside the Michelob ULTRA x Messi mosaic panel" loading="lazy">
-            <img src="assets/images/michelob-carousel-8.webp" alt="Fans posing beside the Michelob ULTRA x Messi mosaic panel" loading="lazy">
-          </div>
-          <div class="case__carousel-set" aria-hidden="true">
-            <img src="assets/images/michelob-carousel-1.webp" alt="" loading="lazy">
-            <img src="assets/images/michelob-carousel-2.webp" alt="" loading="lazy">
-            <img src="assets/images/michelob-carousel-3.webp" alt="" loading="lazy">
-            <img src="assets/images/michelob-carousel-4.webp" alt="" loading="lazy">
-            <img src="assets/images/michelob-carousel-5.webp" alt="" loading="lazy">
-            <img src="assets/images/michelob-carousel-6.webp" alt="" loading="lazy">
-            <img src="assets/images/michelob-carousel-7.webp" alt="" loading="lazy">
-            <img src="assets/images/michelob-carousel-8.webp" alt="" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article id="dale-play" class="case">
-      <div class="case__intro">
-        <a href="#work" class="case__back" data-i18n="case.back">&larr; All projects</a>
-        <h2 class="case__big-title" data-tw="1">Dale Play Live</h2>
-        <dl class="case__meta">
-          <div class="case__meta-item"><dt data-i18n="case.meta-year">(Year)</dt><dd>2026</dd></div>
-          <div class="case__meta-item"><dt data-i18n="case.meta-client">(Client)</dt><dd>Bad Bunny — Dale Play</dd></div>
-          <div class="case__meta-item"><dt data-i18n="case.meta-services">(Services)</dt><dd data-i18n="case.dale-services">3D Modeling, Casting</dd></div>
-          <div class="case__meta-item"><dt data-i18n="case.meta-category">(Category)</dt><dd data-i18n="case.dale-category">Award Design</dd></div>
-        </dl>
-      </div>
-
-      <div class="case__hero">
-        <video src="assets/videos/dale-play-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
-      </div>
-
-      <div class="case__overview">
-        <div class="case__overview-label" data-i18n="case.overview-label">(Overview)</div>
-        <p data-anim="1" data-i18n="case.dale-side-copy">3D modeling of five commemorative award plaques for Bad Bunny's final concert at River Plate Stadium, developed for production with a strong focus on detail and high-quality finishing.</p>
-      </div>
-
-      <div class="case__grid">
-        <div class="case__col">
-          <div class="case__label" data-tw="1" data-i18n="case.development">Development</div>
-
-          <div class="case__dev-media">
-            <div class="case__dev-video-wrap">
-              <video src="assets/videos/dale-play-development.mp4" autoplay loop muted playsinline preload="metadata"></video>
-            </div>
-            <div class="case__dev-overlay-title">Bad Bunny</div>
-          </div>
-
-          <div class="plaques" data-pop data-tilt3d>
-            <img src="assets/images/bad-bunny-plaque-01.webp" alt="Bad Bunny plaque — Luna Park 2017" loading="lazy">
-            <img src="assets/images/bad-bunny-plaque-02.webp" alt="Bad Bunny plaque — Luna Park 2018" loading="lazy">
-            <img src="assets/images/bad-bunny-plaque-03.webp" alt="Bad Bunny plaque — Buenos Aires Trap 2019" loading="lazy">
-            <img src="assets/images/bad-bunny-plaque-04.webp" alt="Bad Bunny plaque — Estadio Vélez 2022" loading="lazy">
-            <img src="assets/images/bad-bunny-plaque-05.webp" alt="Bad Bunny plaque — Estadio River Plate 2026" loading="lazy">
-          </div>
-
-          <div class="pixels-row">
-            <h3 data-tw="1" data-i18n="case.pixels-title">From pixels to real objects</h3>
-            <img class="pixels-row__side" src="assets/images/bad-bunny-holding-plaques.webp" alt="Bad Bunny holding the five commemorative plaques" loading="lazy">
-            <img class="pixels-row__case" src="assets/images/bad-bunny-plaques-case.webp" alt="The five bronze plaques in their presentation case" loading="lazy">
-            <p data-anim="1" data-i18n="case.pixels-copy">Together with my team, we had just one week to bring this ambitious project to life—from the initial 3D modeling and development to the final alpaca casting. Working under such a tight deadline made every stage a challenge, but seeing the finished pieces come together made the experience truly rewarding.</p>
-          </div>
-        </div>
-
-        <div class="case__col">
-          <img class="case__side-image" src="assets/images/bad-bunny-plaque-renders.webp" alt="Bad Bunny commemorative plaque renders" loading="lazy">
-        </div>
-      </div>
-    </article>
-
-    <article id="banda-eterna" class="case">
-      <div class="case__hero">
-        <video src="assets/videos/somosbubble-hero.mp4" autoplay loop muted playsinline preload="metadata"></video>
-        <div class="case__hero-scrim"></div>
-        <div class="case__hero-caption">
-          <div class="case__hero-title" data-tw="1">Somosbubble</div>
-          <div class="case__hero-sub" data-tw="1" data-i18n="case.bubble-sub">Branding System</div>
-        </div>
-      </div>
-
-      <div class="bubble-gallery" data-gallery>
-        <div data-pop data-tilt3d="0.35">
-          <img src="assets/images/somosbubble-logo.webp" alt="Somosbubble logo" width="2400" height="691" loading="lazy">
-        </div>
-        <div class="bubble-gallery__brand" data-pop data-tilt3d="0.6">
-          <div class="bubble-gallery__copy">
-            <div class="case__label" data-tw="1" data-i18n="case.bubble-label">Brand manual</div>
-            <p class="case__side-copy" data-anim="1" data-i18n="case.bubble-copy">Somos Bubble, a space where we bet on dynamic entertainment with a fresh, youthful tone. Bubble is a vibrant bubble where anything can happen and everyone wants in.</p>
-          </div>
-          <img class="bubble-gallery__redes-img" src="assets/images/somosbubble-redes.webp" alt="Somosbubble Instagram profile" width="1200" height="1200" loading="lazy">
-          <img src="assets/images/somosbubble-tipografia.webp" alt="Somosbubble typography: Poppins" width="1600" height="922" loading="lazy">
-          <div class="bubble-gallery__copy">
-            <div class="case__label" data-tw="1" data-i18n="case.bubble-type-label">Typography</div>
-            <p class="case__note" data-anim="1" data-i18n="case.bubble-note">We chose Poppins for its round, geometric shapes, which echo the curves of the logo and the idea of a bubble. It stays clear and legible on small screens, works for both big titles and short copy, and brings a friendly, modern tone without losing personality.</p>
-          </div>
-        </div>
-        <div class="bubble-gallery__palette-block" data-pop data-tilt3d="0.6">
-          <div class="bubble-gallery__copy">
-            <div class="case__label" data-tw="1" data-i18n="case.bubble-palette-label">Color palette</div>
-            <p class="case__note" data-anim="1" data-i18n="case.bubble-palette-copy">The palette comes from the logo's gradient: magenta, orange and yellow carry Bubble's energy, humor and youthful tone, while white adds air and contrast so the content can breathe. Vibrant colors that stand out instantly in a busy feed.</p>
-          </div>
-          <img src="assets/images/somosbubble-colores.svg" alt="Somosbubble color palette: magenta, orange, yellow and white" width="770" height="388" loading="lazy">
-        </div>
-        <div data-pop data-tilt3d="0.35">
-          <img src="assets/images/somosbubble-videos.webp" alt="Somosbubble YouTube video thumbnails" width="2200" height="1089" loading="lazy">
-        </div>
-        <div data-pop data-tilt3d="0.35">
-          <img src="assets/images/somosbubble-portada.webp" alt="Somosbubble YouTube channel banner" width="2400" height="397" loading="lazy">
-        </div>
-      </div>
-    </article>
   </section>
 
   <section id="testimonials" class="testimonials">
@@ -266,9 +101,9 @@
       <div class="eyebrow" data-i18n="clients.selected">Selected</div>
     </div>
     <div class="clients__grid">
-      <a class="client" href="#dale-play">Dale Play</a>
-      <a class="client" href="#banda-eterna">Somosbubble</a>
-      <a class="client" href="#michelob">Michelob Ultra</a>
+      <a class="client" href="dale-play.html">Dale Play</a>
+      <a class="client" href="banda-eterna.html">Somosbubble</a>
+      <a class="client" href="michelob.html">Michelob Ultra</a>
     </div>
   </section>
 

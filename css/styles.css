@@ -147,6 +147,13 @@ img, video { max-width: 100%; }
 .case__hero { position: relative; aspect-ratio: 21 / 9; background: var(--panel); overflow: hidden; }
 .case__hero--pending { display: flex; align-items: center; justify-content: center; }
 .case__hero-pending-label { font-size: 15px; font-weight: 600; color: var(--muted); }
+/* Portrait source media (phone-shot event footage): drop the 21/9 crop
+   and contain it instead so none of the vertical frame is lost. */
+.case__hero--portrait {
+  aspect-ratio: 9 / 16; max-width: 480px; margin: 0 auto;
+}
+.case__full-photo-wrap { padding: clamp(14px, 1.6vw, 22px) clamp(20px, 3.5vw, 48px) 0; }
+.case__full-photo { display: block; width: 100%; max-height: 70vh; object-fit: cover; background: var(--panel); }
 .case__hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .case__hero-scrim {
   position: absolute; inset: 0; pointer-events: none;
@@ -175,6 +182,7 @@ img, video { max-width: 100%; }
 
 .case__dev-video-wrap { position: relative; aspect-ratio: 16 / 9; background: var(--panel); overflow: hidden; }
 .case__dev-video-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.case__dev-video-wrap--portrait { aspect-ratio: 9 / 16; width: 100%; max-width: 420px; margin: 0 auto; }
 .case__dev-media { position: relative; }
 .case__dev-overlay-title {
   position: absolute; left: 0; right: 0; bottom: -0.08em;
@@ -317,6 +325,7 @@ html.js [data-tilt3d].is-settled img:focus-visible {
 @media (min-width: 1600px) {
   .case__side-image { max-width: 100%; }
 }
+.case__side-image--portrait { aspect-ratio: 4 / 5; max-width: 531px; }
 
 /* Video + flyer photo sit in their own grid row (siblings, not nested in
    .case__col) so both start flush at the same line regardless of how
